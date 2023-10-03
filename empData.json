@@ -1,0 +1,54 @@
+ [
+    {
+
+        "name": "Edwin",
+        "availableLeave": 12,
+        "role": "Designer"
+    },
+    {
+
+        "name": "Saravanan",
+        "availableLeave": 8,
+        "role": "Developer"
+    },
+    {
+
+        "name": "Vinoth",
+        "availableLeave":10,
+        "role": "Architecture"
+    },
+    {
+
+        "name": "Alice",
+        "availableLeave": 9,
+        "role": "DB Admin"
+    },
+    {
+        
+        "name": "Bob",
+        "availableLeave": 2,
+        "role": "Developer"
+    },
+    {
+        
+        "name": "John",
+        "availableLeave": 7,
+        "role": "Business analysis"
+    } ,   {
+        
+        "name": "Bob",
+        "availableLeave": 4,
+        "role": "Finance"
+    } ,   {
+        
+        "name": "Naruto",
+        "availableLeave": 10,
+        "role": "Tester"
+    } ,   {
+        
+        "name": "kurama",
+        "availableLeave": 9,
+        "role": "Developer"
+    }
+
+]

@@ -1,0 +1,15 @@
+[
+    {
+
+        "name": "Edwin",
+        "availableLeave": "12",
+        "role": "Designer",
+        "from": "22/09/2023",
+        "to": "25/09/2023",
+        "totalDays": "4",
+        "reason": "Sick",
+        "status": "pending"
+
+
+    }
+]

@@ -1,0 +1,112 @@
+[
+  {
+    "name": "Samuel",
+    "role": "Developer",
+    "fromDate": "2023-10-10",
+    "toDate": "2023-10-11",
+    "totalDays": "4",
+    "reason": "Emergency",
+    "toWhom": "CEO",
+    "status": "rejected",
+    "id": "d6e41a93-5a73-4e95-8032-d2aaf24632b1"
+  },
+  {
+    "name": "Samuel",
+    "role": "Developer",
+    "fromDate": "2023-10-10",
+    "toDate": "2023-10-11",
+    "totalDays": "4",
+    "reason": "Emergency",
+    "toWhom": "CEO",
+    "status": "pending",
+    "id": "d6e41a93-5a73-4e95-8032-d2aaf24632b1"
+  },
+  {
+    "name": "Samuel",
+    "role": "Developer",
+    "fromDate": "2023-10-10",
+    "toDate": "2023-10-11",
+    "totalDays": "4",
+    "reason": "Emergency",
+    "toWhom": "CEO",
+    "status": "pending",
+    "id": "d6e41a93-5a73-4e95-8032-d2aaf24632b1"
+  },
+  {
+    "name": "Baki Hanma",
+    "role": "Tester",
+    "fromDate": "2023-10-10",
+    "toDate": "2023-10-10",
+    "totalDays": "5",
+    "reason": "Emergency",
+    "toWhom": "Asst Manager",
+    "status": "approved",
+    "id": "67fceebc-b8fb-4a27-8f96-566ffb686134"
+  },
+  {
+    "name": "Yuijiro",
+    "role": "Tester",
+    "fromDate": "2023-10-10",
+    "toDate": "2023-10-19",
+    "totalDays": "6",
+    "reason": "Medical appointment",
+    "toWhom": "CEO",
+    "status": "approved",
+    "id": "8ed8c40f-7f4e-43e4-9e53-48999b8c0479"
+  },
+  {
+    "name": "Susanoo",
+    "role": "Developer",
+    "fromDate": "2023-10-04",
+    "toDate": "2023-10-07",
+    "totalDays": "4",
+    "reason": "Medical appointment",
+    "toWhom": "Manager",
+    "status": "approved",
+    "id": "e3cd6dda-a9a7-4f01-bd1a-54bb9cc2f616"
+  },
+  {
+    "name": "Eren Yeager",
+    "role": "Business",
+    "fromDate": "2023-10-03",
+    "toDate": "2023-10-05",
+    "totalDays": "3",
+    "reason": "Medical appointment",
+    "toWhom": "Manager",
+    "status": "approved",
+    "id": "89a9da78-2a74-481c-8306-0a8c1b7e4c82"
+  },
+  {
+    "name": "Mikasa",
+    "role": "Developer",
+    "fromDate": "2023-10-04",
+    "toDate": "2023-10-06",
+    "totalDays": "3",
+    "reason": "Medical appointment",
+    "toWhom": "CEO",
+    "status": "approved",
+    "id": "a061f76d-03f3-4062-ae96-c75e5a2df831"
+  },
+  {
+    "name": "Levi Ackerman",
+    "role": "Analyst",
+    "fromDate": "2023-10-03",
+    "toDate": "2023-10-04",
+    "totalDays": "23",
+    "reason": "Medical appointment",
+    "toWhom": "CEO",
+    "status": "rejected",
+    "id": "b0013c9b-b771-4277-8f6c-a82cb6680475"
+  },
+  {
+    "name": "Saravanan",
+    "role": "Developer ",
+    "fromDate": "2023-10-04",
+    "toDate": "",
+    "totalDays": "5",
+    "reason": "Emergency",
+    "toWhom": "Asst Manager",
+    "status": "rejected",
+    "id": "1bf71a62-726e-4021-aa0a-8fecc49171c2"
+  }
+]

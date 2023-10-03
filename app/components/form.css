@@ -1,0 +1,23 @@
+.apply-leave-form{
+    width: 100%;
+    margin: auto;
+}
+
+.apply-leave-form div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    width: 100%;
+}
+.apply-leave-form div div,.apply-leave-form div label{
+    width: 50%;
+}
+.in-err{
+    display: flex;
+    flex-direction: column;
+}
+.in-err input,.in-err select,.in-err p{
+    width: 100%;
+    text-align: start;
+}

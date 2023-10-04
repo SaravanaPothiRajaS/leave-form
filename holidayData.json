@@ -1,20 +1,26 @@
 [
   {
-    "date": "2023-10-03",
-    "day": "Monday",
-    "description": "Pongal",
-    "id": "432bc309-65d1-412d-be8b-56e3be0db0a1"
+    "Date": "2023-10-03",
+    "Day": "Monday",
+    "Description": "Pongal",
+    "uuid": "5d100f25-8bf0-4f08-a4cb-62b9f439549a"
   },
   {
-    "date": "2023-10-11",
-    "day": "Tuesday",
-    "description": "Diwali",
-    "id": "04cab562-f697-4e35-be6d-4cecfb3d54bd"
+    "Date": "2023-10-11",
+    "Day": "Tuesday",
+    "Description": "Diwali",
+    "uuid": "d10e6b9c-08e0-4f3a-b67b-185b1d851f7d"
   },
   {
-    "date": "2023-10-13",
-    "day": "Friday",
-    "description": "New Year",
-    "id": "04cab562-f697-4e35-be6d-4cecfb3d54bd"
+    "Date": "2023-10-13",
+    "Day": "Friday",
+    "Description": "New year",
+    "uuid": "cfa499e3-936f-4b7f-9222-5c072d697072"
+  },
+  {
+    "Date": "2023-10-17",
+    "Day": "Monday",
+    "Description": "holiday",
+    "uuid": "c4044df4-36ad-4af1-807c-477092dd0998"
   }
 ]

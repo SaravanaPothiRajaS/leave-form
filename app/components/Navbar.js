@@ -34,7 +34,7 @@ const Navbar = () => {
     />
     </h1></b></div>
                 <div className='btn-parent'>
-                    {0? <> <div><Link href='holiday'><button className='holiday-btn'>Holiday</button></Link></div>
+                    {1? <> <div><Link href='holiday'><button className='holiday-btn'>Holiday</button></Link></div>
                     <div><Link href='employee'><button className='emp-detail-btn'>Employee Details</button></Link></div>
                         <div><Link href='request'><button className='req-btn'>Requests</button></Link></div>
                         {/* <div><Link href='approve'><button className='approve-btn'>Approval List</button></Link></div> */}

@@ -11,7 +11,7 @@ const Navbar = () => {
     // const { data } = useSession();
     // const router=useRouter();
     // console.log(data);
-  
+
     // useEffect(() => {
     //   const pathname = router.pathname;
     //   if (data) {
@@ -27,15 +27,15 @@ const Navbar = () => {
             <div className='nav-bar'>
                 <div><b><h1 className='leave'>
                     <Image
-                    className='user-img'
-      src={logo}
-      
-      alt="Picture of the author"
-    />
-    </h1></b></div>
+                        className='user-img'
+                        src={logo}
+
+                        alt="Picture of the author"
+                    />
+                </h1></b></div>
                 <div className='btn-parent'>
-                    {0? <> <div><Link href='holiday'><button className='holiday-btn'>Holiday</button></Link></div>
-                    <div><Link href='employee'><button className='emp-detail-btn'>Employee Details</button></Link></div>
+                    {1 ? <> <div><Link href='holiday'><button className='holiday-btn'>Holiday</button></Link></div>
+                        <div><Link href='employee'><button className='emp-detail-btn'>Employee Details</button></Link></div>
                         <div><Link href='request'><button className='req-btn'>Requests</button></Link></div>
                         {/* <div><Link href='approve'><button className='approve-btn'>Approval List</button></Link></div> */}
                     </> : <>

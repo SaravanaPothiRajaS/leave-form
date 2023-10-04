@@ -146,7 +146,7 @@ const holiday = () => {
                 const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheetName]);
                 const dataWithUUIDs = sheetData.map((item) => ({
                     ...item,
-                    uuid: uuidv4(),
+                    id: uuidv4(),
                 }));
                 setconvertJsonData(dataWithUUIDs);
             };
@@ -249,7 +249,7 @@ const holiday = () => {
 
         const jsonDataCopy = JSON.parse(JSON.stringify(jsonData));
         jsonDataCopy.forEach((item) => {
-            delete item.uuid;
+            delete item.id;
         });
 
         const ws = XLSX.utils.json_to_sheet(jsonDataCopy);

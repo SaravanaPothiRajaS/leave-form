@@ -10,6 +10,7 @@ const Navbar = () => {
 
 
 
+
   const route = useRouter();
   const { data } = useSession();
   useEffect(() => {
@@ -71,6 +72,7 @@ const Navbar = () => {
                   />
                 </h1>
               </b>
+
             </div>
             <div className='btn-parent'>
               <div><Link href='/userHoliday'><button className='holiday-btn'>Holiday</button></Link></div>

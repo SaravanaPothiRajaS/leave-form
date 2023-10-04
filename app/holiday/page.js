@@ -1,13 +1,17 @@
 "use client"
-import React, { useState, useEffect } from 'react'
+
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
 import 'font-awesome/css/font-awesome.min.css';
 import Table from '../components/Table';
-import axios from 'axios';
 import DynamicForm from '../components/DynamicForm';
 import { validateUserholiday } from '../components/ValidationSchema';
+
 import * as XLSX from 'xlsx/xlsx.mjs';
 
 const { v4: uuidv4 } = require('uuid');
+
 
 
 
@@ -16,9 +20,19 @@ const holiday = () => {
     const [addholiday, setAddHoliday] = useState(false)
     const [edit, setEdit] = useState(false)
     const [jsonData, setJsonData] = useState([]);
+
+    const [selectedUpdateData, setSelectedUpdateData] = useState();
+    const [changevalue, setChangeValue] = useState({
+        id: selectedUpdateData?.id,
+        Date: selectedUpdateData?.Date,
+        Day: selectedUpdateData?.Day,
+        Description: selectedUpdateData?.Description,
+    });
+
     const [selectedRowData, setSelectedRowData] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
     const [convertJsonData, setconvertJsonData] = useState(null);
+
 
 
     const [addValue, setaddValue] = useState({
@@ -34,15 +48,13 @@ const holiday = () => {
     }
 
 
-    function editbtn() {
-
-
-        setSelectedRowData(data);
+    function editbtn(e, data) {
+        setSelectedUpdateData(data);
         setEdit(true);
-
-
     }
-    //create appointment
+
+
+
     function handleinsert() {
         axios.post('/api/holidaycreate', { addValue: addValue })
             .then((res) => {
@@ -77,12 +89,40 @@ const holiday = () => {
 
         }
     ]
+    const deletebtn = (id) => {
 
-    const data = jsonData?.map((data, i) => ({
-        Date: data?.Date,
-        Day: data?.Day,
-        Description: data?.Description,
-        button: <button className='edit-btn' onClick={editbtn}>Edit</button>
+
+        console.log(id);
+        axios
+            .post(`/api/holiday/delete`, { id })
+            .then((res) => {
+                console.log(res);
+                if (res.status === 200) {
+                    displayJSON();
+                }
+            })
+            .catch((error) => {
+                console.error('Error updating JSON data:', error);
+            });
+    };
+
+
+    const data = jsonData.map((data, i) => ({
+        id: data.id,
+        Date: data.Date,
+        Day: data.Day,
+        Description: data.Description,
+        button: (
+            <>
+                <button className="edit-btn" onClick={(e) => editbtn(e, data)}>
+                    Edit
+                </button>
+                <button className="delete-btn" onClick={() => deletebtn(data.id)} >
+                    Delete
+                </button>
+            </>
+        )
+
     }));
 
     const displayJSON = () => {
@@ -93,6 +133,7 @@ const holiday = () => {
 
             })
     }
+
 
     useEffect(() => {
 
@@ -153,6 +194,22 @@ const holiday = () => {
         },
     ]
 
+    useEffect(() => {
+        setChangeValue({
+            id: selectedUpdateData?.id,
+            Date: selectedUpdateData?.Date,
+            Day: selectedUpdateData?.Day,
+            Description: selectedUpdateData?.Description,
+        });
+    }, [selectedUpdateData]);
+
+    function editValue(e, key) {
+        setChangeValue((prev) => ({
+            ...prev,
+            [key]: e.target.value || undefined, // Set to undefined if it's an empty string
+        }));
+    }
+
     const onChange = (name, value) => {
 
         setaddValue({
@@ -162,10 +219,28 @@ const holiday = () => {
     };
 
 
+    const submitbtn = () => {
+        console.log('Changevalue', changevalue);
+        axios
+            .post(`/api/holiday/update`, { changevalue })
+            .then((res) => {
+                console.log(res);
+                if (res.status === 200) {
+                    displayJSON();
+                    setEdit(false);  // Added this to hide the edit form after submission
+                }
+            })
+            .catch((error) => {
+                console.error('Error updating JSON data:', error);
+            });
+    };
+
+
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         setSelectedFile(file);
+
 
     };
 
@@ -215,7 +290,7 @@ const holiday = () => {
 
                 >Cancel</button>}
                 <Table columns={columns} data={data} className={'holiday-table'} />
-
+           
                 <button onClick={() => downloadExcel(jsonData)} class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                     <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" /></svg>
                     <span>Download Excel</span>
@@ -223,8 +298,10 @@ const holiday = () => {
 
                 {addholiday && <div className='parent-add-holiday' >
                     <div className='add-holiday'>
+                       <div className='exit-icon' onClick={() => setAddHoliday(false)}>    <i class="fa fa-times" aria-hidden="true" ></i></div>
                         <DynamicForm fields={fields} onSubmit={handleinsert} onChange={onChange} data={addValue} validate={validateUserholiday} />
-                        <button className='btn p-3 border-neutral-950' type='button' onClick={() => setAddHoliday(false)}>Back</button>
+                      
+
 
                     </div>
                 </div>}
@@ -232,23 +309,34 @@ const holiday = () => {
                     <div className='add-holiday'>
 
                         <form>
-                            <div className='exit-icon' onClick={() => setEdit(false)}>    <i class="fa fa-times" aria-hidden="true" ></i></div>
+
+                            <div className='exit-icon' onClick={() => setEdit(false)}>    <i className="fa fa-times" aria-hidden="true" ></i></div>
+
                             <h2>Edit Holiday</h2>
 
                             <div className='add-date'>
                                 <label>Choose Date:</label>
-                                <input type='date' />
+
+                                <input type="date" onChange={(e) => editValue(e, "Date")}
+                                    value={changevalue.Date || ''} />
                             </div>
                             <div className='add-day'>
                                 <label >Day:</label>
-                                <input type='text' />
+                                <input type="text" onChange={(e) => editValue(e, "Day")}
+                                    value={changevalue.Day || ''} />
                             </div>
                             <div className='add-description'>
                                 <label>Description:</label>
-                                <input type='text' />
+                                <input
+                                    type="text"
+                                    onChange={(e) => editValue(e, "Description")}
+                                    value={changevalue.Description || ''}
+
+                                />
                             </div>
                             <div className='add-holiday-submit-btn'>
-                                <button >Submit</button>
+                                <button onClick={submitbtn}>Submit</button>
+
                             </div>
 
                         </form>

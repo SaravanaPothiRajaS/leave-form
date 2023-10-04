@@ -14,12 +14,12 @@ const holiday = () => {
     const [addholiday, setAddHoliday] = useState(false)
     const [edit, setEdit] = useState(false)
     const [jsonData, setJsonData] = useState([]);
-    const [selectedRowData, setSelectedRowData] = useState();
+    const [selectedUpdateData, setSelectedUpdateData] = useState();
     const [changevalue, setChangeValue] = useState({
-        id: selectedRowData?.id,
-        Date: selectedRowData?.Date,
-        Day: selectedRowData?.Day,
-        Description: selectedRowData?.Description,
+        id: selectedUpdateData?.id,
+        Date: selectedUpdateData?.Date,
+        Day: selectedUpdateData?.Day,
+        Description: selectedUpdateData?.Description,
     });
     const [addValue, setaddValue] = useState({
         Date: '',
@@ -34,7 +34,7 @@ const holiday = () => {
 
 
     function editbtn(e, data) {
-        setSelectedRowData(data);
+        setSelectedUpdateData(data);
         setEdit(true);
     }
 
@@ -147,12 +147,12 @@ const holiday = () => {
     ]
     useEffect(() => {
         setChangeValue({
-            id: selectedRowData?.id,
-            Date: selectedRowData?.Date,
-            Day: selectedRowData?.Day,
-            Description: selectedRowData?.Description,
+            id: selectedUpdateData?.id,
+            Date: selectedUpdateData?.Date,
+            Day: selectedUpdateData?.Day,
+            Description: selectedUpdateData?.Description,
         });
-    }, [selectedRowData]);
+    }, [selectedUpdateData]);
 
     function editValue(e, key) {
         setChangeValue((prev) => ({

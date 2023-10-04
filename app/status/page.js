@@ -8,10 +8,12 @@ import DynamicForm from '../components/DynamicForm';
 import { validateUserEdit } from '../components/ValidationSchema';
 import axios from 'axios'
 const { v4: uuidv4 } = require('uuid');
+import { useSession} from "next-auth/react";
 
 
 
 const Status = () => {
+  const { data } = useSession();
     
     const [dataStd, setDatastd] = useState({
         name: '',
@@ -22,7 +24,8 @@ const Status = () => {
         reason: '',
         toWhom: '',
         status: 'pending',
-        id:uuidv4()
+        id:uuidv4(),
+        email:data?.user?.email
       });
       const [jsonData,setJsonData]=useState([]);
       
@@ -134,7 +137,7 @@ const onChange = (name, value) => {
         }
     ]
 
-    const data = jsonData.map((data, i) => ({
+    const datajs = jsonData.map((data, i) => ({
         name: data.name,
         role: data.role,
         from:data.fromDate,
@@ -187,12 +190,12 @@ const onChange = (name, value) => {
       var businessDays = 0;
       var currentDate = startDate;
       while (currentDate <= endDate) {
-          // console.log(currentDate);
+      
           var dayOfWeek = currentDate.getDay();
           var isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
           var currentDateFormatted = currentDate.toISOString().split('T')[0];
           if (!isWeekend && !holidays.includes(currentDateFormatted)) {
-          //   console.log(holidays.includes(currentDate.toDateString()) );
+      
           businessDays++;
         }
         
@@ -252,12 +255,12 @@ const onChange = (name, value) => {
         < main className='parent-tag'>
 
             <div className='apply-btn'>  <button onClick={overlay}>Apply Leave</button></div>
-            <Table columns={columns} data={data} className={'status-table'} />
+            <Table columns={columns} data={datajs} className={'status-table'} />
         
          
             {apply && <div className='parent-border' >
                 <div className='leave-border'>
-                    <div className='exit-icon' onClick={() => setApply(false)}>    <i class="fa fa-times" aria-hidden="true" ></i></div>
+                    <div className='exit-icon' onClick={() => setApply(false)}>    <i className="fa fa-times" aria-hidden="true" ></i></div>
                     <b> <h2 align="center">Apply Leave</h2></b>
                    
                     <DynamicForm fields={fields} onSubmit={handleinsert} onChange={onChange} data={dataStd}  validate={validateUserEdit}/>

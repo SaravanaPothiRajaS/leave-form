@@ -27,10 +27,12 @@ export async function validateUserEdit(data) {
 }
 
 
-export const holidaySchema = Yup.object().shape({
-  Date: Yup.date().required('Date is required'),
-  Day: Yup.string().required('Day is required'),
-  Description: Yup.string().required('Description is required')
+
+  export const holidaySchema = Yup.object().shape({
+    Date:Yup.date().required('Date is required'),
+    Day: Yup.string().required('Day is required'),
+    Description:Yup.string().required('Description is required')
+
 
 });
 

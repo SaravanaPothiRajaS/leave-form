@@ -1,20 +1,27 @@
 [
   {
-    "Date": "2023-10-05",
+    "Date": "2023-10-03",
     "Day": "Monday",
     "Description": "Pongal",
-    "id": "432bc309-65d1-412d-be8b-56e3be0db0a1"
+    "uuid": "5d100f25-8bf0-4f08-a4cb-62b9f439549a"
+  },
+  {
+    "Date": "2023-10-11",
+    "Day": "Tuesday",
+    "Description": "Diwali",
+    "uuid": "d10e6b9c-08e0-4f3a-b67b-185b1d851f7d"
   },
   {
     "Date": "2023-10-13",
     "Day": "Friday",
-    "Description": "New Year",
-    "id": "04cab562-f697-4e35-be6d-4cecfb3d54bd"
+    "Description": "New year",
+    "uuid": "cfa499e3-936f-4b7f-9222-5c072d697072"
   },
   {
-    "Date": "2023-10-12",
-    "Day": "Thursday",
-    "Description": "Ayoudha Pooja",
-    "id": "0c3952f3-85b2-4e7a-a5e3-5d96d01a15c4"
+    "Date": "2023-10-17",
+    "Day": "Monday",
+    "Description": "holiday",
+    "uuid": "c4044df4-36ad-4af1-807c-477092dd0998"
+
   }
 ]

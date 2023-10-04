@@ -1,52 +1,115 @@
-import Link from 'next/link'
-import React from 'react'
-import Image from 'next/image'
-import logo from "../images/raise.png"
+'use client';
+import Link from 'next/link';
+import React ,{useEffect} from 'react';
+import Image from 'next/image';
+import logo from "../images/raise.png";
+import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
-
-import { useSession, signOut, signIn } from "next-auth/react";
 
 const Navbar = () => {
 
-    // const { data } = useSession();
-    // const router=useRouter();
-    // console.log(data);
-  
-    // useEffect(() => {
-    //   const pathname = router.pathname;
-    //   if (data) {
-    //     router.push('/home');
-    //   } else {
-    //     router.push('/login');
-    //   }
-    // }, [data]); 
 
-    return (
+
+  const route = useRouter();
+  const { data } = useSession();
+  useEffect(() => {
+    if (data) {
+      if (data?.user?.email === "vinodhkumaryin@gmail.com") {
+        route.push('/holiday');
+      } else {
+        route.push('/userHoliday');
+      }
+    } else {
+      route.push('/login');
+    }
+  }, [data, route]);
+
+ 
+  if (data) {
+    if (data?.user?.email === "vinodhkumaryin@gmail.com") {
+      return (
         <>
-
-            <div className='nav-bar'>
-                <div><b><h1 className='leave'>
-                    <Image
+          <div className='nav-bar'>
+            <div>
+              <b>
+                <h1 className='leave'>
+                  <Image
                     className='user-img'
-      src={logo}
-      
-      alt="Picture of the author"
-    />
-    </h1></b></div>
-                <div className='btn-parent'>
-                    {1? <> <div><Link href='holiday'><button className='holiday-btn'>Holiday</button></Link></div>
-                    <div><Link href='employee'><button className='emp-detail-btn'>Employee Details</button></Link></div>
-                        <div><Link href='request'><button className='req-btn'>Requests</button></Link></div>
-                        {/* <div><Link href='approve'><button className='approve-btn'>Approval List</button></Link></div> */}
-                    </> : <>
-                        <div><Link href='userHoliday'><button className='holiday-btn'>Holiday</button></Link></div>
-                        {/* <div><Link href='applyLeave'><button className='req-btn'>Apply</button></Link></div> */}
-                        <div><Link href='status'><button className='approve-btn'>Status</button></Link></div> </>}
-                </div>
-                <div><img src="/user1.png" alt="Your Image" width={70} height={70} className='user-img' /></div>
+                    src={logo}
+                    alt="Picture of the author"
+                  />
+                </h1>
+              </b>
             </div>
+            <div className='btn-parent'>
+              <div><Link href='holiday'><button className='holiday-btn'>Holiday</button></Link></div>
+              <div><Link href='employee'><button className='emp-detail-btn'>Employee Details</button></Link></div>
+              <div><Link href='request'><button className='req-btn'>Requests</button></Link></div>
+              <img
+                src={data?.user?.image}
+                height="25"
+                width="25"
+                alt="user image"
+                onClick={() => signOut()}
+              />
+            </div>
+          </div>
         </>
-    )
-}
+      );
+    } else {
+      return (
+        <>
+          <div className='nav-bar'>
+            <div>
+              <b>
+                <h1 className='leave'>
+                  <Image
+                    className='user-img'
 
-export default Navbar
+                    src={logo}
+                    alt="Picture of the author"
+                  />
+                </h1>
+              </b>
+            </div>
+            <div className='btn-parent'>
+              <div><Link href='/userHoliday'><button className='holiday-btn'>Holiday</button></Link></div>
+              <div><Link href='status'><button className='approve-btn'>Status</button></Link></div>
+              <img
+                src={data?.user?.image}
+                height="25"
+                width="25"
+                alt="user image"
+                onClick={() => signOut()}
+              />
+
+            </div>
+          </div>
+        </>
+      );
+    }
+  } else {
+    return (
+      <>
+        <div className='nav-bar'>
+          <div>
+            <b>
+              <h1 className='leave'>
+                <Image
+                  className='user-img'
+                  src={logo}
+                  alt="Picture of the author"
+                />
+              </h1>
+            </b>
+          </div>
+          <div className='btn-parent'>
+            <div><Link href='login'><button className='login-btn'>Login</button></Link></div>
+          </div>
+        </div>
+      </>
+    );
+  }
+};
+
+export default Navbar;

@@ -20,6 +20,7 @@ const holiday = () => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [convertJsonData, setconvertJsonData] = useState(null);
 
+
     const [addValue, setaddValue] = useState({
         Date: '',
         Day: '',
@@ -27,8 +28,8 @@ const holiday = () => {
         id: uuidv4()
     });
 
-
-    function overlay() {
+      
+      function overlay() {
         setAddHoliday((pre) => !pre)
     }
 
@@ -41,7 +42,7 @@ const holiday = () => {
 
 
     }
-    //create api
+    //create appointment
     function handleinsert() {
         axios.post('/api/holidaycreate', { addValue: addValue })
             .then((res) => {
@@ -263,24 +264,3 @@ export default holiday
 
 
 
-{/* <form>
-<div className='exit-icon' onClick={() => setEdit(false)}>    <i class="fa fa-times" aria-hidden="true" ></i></div>
-<h2>Edit Holiday</h2>
-
-<div className='add-date'>
-    <label>Choose Date:</label>
-    <input type='date' />
-</div>
-<div className='add-day'>
-    <label >Day:</label>
-    <input type='text' />
-</div>
-<div className='add-description'>
-    <label>Description:</label>
-    <input type='text' />
-</div>
-<div className='add-holiday-submit-btn'>
-    <button>Submit</button>
-</div>
-
-</form> */}

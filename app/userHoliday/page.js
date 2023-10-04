@@ -12,22 +12,22 @@ const Holiday = () => {
     const columns = [
         {
             Header: "Date",
-            accessor: "date"
+            accessor: "Date"
         },
         {
             Header: "Day",
-            accessor: "day"
+            accessor: "Day"
         },
         {
             Header: "Description",
-            accessor: "description"
+            accessor: "Description"
         }
     ]
 
     const data = jsonData.map((data, i) => ({
-        date: data.date,
-        day: data.day,
-        description: data.description,
+        Date: data.Date,
+        Day: data.Day,
+        Description: data.Description,
     }));
 
 

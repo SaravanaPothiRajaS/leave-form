@@ -65,6 +65,7 @@ const Navbar = () => {
                 <h1 className='leave'>
                   <Image
                     className='user-img'
+
                     src={logo}
                     alt="Picture of the author"
                   />
@@ -81,6 +82,7 @@ const Navbar = () => {
                 alt="user image"
                 onClick={() => signOut()}
               />
+
             </div>
           </div>
         </>

@@ -3,9 +3,7 @@ import * as Yup from "yup";
 
 
 export const leaveSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(5, '* Name must be at least 5 characters long')
-    .required('* Name is required'),
+  leaveType: Yup.string().required('* leave type is required'),
   role: Yup.string().required('* Id is required'),
   fromDate: Yup.date().required('* From Date is required'),
   toDate: Yup.date().required('* To Date is required'),

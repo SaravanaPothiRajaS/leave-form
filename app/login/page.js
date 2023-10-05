@@ -3,28 +3,28 @@ import '../globals.css';
 
 import Link from "next/link";
 import React, { useState } from "react";
-
+import { useRouter } from "next/navigation";
+import axios from 'axios';
 import { signIn } from "next-auth/react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
-
-    try {
-      const data = await signIn("credentials", {
-        redirect: false,
-        email,
-        password,
-      });
-
-      console.log(data);
-    } catch (error) {
-      console.log(error);
+  const route=useRouter();
+const signbtn=(email,password)=>{
+  axios
+  .post(`/api/login`, { email, password })
+  .then((res) => {
+    console.log(res);
+    if (res.status === 200) {
+      route.push('/')
     }
-  };
+  });
+}
+
+
+
 
 console.log(email);
 console.log(password);
@@ -36,7 +36,7 @@ console.log(password);
         <div className="col-cont">
           <form
             className="border-cont"
-            onSubmit={submitHandler}
+         
           >
             <h1 className="maa">Login</h1>
             <div className="form-cont">
@@ -68,7 +68,7 @@ console.log(password);
             <button
               type="submit"
               className="btn-cont"
-              onClick={submitHandler}
+             onClick={signbtn}
             >
               Sign in
             </button>
@@ -95,6 +95,6 @@ console.log(password);
       </div>
     </div>
   );
-};
+  }
 
 export default Login;

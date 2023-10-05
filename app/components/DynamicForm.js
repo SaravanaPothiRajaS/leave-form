@@ -58,6 +58,7 @@ console.log(data);
               {...register(field.name)}
               onChange={(e) => onChange( field.name, e.target.value)}
             >
+                <option>--select--</option>
               {field.options.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}

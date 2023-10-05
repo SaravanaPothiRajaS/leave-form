@@ -224,6 +224,25 @@
 
 }
 
+.delete-btn {
+  border: 0.5px solid;
+  border-radius: 5px;
+  padding: 3px 13px 3px 13px;
+  color: black;
+  background-color: white;
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.delete-btn:hover {
+  border-radius: 5px;
+  padding: 3px 13px 3px 13px;
+  background-color: #c22b2b;
+  color: white;
+
+}
+
 .emp-table {
   border: 0.5px whitesmoke;
   width: 90%;
@@ -650,7 +669,7 @@
 .form-data input[type="text"],
 .form-data input[type="date"],
 .form-data select {
-  flex: 1; 
+  flex: 1;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;

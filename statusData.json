@@ -182,13 +182,37 @@
   {
     "name": "Levi Ackerman",
     "role": "Developer",
-    "fromDate": "2023-10-17",
-    "toDate": "2023-10-18",
+    "fromDate": "2023-10-11",
+    "toDate": "2023-10-12",
+    "totalDays": "2",
+    "reason": "Medical appointment",
+    "toWhom": "CEO",
+    "status": "approved",
+    "id": "7c9b42dc-a246-4bc4-8b79-737af38c7949",
+    "email": "alberteinsteinxxvk@gmail.com"
+  },
+  {
+    "name": "Levi Ackerman",
+    "role": "Developer",
+    "fromDate": "2023-10-12",
+    "toDate": "2023-10-13",
     "totalDays": "2",
     "reason": "Sick",
-    "toWhom": "CEO",
-    "status": "rejected",
-    "id": "0d6b8c1c-92a1-433a-b5a8-41360285a5d5",
+    "toWhom": "Asst Manager",
+    "status": "approved",
+    "id": "6b340511-e317-4ca7-9ec4-001616ea343d",
     "email": "alberteinsteinxxvk@gmail.com"
+  },
+  {
+    "name": "Saravanan",
+    "role": "Developer",
+    "fromDate": "2023-10-12",
+    "toDate": "2023-10-13",
+    "totalDays": "2",
+    "reason": "Sick",
+    "toWhom": "Manager",
+    "status": "approved",
+    "id": "5c845db6-6401-44af-92b8-1108669ddc9c",
+    "email": "spothispothis@gmail.com"
   }
 ]

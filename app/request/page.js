@@ -4,6 +4,7 @@ import React, { useState,useEffect } from 'react'
 import Table from '../components/Table';
 import axios from 'axios';
 import { useSession }from "next-auth/react";
+import {  toast } from 'react-toastify';
 
 
 
@@ -94,10 +95,12 @@ const Request = () => {
             status: data.status === 'pending' ? (
               <>
                 <button className='edit-btn' onClick={() =>{ Update(data.id, 'approved'); 
-                Updateemp(data.email,availableLeave,data.totalDays);}}>
+                Updateemp(data.email,availableLeave,data.totalDays);
+                notify()}}>
                   Approve
                 </button>
-                <button className='reject-edit-btn' onClick={() => Update(data.id, 'rejected')}>
+                <button className='reject-edit-btn' onClick={() =>{Update(data.id, 'rejected');
+                notifys()}}>
                   Reject
                 </button>
               </>
@@ -220,6 +223,26 @@ const Request = () => {
       });
   };
     
+  const notify = () => toast.success('Request Approved!', {
+    position: "top-center",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    });;
+    const notifys = () => toast.success('Request Rejected!', {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });;
 
 
 

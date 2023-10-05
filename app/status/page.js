@@ -1,7 +1,7 @@
 
 "use client"
 import React, { useState,useEffect } from 'react'
-import Link from 'next/link'
+import {  toast } from 'react-toastify';
 import 'font-awesome/css/font-awesome.min.css';
 import Table from '../components/Table';
 import DynamicForm from '../components/DynamicForm';
@@ -28,7 +28,7 @@ const Status = () => {
         email:data?.user?.email
       });
       const [jsonData,setJsonData]=useState([]);
-      
+      const [jsoData,setJsoData]=useState([]);
     
 const onChange = (name, value) => {
    
@@ -166,13 +166,20 @@ const onChange = (name, value) => {
     },[])
 
 
+
     function handleinsert() {
+        // leavemail();
         axios.post('/api/create', { addValue: dataStd })
+        
           .then((res) => {
             console.log(res);
+          
             if (res.status === 200) {
               displayJSON();
               setApply(false); 
+              notify();
+               
+
             }
           })
           .catch(error => {
@@ -250,14 +257,57 @@ const onChange = (name, value) => {
     },[dataStd.fromDate,dataStd.toDate])
 
 
+    const matchingData1 = jsoData.find((item) => item.email === dataStd.email);
+       
+    let availableLeave = matchingData1 ? matchingData1.availableLeave : 0;
+
+
+  
+  const displayJSO=()=> {
+
+      axios.get("/api/empfetch")
+          .then(res => {
+              setJsoData(res.data)
+            
+          })
+  }
+  
+  useEffect(()=>{
+
+    displayJSO();
+  },[])
+
+  const leavemail = () => {
+    axios
+      .post("/api/nodemailer", {}) // Updated path to match your API route
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  
+
+  const notify = () => toast.success('Leave Form Submitted!', {
+    position: "top-center",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    });;
+
+
     return (
 
         < main className='parent-tag'>
-
+              <div className='pl-10 text-2xl font-bold '>   <h1>Available Leave:{availableLeave}</h1></div>
             <div className='apply-btn'>  <button onClick={overlay}>Apply Leave</button></div>
             <Table columns={columns} data={datajs} className={'status-table'} />
-        
-         
+            <button onClick={leavemail()}>NOtify</button>
             {apply && <div className='parent-border' >
                 <div className='leave-border'>
                     <div className='exit-icon' onClick={() => setApply(false)}>    <i className="fa fa-times" aria-hidden="true" ></i></div>

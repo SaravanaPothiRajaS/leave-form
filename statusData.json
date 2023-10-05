@@ -1,5 +1,6 @@
 [
   {
+    "leaveType": "Casual Leave",
     "name": "Levi Ackerman",
     "role": "Analyst",
     "fromDate": "2023-10-12",
@@ -12,6 +13,7 @@
     "email": "alberteinsteinxxvk@gmail.com"
   },
   {
+    "leaveType": "Casual Leave",
     "name": "Saravanan",
     "role": "Developer",
     "fromDate": "2023-10-05",
@@ -24,6 +26,7 @@
     "email": "spothispothis@gmail.com"
   },
   {
+    "leaveType": "Casual Leave",
     "name": "Saravanan",
     "role": "Analyst",
     "fromDate": "2023-10-12",
@@ -36,6 +39,7 @@
     "email": "spothispothis@gmail.com"
   },
   {
+    "leaveType": "Casual Leave",
     "name": "Saravanan",
     "role": "Developer",
     "fromDate": "2023-10-20",
@@ -48,6 +52,7 @@
     "email": "spothispothis@gmail.com"
   },
   {
+    "leaveType": "Casual Leave",
     "name": "Saravanan",
     "role": "Developer",
     "fromDate": "2023-10-04",
@@ -60,6 +65,7 @@
     "email": "spothispothis@gmail.com"
   },
   {
+    "leaveType": "Casual Leave",
     "name": "Levi Ackerman",
     "role": "Developer",
     "fromDate": "2023-10-05",
@@ -72,6 +78,7 @@
     "email": "alberteinsteinxxvk@gmail.com"
   },
   {
+    "leaveType": "Casual Leave",
     "name": "Levi Ackerman",
     "role": "Developer",
     "fromDate": "2023-10-05",
@@ -84,6 +91,7 @@
     "email": "alberteinsteinxxvk@gmail.com"
   },
   {
+    "leaveType": "Casual Leave",
     "name": "Saravanan",
     "role": "Developer",
     "fromDate": "2023-10-11",
@@ -96,6 +104,7 @@
     "email": "spothispothis@gmail.com"
   },
   {
+    "leaveType": "Casual Leave",
     "name": "Levi Ackerman",
     "role": "Developer",
     "fromDate": "2023-10-18",
@@ -108,6 +117,7 @@
     "email": "alberteinsteinxxvk@gmail.com"
   },
   {
+    "leaveType": "Casual Leave",
     "name": "Levi Ackerman",
     "role": "Developer",
     "fromDate": "2023-10-18",
@@ -120,6 +130,7 @@
     "email": "alberteinsteinxxvk@gmail.com"
   },
   {
+    "leaveType": "Casual Leave",
     "name": "Levi Ackerman",
     "role": "Developer",
     "fromDate": "2023-10-11",
@@ -132,6 +143,7 @@
     "email": "alberteinsteinxxvk@gmail.com"
   },
   {
+    "leaveType": "Casual Leave",
     "name": "Levi Ackerman",
     "role": "Developer",
     "fromDate": "2023-10-11",
@@ -144,6 +156,7 @@
     "email": "alberteinsteinxxvk@gmail.com"
   },
   {
+    "leaveType": "Casual Leave",
     "name": "Levi Ackerman",
     "role": "Developer",
     "fromDate": "2023-10-05",
@@ -156,6 +169,7 @@
     "email": "alberteinsteinxxvk@gmail.com"
   },
   {
+    "leaveType": "Casual Leave",
     "name": "Levi Ackerman",
     "role": "Developer",
     "fromDate": "2023-10-05",
@@ -168,6 +182,7 @@
     "email": "alberteinsteinxxvk@gmail.com"
   },
   {
+    "leaveType": "Casual Leave",
     "name": "Levi Ackerman",
     "role": "Developer",
     "fromDate": "2023-10-04",
@@ -180,6 +195,7 @@
     "email": "alberteinsteinxxvk@gmail.com"
   },
   {
+    "leaveType": "Casual Leave",
     "name": "Levi Ackerman",
     "role": "Developer",
     "fromDate": "2023-10-11",
@@ -192,27 +208,29 @@
     "email": "alberteinsteinxxvk@gmail.com"
   },
   {
-    "name": "Levi Ackerman",
+    "leaveType": "Casual Leave",
+    "name": "SaravananS",
     "role": "Developer",
-    "fromDate": "2023-10-12",
-    "toDate": "2023-10-13",
+    "fromDate": "2023-10-03",
+    "toDate": "2023-10-04",
     "totalDays": "2",
     "reason": "Sick",
-    "toWhom": "Asst Manager",
+    "toWhom": "HR",
     "status": "approved",
-    "id": "6b340511-e317-4ca7-9ec4-001616ea343d",
-    "email": "alberteinsteinxxvk@gmail.com"
+    "id": "7df960d2-21d0-42d8-a35d-3cbf921be32b",
+    "email": "spothispothis@gmail.com"
   },
   {
     "name": "Saravanan",
+    "leaveType": "Casual Leave or Sick",
     "role": "Developer",
-    "fromDate": "2023-10-12",
-    "toDate": "2023-10-13",
-    "totalDays": "2",
-    "reason": "Sick",
-    "toWhom": "Manager",
+    "fromDate": "2023-10-10",
+    "toDate": "2023-10-12",
+    "totalDays": 3,
+    "reason": "ss",
+    "toWhom": "HR",
     "status": "approved",
-    "id": "5c845db6-6401-44af-92b8-1108669ddc9c",
+    "id": "acdec087-2580-4406-8b8d-a1437c7f7ed5",
     "email": "spothispothis@gmail.com"
   }
 ]

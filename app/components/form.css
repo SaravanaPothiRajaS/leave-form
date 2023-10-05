@@ -9,9 +9,10 @@
     align-items: center;
     margin-top: 10px;
     width: 100%;
+    flex-wrap: wrap;
 }
-.apply-leave-form div div,.apply-leave-form div label{
-    width: 50%;
+.apply-leave-form div div,.apply-leave-form div label,.apply-leave-form div textarea{
+    width: 300px;
 }
 .in-err{
     display: flex;
@@ -20,4 +21,8 @@
 .in-err input,.in-err select,.in-err p{
     width: 100%;
     text-align: start;
+}
+.leave-apply-textarea{
+    height: 100px;
+    resize: none;
 }

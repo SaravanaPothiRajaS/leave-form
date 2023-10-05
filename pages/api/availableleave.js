@@ -4,7 +4,7 @@ export default async (req, res) => {
   try {
     const data = await fs.readFile('empData.json', 'utf8');
     let jsonData = JSON.parse(data);
-    const { email, availableLeave,totalDays } = req.body;
+    const { email, availableLeave,totalDays ,takenLeave} = req.body;
     // const personToUpdate = jsonData.find(person => person.email=== email);
     // if (!personToUpdate) {
     //     res.status(400).send('Person not found');
@@ -14,7 +14,7 @@ export default async (req, res) => {
     const updatedData = jsonData.map(item => {
         if (item.email === email) {
           // Clone the object and update the 'age' field
-          return { ...item, availableLeave: availableLeave-totalDays };
+          return { ...item, availableLeave: availableLeave - totalDays,takenLeave: takenLeave + Number(totalDays) };
         }
         return item; // For other items, return them unchanged
       });

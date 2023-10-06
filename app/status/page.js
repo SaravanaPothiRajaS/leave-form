@@ -78,13 +78,14 @@ const Status = () => {
       label: 'Leave Type:',
       type: 'select',
       options: [
-        { value: 'Casual  or Sick Leave', label: 'Casual  or Sick Leave' },
+        { value: 'Casual or Sick Leave', label: 'Casual  or Sick Leave' },
         { value: 'Maternity', label: 'Maternity' },
         { value: 'Paternity', label: 'Paternity' },
         { value: 'Leave  on Propation', label: 'Leave  on Propation' },
         { value: 'Loss of Pay', label: 'Loss of Pay' },
         { value: 'Compensatory Leave', label: 'Compensatory Leave' },
       ],
+      disabled:true,
     },
     {
       name: 'role',
@@ -96,32 +97,38 @@ const Status = () => {
         { value: 'Finance', label: 'Finance' },
         // { value: 'Others', label: 'Others' },
       ],
+      disabled:false,
 
     },
     {
       name: 'fromDate',
       label: 'Choose From Date:',
       type: 'date',
+      disabled:false,
     },
     {
       name: 'toDate',
       label: 'Choose To Date:',
       type: 'date',
+      disabled:false,
     },
     {
       name: 'totalDays',
       label: 'Total Days:',
       type: 'text',
+      disabled:true,
     },
     {
       name: 'reason',
       label: 'Reason:',
       type: 'textarea',
+      disabled:false,
     },
     {
       name: 'toWhom',
       label: 'To whom:',
       type: 'text',
+      disabled:true,
 
     },
   ];
@@ -324,6 +331,11 @@ const Status = () => {
   });;
 
 
+const handleTypeLeave=(e,item)=>{
+console.log(item.type);
+setFormData({...formData,leaveType: item.type,});
+setApply(true)
+}
 
   return (
 
@@ -331,7 +343,11 @@ const Status = () => {
       <div className='flex gap-x-8 gap-y-8  flex-wrap w-11/12 m-auto mt-7'>
         {leaveTypeObj.map((item, i) => {
           return (
-            <a key={i} href="#" className="block w-56 p-3 border border-gray-200 rounded-lg shadow " style={{ backgroundColor: `${item.color}` }}>
+
+            <a key={i} href="#" className="block w-56 p-3 border border-gray-200 rounded-lg shadow "
+              onClick={(e)=>handleTypeLeave(e,item)}
+              style={{ backgroundColor: `${item.color}` }}>
+
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">{item.type}</h5>
               <p className="font-normal text-gray-700 ">Available Leave:{item.avlLeave}</p>
             </a>
@@ -346,8 +362,8 @@ const Status = () => {
 
 
 
-      {apply && <div className='parent-border' >
-        <div className='leave-border'>
+      {apply && <div className='parent-border' onClick={() => setApply(false)} >
+        <div className='leave-border d-animate-overlay' onClick={(e)=>e.stopPropagation()}>
           <div className='heaed-and-close'>
             <b> <h2 align="center">Apply Leave</h2></b>
             <i onClick={() => setApply(false)} className="fa fa-times exit-icon" aria-hidden="true" ></i>

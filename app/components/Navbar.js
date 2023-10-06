@@ -43,9 +43,9 @@ const Navbar = () => {
               </b>
             </div>
             <div className='btn-parent'>
-              <div><Link href='holiday'><button className='holiday-btn'>Holiday</button></Link></div>
-              <div><Link href='employee'><button className='emp-detail-btn'>Employee Details</button></Link></div>
-              <div><Link href='request'><button className='req-btn'>Requests</button></Link></div>
+              <div><Link href='/holiday'><button className='holiday-btn'>Holiday</button></Link></div>
+              <div><Link href='/employee'><button className='emp-detail-btn'>Employee Details</button></Link></div>
+              <div><Link href='/request'><button className='req-btn'>Requests</button></Link></div>
               <img
                 src={data?.user?.image}
                 height="25"
@@ -76,7 +76,8 @@ const Navbar = () => {
             </div>
             <div className='btn-parent'>
               <div><Link href='/userHoliday'><button className='holiday-btn'>Holiday</button></Link></div>
-              <div><Link href='status'><button className='approve-btn'>Status</button></Link></div>
+              <div><Link href='/status'><button className='approve-btn'>Status</button></Link></div>
+              <div><Link href='/help'><button className='approve-btn'>Help</button></Link></div>
               <img
                 src={data?.user?.image}
                 height="25"
@@ -106,7 +107,7 @@ const Navbar = () => {
             </b>
           </div>
           <div className='btn-parent'>
-            <div><Link href='login'><button className='login-btn'>Login</button></Link></div>
+            <div><Link href='/login'><button className='login-btn'>Login</button></Link></div>
           </div>
         </div>
       </>

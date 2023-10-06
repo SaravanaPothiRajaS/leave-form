@@ -693,3 +693,17 @@
 .button:hover {
   background-color: #084243;
 }
+
+.d-animate-overlay {
+  animation: fade-right alternate .2s;
+}
+
+@keyframes fade-right {
+  from {
+    transform: scale(0.1);
+  }
+
+  to {
+    transform: translateY(1);
+  }
+}

@@ -10,7 +10,7 @@ import { validateUserEdit } from '../components/ValidationSchema';
 import axios from 'axios'
 const { v4: uuidv4 } = require('uuid');
 import { useSession } from "next-auth/react";
-import {  toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 
 
@@ -36,27 +36,27 @@ const Status = () => {
     {
       type: "Casual or Sick Leave",
       avlLeave: 2,
-      color:"rgb(74 222 128)"
+      color: "rgb(74 222 128)"
     },
     {
       type: "Maternity",
       avlLeave: 2,
-      color:"rgb(153 246 228)"
+      color: "rgb(153 246 228)"
     },
     {
       type: "Paternity",
       avlLeave: 2,
-      color:"rgb(217 249 157)"
+      color: "rgb(217 249 157)"
     },
     {
       type: "Loss of Pay",
       avlLeave: 2,
-      color:"rgb(252 165 165)"
+      color: "rgb(252 165 165)"
     },
     {
       type: "Compensatory Leave",
       avlLeave: 2,
-      color:" rgb(148 163 184)"
+      color: " rgb(148 163 184)"
     },
   ]
   console.log(formData);
@@ -78,13 +78,14 @@ const Status = () => {
       label: 'Leave Type:',
       type: 'select',
       options: [
-        { value: 'Casual  or Sick Leave', label: 'Casual  or Sick Leave' },
+        { value: 'Casual or Sick Leave', label: 'Casual  or Sick Leave' },
         { value: 'Maternity', label: 'Maternity' },
         { value: 'Paternity', label: 'Paternity' },
         { value: 'Leave  on Propation', label: 'Leave  on Propation' },
         { value: 'Loss of Pay', label: 'Loss of Pay' },
         { value: 'Compensatory Leave', label: 'Compensatory Leave' },
       ],
+      disabled:true,
     },
     {
       name: 'role',
@@ -96,32 +97,38 @@ const Status = () => {
         { value: 'Finance', label: 'Finance' },
         // { value: 'Others', label: 'Others' },
       ],
+      disabled:false,
 
     },
     {
       name: 'fromDate',
       label: 'Choose From Date:',
       type: 'date',
+      disabled:false,
     },
     {
       name: 'toDate',
       label: 'Choose To Date:',
       type: 'date',
+      disabled:false,
     },
     {
       name: 'totalDays',
       label: 'Total Days:',
       type: 'text',
+      disabled:true,
     },
     {
       name: 'reason',
       label: 'Reason:',
       type: 'textarea',
+      disabled:false,
     },
     {
       name: 'toWhom',
       label: 'To whom:',
       type: 'text',
+      disabled:true,
 
     },
   ];
@@ -218,7 +225,7 @@ const Status = () => {
           setApply(false);
           notify();
           leavemail();
-          
+
         }
       })
       .catch(error => {
@@ -310,7 +317,7 @@ const Status = () => {
         console.error(error);
       });
   };
-  
+
 
   const notify = () => toast.success('Leave Form Submitted!', {
     position: "top-center",
@@ -321,22 +328,28 @@ const Status = () => {
     draggable: true,
     progress: undefined,
     theme: "light",
-    });;
+  });;
 
-
+const handleTypeLeave=(e,item)=>{
+console.log(item.type);
+setFormData({...formData,leaveType: item.type,});
+setApply(true)
+}
 
   return (
 
     < main className='parent-tag'>
       <div className='flex gap-x-8 gap-y-8  flex-wrap w-11/12 m-auto mt-7'>
-{leaveTypeObj.map((item,i)=>{
-  return(
-    <a key={i} href="#" className="block w-56 p-3 border border-gray-200 rounded-lg shadow " style={{backgroundColor:`${item.color}`}}>
-          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">{item.type}</h5>
-          <p className="font-normal text-gray-700 ">Available Leave:{item.avlLeave}</p>
-        </a>
-  )
-})
+        {leaveTypeObj.map((item, i) => {
+          return (
+            <a key={i} href="#" className="block w-56 p-3 border border-gray-200 rounded-lg shadow "
+              onClick={(e)=>handleTypeLeave(e,item)}
+              style={{ backgroundColor: `${item.color}` }}>
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">{item.type}</h5>
+              <p className="font-normal text-gray-700 ">Available Leave:{item.avlLeave}</p>
+            </a>
+          )
+        })
         }
 
 
@@ -346,8 +359,8 @@ const Status = () => {
 
 
 
-      {apply && <div className='parent-border' >
-        <div className='leave-border'>
+      {apply && <div className='parent-border' onClick={() => setApply(false)} >
+        <div className='leave-border d-animate-overlay' onClick={(e)=>e.stopPropagation()}>
           <div className='heaed-and-close'>
             <b> <h2 align="center">Apply Leave</h2></b>
             <i onClick={() => setApply(false)} className="fa fa-times exit-icon" aria-hidden="true" ></i>

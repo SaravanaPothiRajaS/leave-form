@@ -42,8 +42,8 @@ const holiday = () => {
         id: uuidv4()
     });
 
-      
-      function overlay() {
+
+    function overlay() {
         setAddHoliday((pre) => !pre)
     }
 
@@ -180,17 +180,20 @@ const holiday = () => {
             label: 'Date',
             type: 'date',
             placeholder: 'Enter Your Name',
+            disabled: false,
         },
         {
             name: 'Day',
             label: 'Day',
             type: 'text',
+            disabled: true,
 
         },
         {
             name: 'Description',
             label: 'Description',
             type: 'text',
+            disabled: false,
         },
     ]
 
@@ -268,7 +271,27 @@ const holiday = () => {
         URL.revokeObjectURL(url);
     }
 
-
+    function getDayName(dateStr, locale)
+    {
+              
+    }
+    
+    // let dateStr = '05/23/2014';
+    //  = getDayName(dateStr, "en-us"); 
+    useEffect(()=>{
+if(addValue.Date.length > 0){
+    let date = new Date(addValue.Date);
+    let day= date.toLocaleDateString("en-us", { weekday: 'long' }); 
+    // console.log(day);
+    setaddValue({...addValue,Day:day})
+}
+if(changevalue?.Date?.length > 0){
+    let date = new Date(changevalue.Date);
+    let day= date.toLocaleDateString("en-us", { weekday: 'long' }); 
+    // console.log(day);
+    setChangeValue({...changevalue,Day:day})
+}
+    },[addValue.Date,changevalue.Date])
     return (
         <>
 
@@ -290,23 +313,23 @@ const holiday = () => {
 
                 >Cancel</button>}
                 <Table columns={columns} data={data} className={'holiday-table'} />
-           
+
                 <button onClick={() => downloadExcel(jsonData)} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                     <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" /></svg>
                     <span>Download Excel</span>
                 </button>
 
                 {addholiday && <div className='parent-add-holiday' >
-                    <div className='add-holiday'>
-                       <div className='exit-icon' onClick={() => setAddHoliday(false)}>    <i class="fa fa-times" aria-hidden="true" ></i></div>
+                    <div className='add-holiday  d-animate-overlay'>
+                        <div className='exit-icon' onClick={() => setAddHoliday(false)}>    <i class="fa fa-times" aria-hidden="true" ></i></div>
                         <DynamicForm fields={fields} onSubmit={handleinsert} onChange={onChange} data={addValue} validate={validateUserholiday} />
-                      
+
 
 
                     </div>
                 </div>}
                 {edit && <div className='parent-add-holiday' >
-                    <div className='add-holiday'>
+                    <div className='add-holiday  d-animate-overlay'>
 
                         <form>
 
@@ -323,6 +346,7 @@ const holiday = () => {
                             <div className='add-day'>
                                 <label >Day:</label>
                                 <input type="text" onChange={(e) => editValue(e, "Day")}
+                                disabled={true}
                                     value={changevalue.Day || ''} />
                             </div>
                             <div className='add-description'>

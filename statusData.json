@@ -190,5 +190,44 @@
     "status": "rejected",
     "id": "0d6b8c1c-92a1-433a-b5a8-41360285a5d5",
     "email": "alberteinsteinxxvk@gmail.com"
+  },
+  {
+    "name": "B Karl",
+    "leaveType": "Casual  or Sick Leave",
+    "role": "Developer",
+    "fromDate": "2023-10-10",
+    "toDate": "2023-10-11",
+    "totalDays": 2,
+    "reason": "Sick",
+    "toWhom": "HR",
+    "status": "approved",
+    "id": "2f296f4c-b067-4717-9a88-5db24305e17f",
+    "email": "alberteinsteinxxvk@gmail.com"
+  },
+  {
+    "name": "B Karl",
+    "leaveType": "Casual  or Sick Leave",
+    "role": "Developer",
+    "fromDate": "2023-10-10",
+    "toDate": "2023-10-11",
+    "totalDays": 2,
+    "reason": "Sick",
+    "toWhom": "HR",
+    "status": "rejected",
+    "id": "f10a5eb9-cb48-4cfc-b208-32928a97bba8",
+    "email": "alberteinsteinxxvk@gmail.com"
+  },
+  {
+    "name": "B Karl",
+    "leaveType": "Casual  or Sick Leave",
+    "role": "Developer",
+    "fromDate": "2023-10-11",
+    "toDate": "2023-10-11",
+    "totalDays": 1,
+    "reason": "Sick",
+    "toWhom": "HR",
+    "status": "approved",
+    "id": "ae33f2ca-ab9f-4207-ac6b-5c983a0fc9d8",
+    "email": "alberteinsteinxxvk@gmail.com"
   }
 ]

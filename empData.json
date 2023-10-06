@@ -8,8 +8,9 @@
   {
     "name": "Levi Ackerman",
     "email": "alberteinsteinxxvk@gmail.com",
-    "availableLeave": 8,
-    "role": "Developer"
+    "availableLeave": 4,
+    "role": "Developer",
+    "takenLeave": 3
   },
   {
     "name": "Edwin raj",

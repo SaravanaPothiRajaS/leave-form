@@ -4,7 +4,8 @@ const nextConfig = {
     env: {
         
         NEXTAUTH_SECRET:"mysecretkey123456789",
-
+        GMAIL_PASSWORD:"wdoc ssfe mwzy kdhe",
+  
   
         GOOGLE_CLIENT_ID:
           "289399837789-t7uvrd21vatd60ammqiqt2eo1kcotbuq.apps.googleusercontent.com",

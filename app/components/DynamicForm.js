@@ -20,9 +20,11 @@ console.log(data);
         <div key={field.name} >
           <label>{field.label}</label>
           {field.type === 'select' ? (
-          <div className='in-err'>  <select
+          <div className='in-err'>  
+          <select
           required
-          // value={data[field.name]}
+          disabled={field?.disabled}
+          value={data[field.name]}
       
               onChange={(e) => onChange( field.name, e.target.value)}
             >
@@ -40,6 +42,7 @@ console.log(data);
            required
               type={field.type}
               value={data[field.name]}
+          disabled={field?.disabled}
            
               onChange={(e) => onChange(field.name, e.target.value)}
             />
@@ -48,6 +51,8 @@ console.log(data);
           ):
          <textarea 
          type='text'
+         disabled={field?.disabled}
+
          onChange={(e) => onChange(field.name, e.target.value)}
               className='leave-apply-textarea border'
          /> 

@@ -115,11 +115,13 @@ const Request = () => {
               Update(data.id, 'approved');
               Updateemp(data.email, availableLeave, data.totalDays, takenLeave);
               notify();
+              leavemail( data.name,'approved')
             }}>
               Approve
             </button>
             <button className='reject-edit-btn' onClick={() =>{Update(data.id, 'rejected');
-                  notifys()}}>
+                  notifys();
+                  leavemail( data.name,'rejected')}}>
               Reject
             </button>
           </>
@@ -288,6 +290,16 @@ const Request = () => {
 
     URL.revokeObjectURL(url);
   }
+  const leavemail = (name,status) => {
+    axios
+      .post("/api/nodemail", {name:name,status:status})
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
 
   return (

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import Table from '../components/Table';
 import axios from 'axios';
 
-import {  toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import { useSession } from "next-auth/react";
 import * as XLSX from 'xlsx/xlsx.mjs';
@@ -118,8 +118,10 @@ const Request = () => {
             }}>
               Approve
             </button>
-            <button className='reject-edit-btn' onClick={() =>{Update(data.id, 'rejected');
-                  notifys()}}>
+            <button className='reject-edit-btn' onClick={() => {
+              Update(data.id, 'rejected');
+              notifys()
+            }}>
               Reject
             </button>
           </>
@@ -246,7 +248,7 @@ const Request = () => {
       });
   };
 
-    
+
   const notify = () => toast.success('Request Approved!', {
     position: "top-center",
     autoClose: 2000,
@@ -256,17 +258,17 @@ const Request = () => {
     draggable: true,
     progress: undefined,
     theme: "light",
-    });;
-    const notifys = () => toast.success('Request Rejected!', {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      });;
+  });;
+  const notifys = () => toast.success('Request Rejected!', {
+    position: "top-center",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  });;
 
 
   function downloadExcel(data) {
@@ -292,7 +294,7 @@ const Request = () => {
 
   return (
     <>
-      <main>
+      <main className='mt-20'>
         <div className='select-request'>
           <label>Select a Option:</label>
           <select onChange={handleSelectChange} value={selectedOption} >
@@ -303,7 +305,7 @@ const Request = () => {
         </div>
         <Table columns={columns} data={data} className={'status-table'}
         />
-        <button onClick={() => downloadExcel(data)} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+        <button onClick={() => downloadExcel(data)} className="bg-gray-300 hover:bg-gray-400 ml-16 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
           <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" /></svg>
           <span>Download Excel</span>
         </button>

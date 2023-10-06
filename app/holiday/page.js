@@ -42,8 +42,8 @@ const holiday = () => {
         id: uuidv4()
     });
 
-      
-      function overlay() {
+
+    function overlay() {
         setAddHoliday((pre) => !pre)
     }
 
@@ -272,10 +272,10 @@ const holiday = () => {
     return (
         <>
 
-            <main className='add-holiday-parent'>
+            <main className='  mt-20'>
                 <div className='add-holiday-btn'><button onClick={overlay}>Add Holiday</button></div>
                 <input type="file" accept=".xls, .xlsx" onChange={handleFileChange}
-                    className='block w-full text-sm text-slate-500
+                    className='block  text-sm text-slate-500 ml-16 cursor-pointer
                 file:mr-4 file:py-2 file:px-4
                 file:rounded-full file:border-0
                 file:text-sm file:font-semibold
@@ -290,17 +290,20 @@ const holiday = () => {
 
                 >Cancel</button>}
                 <Table columns={columns} data={data} className={'holiday-table'} />
-           
-                <button onClick={() => downloadExcel(jsonData)} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+
+                <button onClick={() => downloadExcel(jsonData)} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center ml-16">
                     <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" /></svg>
                     <span>Download Excel</span>
                 </button>
 
                 {addholiday && <div className='parent-add-holiday' >
                     <div className='add-holiday'>
-                       <div className='exit-icon' onClick={() => setAddHoliday(false)}>    <i class="fa fa-times" aria-hidden="true" ></i></div>
+                        <div className=' flex justify-between'>
+                            <h2 className='font-bold text-lime-950 text-xl ml-60' >Add Holiday</h2>
+                            <div className='exit-icon' onClick={() => setAddHoliday(false)}>    <i class="fa fa-times" aria-hidden="true" ></i></div>
+                        </div>
                         <DynamicForm fields={fields} onSubmit={handleinsert} onChange={onChange} data={addValue} validate={validateUserholiday} />
-                      
+
 
 
                     </div>
@@ -309,28 +312,28 @@ const holiday = () => {
                     <div className='add-holiday'>
 
                         <form>
+                            <div className=' flex justify-between'>
+                                <h2>Edit Holiday</h2>
+                                <div className='exit-icon' onClick={() => setEdit(false)}>    <i className="fa fa-times" aria-hidden="true" ></i></div>
 
-                            <div className='exit-icon' onClick={() => setEdit(false)}>    <i className="fa fa-times" aria-hidden="true" ></i></div>
-
-                            <h2>Edit Holiday</h2>
-
+                            </div>
                             <div className='add-date'>
                                 <label>Choose Date:</label>
 
                                 <input type="date" onChange={(e) => editValue(e, "Date")}
-                                    value={changevalue.Date || ''} />
+                                    value={changevalue.Date || ''} required />
                             </div>
                             <div className='add-day'>
                                 <label >Day:</label>
                                 <input type="text" onChange={(e) => editValue(e, "Day")}
-                                    value={changevalue.Day || ''} />
+                                    value={changevalue.Day || ''} required />
                             </div>
                             <div className='add-description'>
                                 <label>Description:</label>
                                 <input
                                     type="text"
                                     onChange={(e) => editValue(e, "Description")}
-                                    value={changevalue.Description || ''}
+                                    value={changevalue.Description || ''} required
 
                                 />
                             </div>

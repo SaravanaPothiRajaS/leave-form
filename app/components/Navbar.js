@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import React ,{useEffect} from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import logo from "../images/raise.png";
 import { useSession, signOut } from "next-auth/react";
@@ -15,7 +15,7 @@ const Navbar = () => {
   const { data } = useSession();
   useEffect(() => {
     if (data) {
-      if (data?.user?.email === "vinodhkumaryin@gmail.com") {
+      if (data?.user?.email === "edwinraj1462003@gmail.com") {
         route.push('/holiday');
       } else {
         route.push('/userHoliday');
@@ -25,9 +25,9 @@ const Navbar = () => {
     }
   }, [data, route]);
 
- 
+
   if (data) {
-    if (data?.user?.email === "vinodhkumaryin@gmail.com") {
+    if (data?.user?.email === "edwinraj1462003@gmail.com") {
       return (
         <>
           <div className='nav-bar'>
@@ -48,8 +48,10 @@ const Navbar = () => {
               <div><Link href='request'><button className='req-btn'>Requests</button></Link></div>
               <img
                 src={data?.user?.image}
-                height="25"
-                width="25"
+                className='rounded-2xl'
+
+                height="35"
+                width="35"
                 alt="user image"
                 onClick={() => signOut()}
               />
@@ -79,8 +81,9 @@ const Navbar = () => {
               <div><Link href='status'><button className='approve-btn'>Status</button></Link></div>
               <img
                 src={data?.user?.image}
-                height="25"
-                width="25"
+                className='rounded-2xl'
+                height="35"
+                width="35"
                 alt="user image"
                 onClick={() => signOut()}
               />

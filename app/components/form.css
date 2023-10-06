@@ -1,28 +1,36 @@
-.apply-leave-form{
+.apply-leave-form {
     width: 100%;
     margin: auto;
 }
 
-.apply-leave-form div{
+.apply-leave-form div {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 10px;
-    width: 100%;
+    width: 90%;
     flex-wrap: wrap;
 }
-.apply-leave-form div div,.apply-leave-form div label,.apply-leave-form div textarea{
+
+.apply-leave-form div div,
+.apply-leave-form div label,
+.apply-leave-form div textarea {
     width: 300px;
 }
-.in-err{
+
+.in-err {
     display: flex;
     flex-direction: column;
 }
-.in-err input,.in-err select,.in-err p{
+
+.in-err input,
+.in-err select,
+.in-err p {
     width: 100%;
     text-align: start;
 }
-.leave-apply-textarea{
+
+.leave-apply-textarea {
     height: 100px;
     resize: none;
 }

@@ -10,7 +10,7 @@ import { validateUserEdit } from '../components/ValidationSchema';
 import axios from 'axios'
 const { v4: uuidv4 } = require('uuid');
 import { useSession } from "next-auth/react";
-import {  toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 
 
@@ -36,27 +36,27 @@ const Status = () => {
     {
       type: "Casual or Sick Leave",
       avlLeave: 2,
-      color:"rgb(74 222 128)"
+      color: "rgb(74 222 128)"
     },
     {
       type: "Maternity",
       avlLeave: 2,
-      color:"rgb(153 246 228)"
+      color: "rgb(153 246 228)"
     },
     {
       type: "Paternity",
       avlLeave: 2,
-      color:"rgb(217 249 157)"
+      color: "rgb(217 249 157)"
     },
     {
       type: "Loss of Pay",
       avlLeave: 2,
-      color:"rgb(252 165 165)"
+      color: "rgb(252 165 165)"
     },
     {
       type: "Compensatory Leave",
       avlLeave: 2,
-      color:" rgb(148 163 184)"
+      color: " rgb(148 163 184)"
     },
   ]
   console.log(formData);
@@ -218,7 +218,7 @@ const Status = () => {
           setApply(false);
           notify();
           leavemail();
-          
+
         }
       })
       .catch(error => {
@@ -310,7 +310,7 @@ const Status = () => {
         console.error(error);
       });
   };
-  
+
 
   const notify = () => toast.success('Leave Form Submitted!', {
     position: "top-center",
@@ -321,22 +321,22 @@ const Status = () => {
     draggable: true,
     progress: undefined,
     theme: "light",
-    });;
+  });;
 
 
 
   return (
 
-    < main className='parent-tag'>
+    < main className='mt-20'>
       <div className='flex gap-x-8 gap-y-8  flex-wrap w-11/12 m-auto mt-7'>
-{leaveTypeObj.map((item,i)=>{
-  return(
-    <a key={i} href="#" className="block w-56 p-3 border border-gray-200 rounded-lg shadow " style={{backgroundColor:`${item.color}`}}>
-          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">{item.type}</h5>
-          <p className="font-normal text-gray-700 ">Available Leave:{item.avlLeave}</p>
-        </a>
-  )
-})
+        {leaveTypeObj.map((item, i) => {
+          return (
+            <a key={i} href="#" className="block w-56 p-3 border border-gray-200 rounded-lg shadow " style={{ backgroundColor: `${item.color}` }}>
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">{item.type}</h5>
+              <p className="font-normal text-gray-700 ">Available Leave:{item.avlLeave}</p>
+            </a>
+          )
+        })
         }
 
 

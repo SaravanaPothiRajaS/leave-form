@@ -25,7 +25,8 @@ export default async (req, res) => {
         };
 
         await fs.writeFile('holidayData.json', JSON.stringify(jsonData, null, 2));
-        res.json(jsonData);
+        res.status(200);
+
     } catch (error) {
         console.error('Error updating holiday:', error);
         res.status(500).json({ error: 'Internal Server Error' });

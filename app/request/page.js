@@ -42,8 +42,8 @@ const Request = () => {
       accessor: "leaveType"
     },
     {
-      Header: "Role",
-      accessor: "role"
+      Header: "Department",
+      accessor: "department"
     },
     {
       Header: "From Date",
@@ -82,11 +82,35 @@ const Request = () => {
     email: data.email,
     availableLeave: data.availableLeave,
     takenLeave: data.takenLeave,
-    role: data.role,
+    department: data.department,
   }));
 
 
   let data = [];
+let downloadData=jsonData?.map((data, i) => {
+
+    const matchingData1 = data1.find((item) => item.email === data.email);
+
+    let availableLeave = matchingData1 ? matchingData1.availableLeave : 0;
+    let takenLeave = matchingData1 ? matchingData1.takenLeave : 0;
+
+    console.log('Available Leave:', availableLeave);
+
+
+    return {
+      name: data.name,
+      leaveType: data.leaveType,
+      department: data.department,
+      from: data.fromDate,
+      to: data.toDate,
+      totalDays: data.totalDays,
+      availableLeave: availableLeave,
+      takenLeave: takenLeave,
+      reason: data.reason,
+      status: data.status ,
+      id: data.id,
+    };
+  });;
 
   if (selectedOption === 'request') {
     data = jsonData.map((data, i) => {
@@ -102,7 +126,7 @@ const Request = () => {
       return {
         name: data.name,
         leaveType: data.leaveType,
-        role: data.role,
+        department: data.department,
         from: data.fromDate,
         to: data.toDate,
         totalDays: data.totalDays,
@@ -115,11 +139,13 @@ const Request = () => {
               Update(data.id, 'approved');
               Updateemp(data.email, availableLeave, data.totalDays, takenLeave);
               notify();
+leavemail( data.name,'approved')
             }}>
               Approve
             </button>
             <button className='reject-edit-btn' onClick={() =>{Update(data.id, 'rejected');
-                  notifys()}}>
+                  notifys();
+                  leavemail( data.name,'rejected')}}>
               Reject
             </button>
           </>
@@ -144,7 +170,7 @@ const Request = () => {
       return {
         name: data.name,
         leaveType: data.leaveType,
-        role: data.role,
+        department: data.department,
         from: data.fromDate,
         to: data.toDate,
         totalDays: data.totalDays,
@@ -172,7 +198,7 @@ const Request = () => {
       return {
         name: data.name,
         leaveType: data.leaveType,
-        role: data.role,
+        department: data.department,
         from: data.fromDate,
         to: data.toDate,
         totalDays: data.totalDays,
@@ -269,11 +295,15 @@ const Request = () => {
       });;
 
 
-  function downloadExcel(data) {
+  function downloadExcel(downloadData) {
+
+const jsonDataCopy = downloadData;
+    jsonDataCopy.forEach((item) => {
+        delete item.id;
+    });
 
 
-
-    const ws = XLSX.utils.json_to_sheet(data);
+    const ws = XLSX.utils.json_to_sheet(jsonDataCopy);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
     const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
@@ -288,14 +318,24 @@ const Request = () => {
 
     URL.revokeObjectURL(url);
   }
+const leavemail = (name,status) => {
+    axios
+      .post("/api/nodemail", {name:name,status:status})
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
 
   return (
     <>
       <main>
-        <div className='select-request'>
+        <div className='select-request w-11/12 m-auto'>
           <label>Select a Option:</label>
-          <select onChange={handleSelectChange} value={selectedOption} >
+          <select onChange={handleSelectChange} value={selectedOption}  className='h-8 rounded-md border-0 bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm'>
             <option value="request" > Requests</option>
             <option value="approved">Approved</option>
             <option value="rejected">Rejected</option>
@@ -303,17 +343,17 @@ const Request = () => {
         </div>
         <Table columns={columns} data={data} className={'status-table'}
         />
-        <button onClick={() => downloadExcel(data)} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+        <div className='w-11/12 m-auto'>
+        <button onClick={() => downloadExcel(downloadData)} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
           <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" /></svg>
           <span>Download Excel</span>
         </button>
-
+</div>
       </main>
     </>
   )
 }
 
 export default Request
-
 
 

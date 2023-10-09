@@ -30,17 +30,17 @@ const Navbar = () => {
     if (data?.user?.email === "vinodhkumaryin@gmail.com") {
       return (
         <>
-          <div className='nav-bar'>
+          <div className='nav-bar h-16 fixed top-0'>
             <div>
-              <b>
-                <h1 className='leave'>
+              {/* <b> */}
+                {/* <h1 className='leave'> */}
                   <Image
-                    className='user-img'
+                    className='c-logo'
                     src={logo}
                     alt="Picture of the author"
                   />
-                </h1>
-              </b>
+                {/* </h1> */}
+              {/* </b> */}
             </div>
             <div className='btn-parent'>
               <div><Link href='/holiday'><button className='holiday-btn'>Holiday</button></Link></div>
@@ -48,8 +48,9 @@ const Navbar = () => {
               <div><Link href='/request'><button className='req-btn'>Requests</button></Link></div>
               <img
                 src={data?.user?.image}
-                height="25"
-                width="25"
+                height="35"
+                width="35"
+className='rounded-full'
                 alt="user image"
                 onClick={() => signOut()}
               />
@@ -77,7 +78,7 @@ const Navbar = () => {
             <div className='btn-parent'>
               <div><Link href='/userHoliday'><button className='holiday-btn'>Holiday</button></Link></div>
               <div><Link href='/status'><button className='approve-btn'>Status</button></Link></div>
-              <div><Link href='/help'><button className='approve-btn'>Help</button></Link></div>
+              <div><Link href='/policy'><button className='approve-btn'>Leave Policy</button></Link></div>
               <img
                 src={data?.user?.image}
                 height="25"

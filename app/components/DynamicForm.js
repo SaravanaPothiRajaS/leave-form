@@ -41,21 +41,33 @@ console.log(data);
            <div className='in-err'> <input  
            required
               type={field.type}
-              value={data[field.name]}
+              value={data[field?.name]}
           disabled={field?.disabled}
            
               onChange={(e) => onChange(field.name, e.target.value)}
             />
        
             </div>
-          ):
-         <textarea 
+          ): field.type === 'textarea' ?
+         (<textarea 
          type='text'
          disabled={field?.disabled}
 
          onChange={(e) => onChange(field.name, e.target.value)}
               className='leave-apply-textarea border'
-         /> 
+         /> ):(
+          <div className='in-err'> <input  
+          className='border'
+          required
+             type={field.type}
+             value={data[field.name]}
+         disabled={field?.disabled}
+          
+             onChange={(e) => onChange(field.name, e.target.value)}
+           />
+      
+           </div>
+         )
           }
 
         </div>

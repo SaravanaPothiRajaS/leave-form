@@ -16,15 +16,9 @@
   }
 }
 
-/* body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-} */
+.body {
+  position: relative;
+}
 
 /* Style the container */
 .container {
@@ -99,9 +93,8 @@
 
 
 .nav-bar {
-  position: relative;
-  border: 0px solid;
-  height: 60px;
+    border: 0px solid;
+  /* height: 60px; */
   width: 100%;
   background-color: #084243;
   display: flex;
@@ -109,12 +102,9 @@
   padding-left: 20px;
   align-items: center;
   box-shadow: 4px 2px 14px 2px #8888A3;
+position: fixed;
+  top: 0;
 
-
-}
-
-.parent-tag {
-  position: relative;
 }
 
 .holiday-btn {
@@ -137,8 +127,7 @@
 
 .btn-parent {
   color: white;
-  width: 60%;
-  align-items: center;
+    align-items: center;
   display: flex;
   gap: 50px;
   justify-content: center;
@@ -437,21 +426,15 @@
 
 }
 
-.add-holiday-btn {
-  margin-top: 20px;
-  display: flex;
-  justify-content: right;
-  margin-right: 50px;
 
-}
 
-.add-holiday-btn button {
+.add-holiday-btn  {
   border: 1px solid;
   padding: 8px 25px;
   border-radius: 6px;
 }
 
-.add-holiday-btn button:hover {
+.add-holiday-btn:hover {
   border: 1px solid;
   padding: 8px 25px;
   border-radius: 6px;
@@ -461,7 +444,7 @@
 
 .add-holiday {
   border: 1px solid;
-  padding: 45px;
+  padding: 25px;
   border-radius: 5px;
   width: 40%;
   box-shadow: 4px 2px 14px 2px #8888A3;
@@ -481,15 +464,9 @@
 
 }
 
-.add-holiday-parent {
-  position: relative;
-
-}
-
 .add-date label {
   margin-top: 20px;
-  padding-left: 70px;
-}
+  }
 
 .add-date input {
   border: 1px solid;
@@ -500,8 +477,7 @@
 
 .add-day label {
   margin-top: 20px;
-  padding-left: 134px;
-}
+  }
 
 .add-day input {
   border: 1px solid;
@@ -513,8 +489,7 @@
 
 .add-description label {
   margin-top: 20px;
-  padding-left: 75px;
-}
+  }
 
 .add-description input {
   border: 1px solid;
@@ -560,8 +535,8 @@
 .select-request {
   display: flex;
   justify-content: right;
-  margin-right: 150px;
-  margin-top: 40px;
+  /* margin-right: 150px; */
+  margin-top: 100px;
 }
 
 .select-request label {
@@ -706,4 +681,17 @@
   to {
     transform: translateY(1);
   }
+}
+
+.c-logo{
+  width: 230px;
+  height: 64px;
+  object-fit: cover;
+}
+
+.ld-card{
+  background-color: #b4d1cc;
+}
+.form-data input[type="text"], .form-data input[type="date"],.form-data input[type="Time"], .form-data select{
+  padding: 6px;
 }

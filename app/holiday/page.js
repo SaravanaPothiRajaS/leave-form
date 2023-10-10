@@ -225,7 +225,7 @@ const holiday = () => {
     const submitbtn = () => {
         console.log('Changevalue', changevalue);
         axios
-            .post(`/api/holiday/update`, { changevalue })
+            .post(`/api/holiday/update`, { changevalue:changevalue })
             .then((res) => {
                 console.log(res);
                 if (res.status === 200) {
@@ -271,57 +271,59 @@ const holiday = () => {
         URL.revokeObjectURL(url);
     }
 
-    function getDayName(dateStr, locale)
-    {
-              
-    }
-    
-    // let dateStr = '05/23/2014';
-    //  = getDayName(dateStr, "en-us"); 
-    useEffect(()=>{
-if(addValue.Date.length > 0){
+     
+    useEffect(() => {
+if (addValue.Date.length > 0) {
     let date = new Date(addValue.Date);
-    let day= date.toLocaleDateString("en-us", { weekday: 'long' }); 
+    let day = date.toLocaleDateString("en-us", { weekday: 'long' }); 
     // console.log(day);
-    setaddValue({...addValue,Day:day})
+    setaddValue({ ...addValue, Day: day })
 }
-if(changevalue?.Date?.length > 0){
+if (changevalue?.Date?.length > 0) {
     let date = new Date(changevalue.Date);
-    let day= date.toLocaleDateString("en-us", { weekday: 'long' }); 
+    let day = date.toLocaleDateString("en-us", { weekday: 'long' }); 
     // console.log(day);
-    setChangeValue({...changevalue,Day:day})
+    setChangeValue({ ...changevalue, Day: day })
 }
-    },[addValue.Date,changevalue.Date])
+    }, [addValue.Date, changevalue.Date])
     return (
         <>
 
-            <main className='add-holiday-parent'>
-                <div className='add-holiday-btn'><button onClick={overlay}>Add Holiday</button></div>
+            <main className='add-holiday-parent mt-24'>
+                <div className='flex justify-between w-11/12 m-auto mt-10 items-center'>
+                <div className='flex gap-5'>
                 <input type="file" accept=".xls, .xlsx" onChange={handleFileChange}
-                    className='block w-full text-sm text-slate-500
+                    className='block text-sm text-slate-500
                 file:mr-4 file:py-2 file:px-4
                 file:rounded-full file:border-0
                 file:text-sm file:font-semibold
                 file:bg-violet-50 file:text-violet-700
-                hover:file:bg-violet-100'
+                hover:file:bg-violet-100 border rounded-lg p-1 cursor-pointer'
                 />
-                {selectedFile && <button className='btn p-3 border-l-rose-700'
+                {selectedFile && <button className='btn p-3 border'
                     onClick={() => {
                         setSelectedFile(null);
                         setconvertJsonData(null);
                     }}
 
                 >Cancel</button>}
+</div>
+                    <button className='add-holiday-btn' onClick={overlay}>Add Holiday</button>
+                </div>
                 <Table columns={columns} data={data} className={'holiday-table'} />
+<div className='flex justify-between w-11/12 m-auto mt-10'>
 
                 <button onClick={() => downloadExcel(jsonData)} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                     <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" /></svg>
                     <span>Download Excel</span>
                 </button>
-
+</div>
                 {addholiday && <div className='parent-add-holiday' >
                     <div className='add-holiday  d-animate-overlay'>
-                        <div className='exit-icon' onClick={() => setAddHoliday(false)}>    <i class="fa fa-times" aria-hidden="true" ></i></div>
+                        <div className='heaed-and-close'>
+                            <b> <h2 align="center text-2xl">Add Holiday</h2></b>
+                            <i className="fa fa-times exit-icon " aria-hidden="true" onClick={() => setAddHoliday(false)} ></i>
+                        </div>
                         <DynamicForm fields={fields} onSubmit={handleinsert} onChange={onChange} data={addValue} validate={validateUserholiday} />
 
 
@@ -331,11 +333,12 @@ if(changevalue?.Date?.length > 0){
                 {edit && <div className='parent-add-holiday' >
                     <div className='add-holiday  d-animate-overlay'>
 
-                        <form>
+                        <form className='form-data apply-leave-form'>
 
-                            <div className='exit-icon' onClick={() => setEdit(false)}>    <i className="fa fa-times" aria-hidden="true" ></i></div>
-
-                            <h2>Edit Holiday</h2>
+                            <div className='heaed-and-close'>
+                                <b> <h2 align="center text-2xl">Edit Holiday</h2></b>
+                                <i className="fa fa-times exit-icon " aria-hidden="true" onClick={() => setEdit(false)} ></i>
+                            </div>
 
                             <div className='add-date'>
                                 <label>Choose Date:</label>
@@ -358,7 +361,7 @@ if(changevalue?.Date?.length > 0){
 
                                 />
                             </div>
-                            <div className='add-holiday-submit-btn'>
+                            <div className='add-holiday-submit-btn flex justify-center'>
                                 <button onClick={submitbtn}>Submit</button>
 
                             </div>

@@ -17,48 +17,31 @@ import { toast } from 'react-toastify';
 const Status = () => {
   const { data } = useSession();
 
-
+const [compoOff, setCompoOff] = useState(false);
+  const[compoData,setCompoData]=useState(
+    {
+      date: '',
+    timeIn: '',
+    timeOut: '',
+    approver: "HR",
+    }
+  )
+  console.log(compoData);
   const [formData, setFormData] = useState({
     name: data?.user?.name,
     leaveType: '',
-    role: '',
+    department: '',
     fromDate: '',
     toDate: '',
     totalDays: 0,
     reason: '',
-    toWhom: 'HR',
+    approver: 'HR',
     status: 'pending',
     id: uuidv4(),
     email: data?.user?.email
   });
   const [jsonData, setJsonData] = useState([]);
-  const leaveTypeObj = [
-    {
-      type: "Casual or Sick Leave",
-      avlLeave: 2,
-      color: "rgb(74 222 128)"
-    },
-    {
-      type: "Maternity",
-      avlLeave: 2,
-      color: "rgb(153 246 228)"
-    },
-    {
-      type: "Paternity",
-      avlLeave: 2,
-      color: "rgb(217 249 157)"
-    },
-    {
-      type: "Loss of Pay",
-      avlLeave: 2,
-      color: "rgb(252 165 165)"
-    },
-    {
-      type: "Compensatory Leave",
-      avlLeave: 2,
-      color: " rgb(148 163 184)"
-    },
-  ]
+  
   console.log(formData);
 
   const onChange = (name, value) => {
@@ -70,6 +53,44 @@ const Status = () => {
     });
   };
 
+const CompoOnChange = (name, value) => {
+
+    setCompoData({
+      ...compoData,
+
+      [name]: value,
+    });
+  };
+
+
+
+  const compoFields = [
+    {
+      name: 'date',
+      label: 'Choose Date:',
+      type: 'date',
+      disabled: false,
+    },
+    {
+      name: 'timeIn',
+      label: 'Time In:',
+      type: 'Time',
+      disabled: false,
+    },
+    {
+      name: 'timeOut',
+      label: 'Time Out:',
+      type: 'Time',
+      disabled: false,
+    },
+    {
+      name: 'approver',
+      label: 'Approver:',
+      type: 'text',
+      disabled: true,
+
+    },
+  ]
 
 
   const fields = [
@@ -78,18 +99,18 @@ const Status = () => {
       label: 'Leave Type:',
       type: 'select',
       options: [
-        { value: 'Casual or Sick Leave', label: 'Casual  or Sick Leave' },
+        { value: 'Casual Leave', label: 'Casual Leave' },
         { value: 'Maternity', label: 'Maternity' },
         { value: 'Paternity', label: 'Paternity' },
         { value: 'Leave  on Propation', label: 'Leave  on Propation' },
         { value: 'Loss of Pay', label: 'Loss of Pay' },
         { value: 'Compensatory Leave', label: 'Compensatory Leave' },
       ],
-      disabled:true,
+      disabled: false,
     },
     {
-      name: 'role',
-      label: 'Role:',
+      name: 'department',
+      label: 'Department:',
       type: 'select',
       options: [
         { value: 'Developer', label: 'Developer' },
@@ -97,38 +118,38 @@ const Status = () => {
         { value: 'Finance', label: 'Finance' },
         // { value: 'Others', label: 'Others' },
       ],
-      disabled:false,
+      disabled: false,
 
     },
     {
       name: 'fromDate',
       label: 'Choose From Date:',
       type: 'date',
-      disabled:false,
+      disabled: false,
     },
     {
       name: 'toDate',
       label: 'Choose To Date:',
       type: 'date',
-      disabled:false,
+      disabled: false,
     },
     {
       name: 'totalDays',
       label: 'Total Days:',
       type: 'text',
-      disabled:true,
+      disabled: true,
     },
     {
       name: 'reason',
       label: 'Reason:',
       type: 'textarea',
-      disabled:false,
+      disabled: false,
     },
     {
-      name: 'toWhom',
-      label: 'To whom:',
+      name: 'approver',
+      label: 'Approver:',
       type: 'text',
-      disabled:true,
+      disabled: true,
 
     },
   ];
@@ -158,8 +179,8 @@ const Status = () => {
       accessor: "leaveType"
     },
     {
-      Header: "Role",
-      accessor: "role"
+      Header: "Department",
+      accessor: "department"
     },
     {
       Header: "From Date",
@@ -187,12 +208,12 @@ const Status = () => {
   const datajs = jsonData.map((data, i) => ({
     name: data.name,
     leaveType: data.leaveType,
-    role: data.role,
+    department: data.department,
     from: data.fromDate,
     to: data.toDate,
     totalDays: data.totalDays,
     reason: data.reason,
-    toWhom: data.toWhom,
+    approver: data.approver,
     status: <span className={data.status === 'pending' ? 'pending' : data.status === 'approved' ?
       'approved' : data.status === 'rejected' ? 'rejected' : ""
     }>{data.status}</span>,
@@ -330,42 +351,53 @@ const Status = () => {
     theme: "light",
   });;
 
-const handleTypeLeave=(e,item)=>{
-console.log(item.type);
-setFormData({...formData,leaveType: item.type,});
-setApply(true)
-}
 
   return (
 
-    < main className='parent-tag'>
-      <div className='flex gap-x-8 gap-y-8  flex-wrap w-11/12 m-auto mt-7'>
-        {leaveTypeObj.map((item, i) => {
-          return (
-            <a key={i} href="#" className="block w-56 p-3 border border-gray-200 rounded-lg shadow "
-              onClick={(e)=>handleTypeLeave(e,item)}
-              style={{ backgroundColor: `${item.color}` }}>
-              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">{item.type}</h5>
-              <p className="font-normal text-gray-700 ">Available Leave:{item.avlLeave}</p>
-            </a>
-          )
-        })
-        }
+    < main className='parent-tag mt-28'>
+      <div className='flex gap-x-8 gap-y-8  flex-wrap w-11/12 m-auto mt-7 items-center justify-between'>
+        <article className="w-auto p-3 border border-gray-200 rounded-lg shadow flex flex-col ld-card">
+          <div className='flex justify-between gap-6'>
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">Casual Leave:</h5>
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-green-900 ">15</h5>
+          </div>
+          <div className='flex justify-between gap-6'>
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">Compensatory Leave:</h5>
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-green-900 ">2</h5>
+          </div>
 
 
+        </article>
+        <div className='apply-btn flex gap-10'>
+          <button onClick={() => setCompoOff(true)}>Apply Compensatory</button>
+          <button onClick={overlay}>Apply Leave</button></div>
       </div>
-      <div className='apply-btn'>  <button onClick={overlay}>Apply Leave</button></div>
-      <Table columns={columns} data={datajs} className={'status-table'} />
+            <Table columns={columns} data={datajs} className={'status-table'} />
 
 
 
       {apply && <div className='parent-border' onClick={() => setApply(false)} >
-        <div className='leave-border d-animate-overlay' onClick={(e)=>e.stopPropagation()}>
+        <div className='leave-border d-animate-overlay' onClick={(e) => e.stopPropagation()}>
           <div className='heaed-and-close'>
             <b> <h2 align="center">Apply Leave</h2></b>
             <i onClick={() => setApply(false)} className="fa fa-times exit-icon" aria-hidden="true" ></i>
           </div>
           <DynamicForm fields={fields} onSubmit={handleinsert} onChange={onChange} data={formData} validate={validateUserEdit} />
+        </div>
+      </div>}
+
+{compoOff && <div className='parent-border' onClick={() => setCompoOff(false)} >
+        <div className='leave-border d-animate-overlay' onClick={(e) => e.stopPropagation()}>
+          <div className='heaed-and-close'>
+            <b> <h2 align="center">Apply Compensatory</h2></b>
+            <i onClick={() => setCompoOff(false)} className="fa fa-times exit-icon" aria-hidden="true" ></i>
+          </div>
+          <DynamicForm fields={compoFields}
+          // onSubmit={handleinsert} 
+          onChange={CompoOnChange} 
+          data={compoData}
+          //  validate={validateUserEdit} 
+          />
         </div>
       </div>}
 
@@ -375,6 +407,5 @@ setApply(true)
 }
 
 export default Status
-
 
 

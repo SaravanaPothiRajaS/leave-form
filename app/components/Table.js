@@ -60,17 +60,9 @@ export default function Table({ columns, data, className }) {
 
     return (
         <div>
-            <div className="pagination-controls">
-                <span>
-                    <h3>Select Limit:</h3>
-                    <select value={pageSize} onChange={handlePageSizeChange}>
-                        <option value={4}>4</option>
-                        <option value={8}>8</option>
-                        <option value={12}>12</option>
-                        <option value={16}>16</option>
-                    </select>
-                </span>
-                <span>
+            <div className="w-11/12 m-auto flex">
+             
+                <span className='flex gap-5 mt-10'>
                     <h3>Search:</h3>
                     <input type="text" value={searchQuery} onChange={handleSearchChange} className='search-bar' />
                 </span>
@@ -101,6 +93,16 @@ export default function Table({ columns, data, className }) {
                 </tbody>
             </table>
             <div className="pagination-controls">
+<span>
+                    <h3>Select Limit:</h3>
+                    <select value={pageSize} onChange={handlePageSizeChange}>
+                        <option value={4}>4</option>
+                        <option value={8}>8</option>
+                        <option value={12}>12</option>
+                        <option value={16}>16</option>
+                    </select>
+                </span>
+                <span>
                 {pageNumbers.map((page) => (
                     <button
                         key={page}
@@ -110,6 +112,7 @@ export default function Table({ columns, data, className }) {
                         {page + 1}
                     </button>
                 ))}
+</span>
             </div>
         </div>
     );

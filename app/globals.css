@@ -26,7 +26,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f0f0f0;
+  /* background-color: #f0f0f0; */
 }
 
 /* Style the form container */
@@ -93,7 +93,7 @@
 
 
 .nav-bar {
-    border: 0px solid;
+  border: 0px solid;
   /* height: 60px; */
   width: 100%;
   background-color: #084243;
@@ -102,7 +102,7 @@
   padding-left: 20px;
   align-items: center;
   box-shadow: 4px 2px 14px 2px #8888A3;
-position: fixed;
+  position: fixed;
   top: 0;
 
 }
@@ -126,8 +126,9 @@ position: fixed;
 }
 
 .btn-parent {
+  width: 50%;
   color: white;
-    align-items: center;
+  align-items: center;
   display: flex;
   gap: 50px;
   justify-content: center;
@@ -337,7 +338,8 @@ position: fixed;
   color: #084243;
   backdrop-filter: blur(50%);
 }
-.heaed-and-close{
+
+.heaed-and-close {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -428,7 +430,7 @@ position: fixed;
 
 
 
-.add-holiday-btn  {
+.add-holiday-btn {
   border: 1px solid;
   padding: 8px 25px;
   border-radius: 6px;
@@ -443,7 +445,6 @@ position: fixed;
 }
 
 .add-holiday {
-  border: 1px solid;
   padding: 25px;
   border-radius: 5px;
   width: 40%;
@@ -466,7 +467,7 @@ position: fixed;
 
 .add-date label {
   margin-top: 20px;
-  }
+}
 
 .add-date input {
   border: 1px solid;
@@ -477,7 +478,7 @@ position: fixed;
 
 .add-day label {
   margin-top: 20px;
-  }
+}
 
 .add-day input {
   border: 1px solid;
@@ -489,7 +490,7 @@ position: fixed;
 
 .add-description label {
   margin-top: 20px;
-  }
+}
 
 .add-description input {
   border: 1px solid;
@@ -683,15 +684,19 @@ position: fixed;
   }
 }
 
-.c-logo{
+.c-logo {
   width: 230px;
   height: 64px;
   object-fit: cover;
 }
 
-.ld-card{
+.ld-card {
   background-color: #b4d1cc;
 }
-.form-data input[type="text"], .form-data input[type="date"],.form-data input[type="Time"], .form-data select{
+
+.form-data input[type="text"],
+.form-data input[type="date"],
+.form-data input[type="Time"],
+.form-data select {
   padding: 6px;
 }

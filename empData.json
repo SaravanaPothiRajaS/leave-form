@@ -3,19 +3,19 @@
     "name": "Saravanan",
     "email": "spothispothis@gmail.com",
     "availableLeave": 7,
-    "role": "Designer"
+    "department": "Designer"
   },
   {
     "name": "Levi Ackerman",
     "email": "alberteinsteinxxvk@gmail.com",
     "availableLeave": 2,
-    "role": "Developer",
+    "department": "Developer",
     "takenLeave": 5
   },
   {
     "name": "Edwin raj",
     "email": "edwinraj1462003@gm",
     "availableLeave": 10,
-    "role": "Developer"
+    "department": "Developer"
   }
 ]

@@ -1,5 +1,5 @@
 'use client';
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import Table from '../components/Table'
 
@@ -7,7 +7,7 @@ import Table from '../components/Table'
 
 const Holiday = () => {
 
- const [jsonData,setJsonData]=useState([])
+    const [jsonData, setJsonData] = useState([])
 
     const columns = [
         {
@@ -31,18 +31,18 @@ const Holiday = () => {
     }));
 
 
-    const displayJSON=()=> {
+    const displayJSON = () => {
 
         axios.get("/api/holidayfetch")
             .then(res => {
                 setJsonData(res.data)
-              
+
             })
     }
-    
-    useEffect(()=>{
-      displayJSON();
-    },[])
+
+    useEffect(() => {
+        displayJSON();
+    }, [])
 
 
 
@@ -50,8 +50,10 @@ const Holiday = () => {
 
     return (
         <>
+            <div className='mt-16'>
+                <Table columns={columns} data={data} className={'user-holiday-table'} pageSizeOptions={pageSizeOptions} />
+            </div>
 
-            <Table columns={columns} data={data} className={'user-holiday-table'} pageSizeOptions={pageSizeOptions} />
         </>
     )
 }

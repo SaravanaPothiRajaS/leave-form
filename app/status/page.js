@@ -20,10 +20,17 @@ const Status = () => {
 const [compoOff, setCompoOff] = useState(false);
   const[compoData,setCompoData]=useState(
     {
-      date: '',
-    timeIn: '',
-    timeOut: '',
-    approver: "HR",
+      name: data?.user?.name,
+      department: "test",
+      date: "",
+      timeIn:"",
+      timeOut:"",
+      hours:9,
+      day: 1,
+      approver: 'HR',
+      status: "pending",
+      id: uuidv4(),
+      email: data?.user?.email
     }
   )
   console.log(compoData);
@@ -41,6 +48,7 @@ const [compoOff, setCompoOff] = useState(false);
     email: data?.user?.email
   });
   const [jsonData, setJsonData] = useState([]);
+  const [jsonDataCompo, setJsonDataCompo] = useState([]);
   
   console.log(formData);
 
@@ -82,6 +90,13 @@ const CompoOnChange = (name, value) => {
       label: 'Time Out:',
       type: 'Time',
       disabled: false,
+    },
+    {
+      name: 'hours',
+      label: 'Convert To Hours:',
+      type: 'text',
+      disabled: true,
+
     },
     {
       name: 'approver',
@@ -205,6 +220,38 @@ const CompoOnChange = (name, value) => {
     }
   ]
 
+  const columnsCompoff = [
+    {
+      Header: "Name",
+      accessor: "name"
+    },
+    {
+      Header: "Department",
+      accessor: "department"
+    },
+    {
+      Header: "Date",
+      accessor: "date"
+    },
+    {
+      Header: "Time In",
+      accessor: "timeIn"
+    },
+    {
+      Header: "Time Out",
+      accessor: "timeOut"
+    },
+
+    {
+      Header: "Hours",
+      accessor: "hours"
+    },
+    {
+      Header: "Day",
+      accessor: "day"
+    }
+  ]
+
   const datajs = jsonData.map((data, i) => ({
     name: data.name,
     leaveType: data.leaveType,
@@ -227,7 +274,13 @@ const CompoOnChange = (name, value) => {
       .then(res => {
         setJsonData(res.data.reverse())
 
-      })
+      });
+
+      axios.get("/api/compOffStatus")
+      .then(res => {
+        setJsonDataCompo(res.data.reverse())
+
+      });
   }
 
   useEffect(() => {
@@ -253,7 +306,25 @@ const CompoOnChange = (name, value) => {
         console.error('Error updating JSON data:', error);
       });
 
-    // alert("hi");
+  }
+  function handleinsertCompo(e) {
+
+    e.preventDefault();
+    axios.post('/api/compOffCreate', { addValue: compoData })
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          displayJSON();
+          setCompoOff(false);
+          notify();
+          leavemail();
+
+        }
+      })
+      .catch(error => {
+        console.error('Error updating JSON data:', error);
+      });
+
   }
 
 
@@ -327,6 +398,22 @@ const CompoOnChange = (name, value) => {
     }
   }, [formData.fromDate, formData.toDate])
 
+  useEffect(()=>{
+    if(compoData.timeIn && compoData.timeOut){
+
+      const timeInParts = compoData.timeIn.split(':');
+      const timeOutParts = compoData.timeOut.split(':');
+      const timeInMinutes = parseInt(timeInParts[0]) * 60 + parseInt(timeInParts[1]);
+      let timeOutMinutes = parseInt(timeOutParts[0]) * 60 + parseInt(timeOutParts[1]);
+      if (timeOutMinutes < timeInMinutes) {
+        timeOutMinutes += 1440;
+    }
+      const totalMinutes = timeOutMinutes - timeInMinutes;
+      const totalHours = totalMinutes / 60;
+console.log( totalHours.toFixed());
+setCompoData({...compoData,hours:Number(totalHours.toFixed())})
+    }
+  },[compoData.timeIn,compoData.timeOut])
 
   const leavemail = () => {
     axios
@@ -382,7 +469,7 @@ const CompoOnChange = (name, value) => {
             <b> <h2 align="center">Apply Leave</h2></b>
             <i onClick={() => setApply(false)} className="fa fa-times exit-icon" aria-hidden="true" ></i>
           </div>
-          <DynamicForm fields={fields} onSubmit={handleinsert} onChange={onChange} data={formData} validate={validateUserEdit} />
+          <DynamicForm fields={fields} onSubmit={handleinsert} onChange={onChange} data={formData} />
         </div>
       </div>}
 
@@ -393,10 +480,10 @@ const CompoOnChange = (name, value) => {
             <i onClick={() => setCompoOff(false)} className="fa fa-times exit-icon" aria-hidden="true" ></i>
           </div>
           <DynamicForm fields={compoFields}
-          // onSubmit={handleinsert} 
+           onSubmit={handleinsertCompo} 
           onChange={CompoOnChange} 
           data={compoData}
-          //  validate={validateUserEdit} 
+       
           />
         </div>
       </div>}

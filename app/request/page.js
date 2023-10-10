@@ -19,15 +19,13 @@ const Request = () => {
   const [selectedOption, setSelectedOption] = useState('request');
   const [jsonData, setJsonData] = useState([]);
   const [jsoData, setJsoData] = useState([]);
+  const [jsonDataCompo, setJsonDataCompo] = useState([]);
 
   const [employeeData, setEmployeeData] = useState([]);
 
   const handleSelectChange = (e) => {
     setSelectedOption(e.target.value);
   };
-
-
-
 
 
 
@@ -68,6 +66,43 @@ const Request = () => {
     {
       Header: "Reason",
       accessor: "reason"
+    },
+    {
+      Header: "Status",
+      accessor: "status"
+    }
+  ]
+
+
+
+  const compOffColumns = [
+    {
+      Header: "Name",
+      accessor: "name"
+    },
+    {
+      Header: "Department",
+      accessor: "department"
+    },
+    {
+      Header: "Date",
+      accessor: "date"
+    },
+    {
+      Header: "Time In",
+      accessor: "timeIn"
+    },
+    {
+      Header: "Time Out",
+      accessor: "timeOut"
+    },
+    {
+      Header: "Hours",
+      accessor: "hours"
+    },
+    {
+      Header: "Day",
+      accessor: "day"
     },
     {
       Header: "Status",
@@ -217,6 +252,45 @@ let downloadData=jsonData?.map((data, i) => {
         availableLeave: availableLeaves,
       };
     });
+  } else if (selectedOption === 'compensatory') {
+     data = jsonDataCompo.map((data, i) => {
+
+      return {
+        name: data.name,
+        department: data.department,
+        date: data.date,
+        timeIn: data.timeIn,
+        timeOut: data.timeOut,
+        hours: data.hours,
+        day: data.day,
+        status: data.status === 'pending' ? (
+          <>
+            <button className='edit-btn' onClick={() => {
+              UpdateCompOff(data.id, 'approved');
+              UpdateempCompOff(data.email,data.day);
+              // notify();
+              // leavemail( data.name,'approved')
+            }}>
+              Approve
+            </button>
+            <button className='reject-edit-btn' onClick={() =>{UpdateCompOff(data.id, 'rejected');
+                  // notifys();
+                  // leavemail( data.name,'rejected')
+                  }}>
+              Reject
+            </button>
+          </>
+        ) : (
+          <span
+            className={
+              data.status === 'approved' ? 'approved' : data.status === 'rejected' ? 'rejected' : ''
+            }
+          >
+            {data.status}
+          </span>
+        ),
+      };
+    });
   }
 
   const displayJSON = () => {
@@ -226,6 +300,11 @@ let downloadData=jsonData?.map((data, i) => {
         setJsonData(res.data.reverse())
 
       })
+      axios.get("/api/compOffStatus")
+      .then(res => {
+        setJsonDataCompo(res.data.reverse())
+
+      });
   }
 
   useEffect(() => {
@@ -244,8 +323,28 @@ let downloadData=jsonData?.map((data, i) => {
       })
   }
 
-
-
+const UpdateCompOff=(id, status )=>{
+  axios
+      .post(`/api/updateCompStatus`, { id, status })
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          displayJSON();
+          displayJSO();
+        }
+      });
+}
+const UpdateempCompOff=(email, day)=>{
+  axios
+  .post(`/api/CompLeave`, { email, day })
+  .then((res) => {
+    console.log(res);
+    if (res.status === 200) {
+      displayJSON();
+      displayJSO();
+    }
+  });
+}
   const Update = (id, status) => {
 
     axios
@@ -339,9 +438,10 @@ const jsonDataCopy = downloadData;
             <option value="request" > Requests</option>
             <option value="approved">Approved</option>
             <option value="rejected">Rejected</option>
+            <option value="compensatory">Compensatory</option>
           </select>
         </div>
-        <Table columns={columns} data={data} className={'status-table'}
+        <Table columns={selectedOption === "compensatory" ? compOffColumns : columns } data={data} className={'status-table'}
         />
         <div className='w-11/12 m-auto'>
         <button onClick={() => downloadExcel(downloadData)} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">

@@ -1,7 +1,7 @@
 [
   {
     "name": "Levi Ackerman",
-    "role": "Analyst",
+    "department": "Analyst",
     "fromDate": "2023-10-12",
     "toDate": "2023-10-12",
     "totalDays": "3",
@@ -13,7 +13,7 @@
   },
   {
     "name": "Saravanan",
-    "role": "Developer",
+    "department": "Developer",
     "fromDate": "2023-10-05",
     "toDate": "2023-10-11",
     "totalDays": "6",
@@ -25,7 +25,7 @@
   },
   {
     "name": "Saravanan",
-    "role": "Analyst",
+    "department": "Analyst",
     "fromDate": "2023-10-12",
     "toDate": "2023-10-18",
     "totalDays": "3",
@@ -37,7 +37,7 @@
   },
   {
     "name": "Saravanan",
-    "role": "Developer",
+    "department": "Developer",
     "fromDate": "2023-10-20",
     "toDate": "2023-10-21",
     "totalDays": "4",
@@ -49,7 +49,7 @@
   },
   {
     "name": "Saravanan",
-    "role": "Developer",
+    "department": "Developer",
     "fromDate": "2023-10-04",
     "toDate": "2023-10-05",
     "totalDays": "3",
@@ -61,7 +61,7 @@
   },
   {
     "name": "Levi Ackerman",
-    "role": "Developer",
+    "department": "Developer",
     "fromDate": "2023-10-05",
     "toDate": "2023-10-06",
     "totalDays": "2",
@@ -73,7 +73,7 @@
   },
   {
     "name": "Levi Ackerman",
-    "role": "Developer",
+    "department": "Developer",
     "fromDate": "2023-10-05",
     "toDate": "2023-10-11",
     "totalDays": "6",
@@ -85,7 +85,7 @@
   },
   {
     "name": "Saravanan",
-    "role": "Developer",
+    "department": "Developer",
     "fromDate": "2023-10-11",
     "toDate": "2023-10-17",
     "totalDays": "5",
@@ -97,7 +97,7 @@
   },
   {
     "name": "Levi Ackerman",
-    "role": "Developer",
+    "department": "Developer",
     "fromDate": "2023-10-18",
     "toDate": "2023-10-19",
     "totalDays": "2",
@@ -109,7 +109,7 @@
   },
   {
     "name": "Levi Ackerman",
-    "role": "Developer",
+    "department": "Developer",
     "fromDate": "2023-10-18",
     "toDate": "2023-10-20",
     "totalDays": "2",
@@ -121,7 +121,7 @@
   },
   {
     "name": "Levi Ackerman",
-    "role": "Developer",
+    "department": "Developer",
     "fromDate": "2023-10-11",
     "toDate": "2023-10-13",
     "totalDays": "3",
@@ -133,7 +133,7 @@
   },
   {
     "name": "Levi Ackerman",
-    "role": "Developer",
+    "department": "Developer",
     "fromDate": "2023-10-11",
     "toDate": "2023-10-13",
     "totalDays": "3",
@@ -145,7 +145,7 @@
   },
   {
     "name": "Levi Ackerman",
-    "role": "Developer",
+    "department": "Developer",
     "fromDate": "2023-10-05",
     "toDate": "2023-10-06",
     "totalDays": "3",
@@ -157,7 +157,7 @@
   },
   {
     "name": "Levi Ackerman",
-    "role": "Developer",
+    "department": "Developer",
     "fromDate": "2023-10-05",
     "toDate": "2023-10-06",
     "totalDays": "2",
@@ -169,7 +169,7 @@
   },
   {
     "name": "Levi Ackerman",
-    "role": "Developer",
+    "department": "Developer",
     "fromDate": "2023-10-04",
     "toDate": "2023-10-05",
     "totalDays": "2",
@@ -181,7 +181,7 @@
   },
   {
     "name": "Levi Ackerman",
-    "role": "Developer",
+    "department": "Developer",
     "fromDate": "2023-10-17",
     "toDate": "2023-10-18",
     "totalDays": "2",
@@ -194,7 +194,7 @@
   {
     "name": "B Karl",
     "leaveType": "Casual  or Sick Leave",
-    "role": "Developer",
+    "department": "Developer",
     "fromDate": "2023-10-10",
     "toDate": "2023-10-11",
     "totalDays": 2,
@@ -207,7 +207,7 @@
   {
     "name": "B Karl",
     "leaveType": "Casual  or Sick Leave",
-    "role": "Developer",
+    "department": "Developer",
     "fromDate": "2023-10-10",
     "toDate": "2023-10-11",
     "totalDays": 2,
@@ -220,7 +220,7 @@
   {
     "name": "B Karl",
     "leaveType": "Casual  or Sick Leave",
-    "role": "Developer",
+    "department": "Developer",
     "fromDate": "2023-10-11",
     "toDate": "2023-10-11",
     "totalDays": 1,
@@ -233,7 +233,7 @@
   {
     "name": "B Karl",
     "leaveType": "Casual  or Sick Leave",
-    "role": "Developer",
+    "department": "Developer",
     "fromDate": "2023-10-11",
     "toDate": "2023-10-12",
     "totalDays": 2,
@@ -246,7 +246,7 @@
   {
     "name": "B Karl",
     "leaveType": "Casual  or Sick Leave",
-    "role": "Developer",
+    "department": "Developer",
     "fromDate": "2023-10-11",
     "toDate": "2023-10-12",
     "totalDays": 2,
@@ -259,7 +259,7 @@
   {
     "name": "B Karl",
     "leaveType": "Casual  or Sick Leave",
-    "role": "Developer",
+    "department": "Developer",
     "fromDate": "2023-10-18",
     "toDate": "2023-10-19",
     "totalDays": 2,

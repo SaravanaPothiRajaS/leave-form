@@ -35,6 +35,10 @@
   background-color: #f0f0f0;
 }
 
+.main-div {
+  background-color: #f0f0f0;
+}
+
 body {
   position: relative;
 }
@@ -84,6 +88,7 @@ body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin-top: 20px;
 }
 
 
@@ -139,7 +144,6 @@ body {
 
 .btn-parent {
   color: white;
-  width: 60%;
   align-items: center;
   display: flex;
   gap: 50px;

@@ -20,6 +20,8 @@ const holiday = () => {
     const [addholiday, setAddHoliday] = useState(false)
     const [edit, setEdit] = useState(false)
     const [jsonData, setJsonData] = useState([]);
+    const [deleteData, setDeleteData] = useState(false);
+    const [dataId, setDataId] = useState();
 
     const [selectedUpdateData, setSelectedUpdateData] = useState();
     const [changevalue, setChangeValue] = useState({
@@ -89,9 +91,10 @@ const holiday = () => {
 
         }
     ]
-    const deletebtn = (id) => {
 
+    const deletebtn1 = (dataId) => {
 
+        const id = dataId;
         console.log(id);
         axios
             .post(`/api/holiday/delete`, { id })
@@ -99,12 +102,34 @@ const holiday = () => {
                 console.log(res);
                 if (res.status === 200) {
                     displayJSON();
+                    setDeleteData(false)
+
                 }
             })
             .catch((error) => {
                 console.error('Error updating JSON data:', error);
             });
+
+    }
+
+    const deletebutton = (id) => {
+
+        setDeleteData(true)
+        setDataId(id);
+        // axios
+        //     .post(`/api/holiday/delete`, { id })
+        //     .then((res) => {
+        //         console.log(res);
+        //         if (res.status === 200) {
+        //             displayJSON();
+        //         }
+        //     })
+        //     .catch((error) => {
+        //         console.error('Error updating JSON data:', error);
+        //     });
     };
+
+    // console.log(dataId);
 
 
     const data = jsonData.map((data, i) => ({
@@ -117,13 +142,15 @@ const holiday = () => {
                 <button className="edit-btn" onClick={(e) => editbtn(e, data)}>
                     Edit
                 </button>
-                <button className="delete-btn" onClick={() => deletebtn(data.id)} >
+                <button className="delete-btn" onClick={() => deletebutton(data.id)} >
                     Delete
                 </button>
             </>
         )
 
     }));
+
+
 
     const displayJSON = () => {
 
@@ -271,31 +298,31 @@ const holiday = () => {
         URL.revokeObjectURL(url);
     }
 
-    function getDayName(dateStr, locale)
-    {
-              
+    function getDayName(dateStr, locale) {
+
     }
-    
+
     // let dateStr = '05/23/2014';
     //  = getDayName(dateStr, "en-us"); 
-    useEffect(()=>{
-if(addValue.Date.length > 0){
-    let date = new Date(addValue.Date);
-    let day= date.toLocaleDateString("en-us", { weekday: 'long' }); 
-    // console.log(day);
-    setaddValue({...addValue,Day:day})
-}
-if(changevalue?.Date?.length > 0){
-    let date = new Date(changevalue.Date);
-    let day= date.toLocaleDateString("en-us", { weekday: 'long' }); 
-    // console.log(day);
-    setChangeValue({...changevalue,Day:day})
-}
-    },[addValue.Date,changevalue.Date])
+    useEffect(() => {
+        if (addValue.Date.length > 0) {
+            let date = new Date(addValue.Date);
+            let day = date.toLocaleDateString("en-us", { weekday: 'long' });
+            // console.log(day);
+            setaddValue({ ...addValue, Day: day })
+        }
+        if (changevalue?.Date?.length > 0) {
+            let date = new Date(changevalue.Date);
+            let day = date.toLocaleDateString("en-us", { weekday: 'long' });
+            // console.log(day);
+            setChangeValue({ ...changevalue, Day: day })
+        }
+    }, [addValue.Date, changevalue.Date])
     return (
         <>
 
             <main className='  mt-20'>
+
                 <div className='add-holiday-btn'><button onClick={overlay}>Add Holiday</button></div>
                 <input type="file" accept=".xls, .xlsx" onChange={handleFileChange}
                     className='block  text-sm text-slate-500 ml-16 cursor-pointer
@@ -321,9 +348,9 @@ if(changevalue?.Date?.length > 0){
                     <span>Download Excel</span>
                 </button>
 
-                {addholiday && <div className='parent-add-holiday' >
+                {addholiday && <div className='parent-add-holiday ' >
 
-                    <div className='add-holiday'>
+                    <div className='add-holiday d-animate-overlay'>
                         <div className=' flex justify-between'>
                             <h2 className='font-bold text-lime-950 text-xl ml-60' >Add Holiday</h2>
                             <div className='exit-icon' onClick={() => setAddHoliday(false)}>    <i class="fa fa-times" aria-hidden="true" ></i></div>
@@ -354,8 +381,8 @@ if(changevalue?.Date?.length > 0){
                                 <label >Day:</label>
                                 <input type="text" onChange={(e) => editValue(e, "Day")}
 
-                                disabled={true}
-                                    value={changevalue.Day || ''}  required/>
+                                    disabled={true}
+                                    value={changevalue.Day || ''} required />
 
                             </div>
                             <div className='add-description'>
@@ -375,6 +402,20 @@ if(changevalue?.Date?.length > 0){
                         </form>
                     </div>
                 </div>}
+                {deleteData && <div className=' flex justify-center mb-6 top-0  w-full  items-center fixed h-screen  bg-black bg-opacity-30	'>
+                    <div className=' border-zinc-950 h-44 w-96  rounded-md  d-animate-overlay  bg-white   '>
+                        <div className='flex justify-between '>
+                            <h1 className='ml-6 mt-4 font-bold text-red-800 '>Confirm !</h1>
+                            <i className="fa fa-times mr-4 mt-4 text-red-800 cursor-pointer  " aria-hidden="true" onClick={() => setDeleteData(false)}  ></i>
+                        </div>
+                        <h2 className='flex justify-center mt-8 '>Are you sure, want to delete the data ?</h2>
+                        <div className='flex justify-between mt-8'>
+                            <button className='w-16 border ml-10 rounded text-green-600 ' onClick={() => deletebtn1(dataId)} >Yes</button>
+                            <button className='w-16 border mr-10 rounded text-red-600' onClick={() => setDeleteData(false)}>No</button>
+                        </div>
+                    </div>
+                </div>}
+
             </main>
         </>
     )

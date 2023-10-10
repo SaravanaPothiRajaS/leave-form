@@ -14,13 +14,13 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
 
- <SessionProvider >
-        <Navbar />
-        {children}
-        <ToastContainer />
- </SessionProvider >
-   
-        </body>
+        <SessionProvider >
+          < Navbar />
+          {children}
+          <ToastContainer />
+        </SessionProvider >
+
+      </body>
 
     </html>
   )

@@ -139,7 +139,7 @@ let downloadData=jsonData?.map((data, i) => {
               Update(data.id, 'approved');
               Updateemp(data.email, availableLeave, data.totalDays, takenLeave);
               notify();
-leavemail( data.name,'approved')
+              leavemail( data.name,'approved')
             }}>
               Approve
             </button>
@@ -318,7 +318,7 @@ const jsonDataCopy = downloadData;
 
     URL.revokeObjectURL(url);
   }
-const leavemail = (name,status) => {
+  const leavemail = (name,status) => {
     axios
       .post("/api/nodemail", {name:name,status:status})
       .then((res) => {

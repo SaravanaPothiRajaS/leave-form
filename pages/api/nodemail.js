@@ -3,12 +3,13 @@ import transporter from "@/nodemail";
 export default async function handler(req, res) {
     if (req.method === 'POST') {
       try {
-        
+        const {name,status}=req.body;
         await transporter.sendMail({
-          from: 'vinodhkumaryin@gmail.com',
+          from: 'vinodhkumarjr28@gmail.com',
           to: 'bvk123456@protonmail.com',
-          subject: 'Leave Request',
-          text: 'Saravanan and Saravanan Apllied for two days leave.',
+          subject: 'Leave status',
+          text: `Dear ${name},
+          Your request for leave is ${status}`,
         });
   
         res.status(200).json({ message: 'Email sent successfully' });

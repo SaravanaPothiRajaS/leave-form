@@ -99,11 +99,11 @@
   background-color: #084243;
   display: flex;
   justify-content: space-between;
-  padding-left: 20px;
   align-items: center;
   box-shadow: 4px 2px 14px 2px #8888A3;
   position: fixed;
   top: 0;
+
 
 }
 
@@ -126,7 +126,6 @@
 }
 
 .btn-parent {
-  width: 50%;
   color: white;
   align-items: center;
   display: flex;

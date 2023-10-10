@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import axios from 'axios';
 import { signIn } from "next-auth/react";
 import Image from 'next/image';
+import logo from "../images/raise.png";
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -41,12 +43,12 @@ const Login = () => {
 
             >
               {/* <h1 className="maa">Login</h1> */}
-              {/* <Image
-                src="/raise.png"
+              <Image
+                src={logo}
+                className='rounded-full ml-32'
                 width={100}
-                height={100} /> */}
+                height={100} />
 
-              <h1 className='ml-40 font-bold text-emerald-600'>Raise</h1>
               <div className="form-cont">
                 <label className="form-label" htmlFor="email_field">
                   Email address

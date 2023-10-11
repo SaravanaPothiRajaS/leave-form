@@ -5,11 +5,11 @@ export default async (req, res) => {
     const data = await fs.readFile('empData.json', 'utf8');
     let jsonData = JSON.parse(data);
     const { email,day } = req.body;
-console.log(jsonData );
+console.log(email);
     const updatedData = jsonData.map(item => {
         if (item.email === email) {
             // console.log(item.compOffLeave);
-          return { ...item, compOffLeave: item.compOffLeave + day };
+          return { ...item, compOffLeave: Number(item.compOffLeave )+ Number(day) };
         }
         return item; 
       });

@@ -33,35 +33,3 @@ export default async (req, res) => {
     }
 };
 
-// const fs = require('fs').promises;
-
-
-// export default async (req, res) => {
-
-//     try {
-//         const data = await fs.readFile('holidayData.json', 'utf8');
-//         const jsonData = JSON.parse(data);
-//         const { changevalue } = req.body;
-//         // console.log(req.body);
-//         // console.log(changevalue);
-//         console.log(jsonData);
-//         const holidayToUpdate = jsonData.find(holiday => holiday.date === changevalue.date);
-
-//         console.log(holidayToUpdate);
-//         if (!holidayToUpdate) {
-//             res.status(400).send('Person not found');
-//             return;
-//         }
-
-
-//         if (changevalue) {
-//             holidayToUpdate.status = changevalue;
-//         }
-
-//         await fs.writeFile('statusData.json', JSON.stringify(jsonData, null, 2));
-//         res.json(jsonData);
-//     } catch (error) {
-//         console.error('Error fetching data:', error);
-//         res.status(500).json({ error: 'Internal Server Error' });
-//     }
-// };

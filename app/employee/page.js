@@ -3,10 +3,12 @@ import React, { useState, useEffect } from 'react'
 import Table from '../components/Table';
 import axios from 'axios'
 import * as XLSX from 'xlsx/xlsx.mjs';
+import { useMyContext } from '../context/MyContext';
 
 
 const Employee = () => {
 
+    let {role,setRole}=useMyContext();
     const [jsonData, setJsonData] = useState([]);
     const [selectedFile, setSelectedFile] = useState(null);
     const [convertJsonData, setconvertJsonData] = useState(null);
@@ -114,9 +116,9 @@ const Employee = () => {
     }
 
 
-    return (
+    return (role==="admin" || role==="approver") ?(
         <>
-            <div className='flex justify-between w-11/12 m-auto mt-24'>
+           {role === "admin" ? <div className='flex justify-between w-11/12 m-auto mt-24'>
 
                 <div className='flex gap-5'>
                     <input type="file" accept=".xls, .xlsx" onChange={handleFileChange}
@@ -139,14 +141,14 @@ const Employee = () => {
                     <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" /></svg>
                     <span>Download Excel</span>
                 </button>
-            </div>
+            </div>:''}
 
             <Table columns={columns} data={data} className={'emp-table'} />
 
 
         </>
 
-    )
+    ):("")
 }
 
 export default Employee

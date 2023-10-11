@@ -6,7 +6,7 @@ export default async function handler(req, res) {
         const {name,status}=req.body;
         await transporter.sendMail({
           from: 'vinodhkumarjr28@gmail.com',
-          to: 'bvk123456@protonmail.com',
+          to: 'edwinraj1462003@gmail.com',
           subject: 'Leave status',
           text: `Dear ${name},
           Your request for leave is ${status}`,

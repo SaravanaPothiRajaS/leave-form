@@ -2,33 +2,25 @@
   {
     "name": "Saravanan",
     "email": "spothispothis@gmail.com",
+    "availableLeave": 3,
+    "takenLeave": 9,
     "department": "Designer",
-    "availableLeave": 7,
-    "takenLeave": 5,
     "compOffLeave": 1
-  },
-  {
-    "name": "Saravanan",
-    "email": "saravanapothiraja.s@gmail.com",
-    "department": "Developer",
-    "availableLeave": 7,
-    "takenLeave": 5,
-    "compOffLeave": 2
   },
   {
     "name": "Levi Ackerman",
     "email": "alberteinsteinxxvk@gmail.com",
-    "department": "Developer",
     "availableLeave": 2,
     "takenLeave": 5,
+    "department": "Developer",
     "compOffLeave": 1
   },
   {
     "name": "Edwin raj",
-    "email": "edwinraj1462003@gm",
-    "department": "Developer",
+    "email": "edwinraj1462003@gmail.com",
     "availableLeave": 10,
     "takenLeave": 5,
-    "compOffLeave": 1
+    "department": "Developer",
+    "compOffLeave": 2
   }
 ]

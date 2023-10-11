@@ -6,16 +6,14 @@ import axios from 'axios';
 
 import {  toast } from 'react-toastify';
 
-import { useSession } from "next-auth/react";
 import * as XLSX from 'xlsx/xlsx.mjs';
+import { useMyContext } from '../context/MyContext';
 
 
 
 
 const Request = () => {
-
-  const email_sess = useSession();
-  const sess_email = email_sess?.data?.user?.email
+  let {role,setRole}=useMyContext();
   const [selectedOption, setSelectedOption] = useState('request');
   const [jsonData, setJsonData] = useState([]);
   const [jsoData, setJsoData] = useState([]);
@@ -87,18 +85,6 @@ const Request = () => {
     {
       Header: "Date",
       accessor: "date"
-    },
-    {
-      Header: "Time In",
-      accessor: "timeIn"
-    },
-    {
-      Header: "Time Out",
-      accessor: "timeOut"
-    },
-    {
-      Header: "Hours",
-      accessor: "hours"
     },
     {
       Header: "Day",
@@ -259,15 +245,12 @@ let downloadData=jsonData?.map((data, i) => {
         name: data.name,
         department: data.department,
         date: data.date,
-        timeIn: data.timeIn,
-        timeOut: data.timeOut,
-        hours: data.hours,
         day: data.day,
         status: data.status === 'pending' ? (
           <>
             <button className='edit-btn' onClick={() => {
-              UpdateCompOff(data.id, 'approved');
               UpdateempCompOff(data.email,data.day);
+              UpdateCompOff(data.id, 'approved');
               // notify();
               // leavemail( data.name,'approved')
             }}>
@@ -295,7 +278,7 @@ let downloadData=jsonData?.map((data, i) => {
 
   const displayJSON = () => {
 
-    axios.post("/api/fetch", { email: sess_email })
+    axios.post("/api/fetch", { email: 'edwinraj1462003@gmail.com' })
       .then(res => {
         setJsonData(res.data.reverse())
 
@@ -429,7 +412,7 @@ const jsonDataCopy = downloadData;
   };
 
 
-  return (
+  return (role==="admin" || role==="approver") ? (
     <>
       <main>
         <div className='select-request w-11/12 m-auto'>
@@ -443,15 +426,15 @@ const jsonDataCopy = downloadData;
         </div>
         <Table columns={selectedOption === "compensatory" ? compOffColumns : columns } data={data} className={'status-table'}
         />
-        <div className='w-11/12 m-auto'>
+       {role === "admin" ? <div className='w-11/12 m-auto'>
         <button onClick={() => downloadExcel(downloadData)} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
           <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" /></svg>
           <span>Download Excel</span>
         </button>
-</div>
+</div>: ''}
       </main>
     </>
-  )
+  ):("")
 }
 
 export default Request

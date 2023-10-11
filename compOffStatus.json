@@ -3,9 +3,6 @@
     "name": "Levi Ackerman",
     "department": "Analyst",
     "date": "2023-10-12",
-    "timeIn": "07:10",
-    "timeOut": "04:44",
-    "hours": 9,
     "day": 1,
     "status": "approved",
     "approver": "HR",
@@ -16,13 +13,60 @@
     "name": "S.Saravanapothiraja",
     "department": "test",
     "date": "2023-10-01",
-    "timeIn": "17:44",
-    "timeOut": "02:44",
-    "hours": 9,
     "day": 1,
     "approver": "HR",
     "status": "approved",
     "id": "dfc34955-ce02-4daf-9428-454357f10d4b",
     "email": "saravanapothiraja.s@gmail.com"
+  },
+  {
+    "name": "Vinodh Kumar",
+    "department": "test",
+    "date": "2023-10-01",
+    "day": 1,
+    "approver": "HR",
+    "status": "approved",
+    "id": "4f3d9819-a585-4182-b2f5-c366f32b37b4",
+    "email": "vinodhkumaryin@gmail.com"
+  },
+  {
+    "name": "edwinraj",
+    "department": "test",
+    "date": "2023-10-02",
+    "day": "0.5",
+    "approver": "HR",
+    "status": "approved",
+    "id": "45afa5b5-b635-4361-8cd6-f2c527b095ab",
+    "email": "edwinraj1462003@gmail.com"
+  },
+  {
+    "name": "edwinraj",
+    "department": "test",
+    "date": "2023-10-03",
+    "day": "1",
+    "approver": "HR",
+    "status": "approved",
+    "id": "282c164f-f3aa-4f20-b8b2-9e0b69fbac3c",
+    "email": "edwinraj1462003@gmail.com"
+  },
+  {
+    "name": "edwinraj",
+    "department": "test",
+    "date": "2023-10-08",
+    "day": "0.5",
+    "approver": "HR",
+    "status": "approved",
+    "id": "4d0b279e-eeeb-429f-ae0e-55e660356349",
+    "email": "edwinraj1462003@gmail.com"
+  },
+  {
+    "name": "edwinraj",
+    "department": "test",
+    "date": "2023-10-14",
+    "day": "0.5",
+    "approver": "HR",
+    "status": "approved",
+    "id": "3f40610c-bb01-43fa-8d83-b45b3483d365",
+    "email": "edwinraj1462003@gmail.com"
   }
 ]

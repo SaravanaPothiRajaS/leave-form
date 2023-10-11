@@ -58,42 +58,62 @@ export default function Table({ columns, data, className }) {
 
     const pageNumbers = Array.from({ length: totalPages }, (_, index) => index);
 
+    const prevpage = () => {
+        setCurrentPage(currentPage - 1 < 0 ? 0 : currentPage - 1);
+    };
+
+    const nextpage = () => {
+        setCurrentPage(currentPage + 1 >= totalPages ? totalPages - 1 : currentPage + 1);
+    };
+
     return (
         <div>
-            <div className="w-11/12 m-auto flex">
-             
+            <div className="w-11/12 m-auto flex justify-end">
                 <span className='flex gap-5 mt-10'>
-                    <h3>Search:</h3>
-                    <input type="text" value={searchQuery} onChange={handleSearchChange} className='search-bar' />
+                    <h3 className='mt-2'>Search:</h3>
+                    <input type="text" value={searchQuery} onChange={handleSearchChange} className='search-bar p-2' />
                 </span>
             </div>
-            <table className={className}>
-                <thead className="table-head">
-                    <tr>
-                        {columns.map((column) => (
-                            <th key={column.accessor}>
-                                <button onClick={() => handleSort(column)}>
-                                    {column.Header}
-                                    {sortColumn === column && (
-                                        sortOrder === 'asc' ? '🔺' : ' 🔻'
-                                    )}
-                                </button>
-                            </th>
-                        ))}
-                    </tr>
-                </thead>
-                <tbody className="table-body">
-                    {sortedData.slice(currentPage * pageSize, (currentPage + 1) * pageSize).map((row, index) => (
-                        <tr key={index}>
-                            {columns.map((column) => (
-                                <td key={column.accessor}>{row[column.accessor]}</td>
+            {filteredData.length > 0 ? <div>
+                {data?.length > 0 ?
+                    <table className={className}>
+                        <thead className="table-head">
+                            <tr>
+                                {columns.map((column) => (
+                                    <th key={column.accessor}>
+                                        <button onClick={() => handleSort(column)}>
+                                            {column.Header}
+                                            {sortColumn === column && (
+                                                sortOrder === 'asc' ? '🔺' : ' 🔻'
+                                            )}
+                                        </button>
+                                    </th>
+                                ))}
+                            </tr>
+                        </thead>
+                        <tbody className="table-body">
+                            {sortedData.slice(currentPage * pageSize, (currentPage + 1) * pageSize).map((row, index) => (
+                                <tr key={index}>
+                                    {columns.map((column) => (
+
+                                        <td key={column.accessor}>{row[column.accessor]}</td>
+                                    ))}
+                                </tr>
+
+
                             ))}
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+                        </tbody>
+                    </table>
+                    :
+                    <div className=' w-11/12 flex justify-center '>
+                        <h1 className='font-bold text-rose-800'>No data</h1>
+                    </div>}
+            </div> :
+                <div className=' w-11/12 flex justify-center '>
+                    <h1 className='font-bold text-rose-800'>No data</h1>
+                </div>}
             <div className="pagination-controls">
-<span>
+                <span>
                     <h3>Select Limit:</h3>
                     <select value={pageSize} onChange={handlePageSizeChange}>
                         <option value={4}>4</option>
@@ -103,16 +123,22 @@ export default function Table({ columns, data, className }) {
                     </select>
                 </span>
                 <span>
-                {pageNumbers.map((page) => (
-                    <button
-                        key={page}
-                        onClick={() => handlePageChange(page)}
-                        className={page === currentPage ? 'active' : 'inactive'}
-                    >
-                        {page + 1}
-                    </button>
-                ))}
-</span>
+                    {totalPages > 0 ?
+                        <button onClick={prevpage} disabled={currentPage === 0}>Prev</button> : ""
+                    }
+                    {pageNumbers.map((page) => (
+                        <button
+                            key={page}
+                            onClick={() => handlePageChange(page)}
+                            className={page === currentPage ? 'active' : 'inactive'}
+                        >
+                            {page + 1}
+                        </button>
+                    ))}
+
+                    {totalPages > 0 ? <button onClick={nextpage} disabled={currentPage === totalPages - 1}>Next</button> : ""
+                    }
+                </span>
             </div>
         </div>
     );

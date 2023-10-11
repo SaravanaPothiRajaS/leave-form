@@ -67,6 +67,24 @@ export default function Help() {
         </tbody>
       </table>
     </div>
+    {/*     
+    <p class="text-gray-900 mb-3">
+
+    Jan 16 - Monday - Pongal2.<br/>
+    Jan 26 - Thursday - Republic Day3.<br/>
+    Apr 7- Friday - Good Friday4.<br/>
+    Apr 14 - Friday - Tamil New Year5.<br/>
+    May 1- Monday- Labour Day6.<br/>
+    Jun 29 - Thursday - Bakrid7.<br/>
+    Aug 15 - Tuesday- Independence Day8.<br/>
+    Sep 18 - Monday - Vinayaka Chaturthi9.<br/>
+    Oct 2 - Monday - Gandhi Jayanti10.<br/>
+    Oct 23 - Monday - Saraswathi Pooja11.<br/>
+    Nov 13 - Monday - DiwaliLEAVE POLICY12.<br/>
+    Dec 25 - Monday - Christmas<br/>
+
+    </p> */}
+
 
     <h2 className="font-semibold mb-5">(b) CASUAL LEAVE (including sick leave):</h2>
     <p class="text-gray-900 mb-3">

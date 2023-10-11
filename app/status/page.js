@@ -9,30 +9,33 @@ import DynamicForm from '../components/DynamicForm';
 import { validateUserEdit } from '../components/ValidationSchema';
 import axios from 'axios'
 const { v4: uuidv4 } = require('uuid');
+import { useSession } from "next-auth/react";
 import { toast } from 'react-toastify';
-import { useMyContext } from '../context/MyContext';
 
 
 
 const Status = () => {
+  const { data } = useSession();
 
-  let {role,setRole}=useMyContext();
 const [compoOff, setCompoOff] = useState(false);
   const[compoData,setCompoData]=useState(
     {
-      name: "edwinraj",
+      name: data?.user?.name,
       department: "test",
       date: "",
+      timeIn:"",
+      timeOut:"",
+      hours:9,
       day: 1,
       approver: 'HR',
       status: "pending",
       id: uuidv4(),
-      email: "edwinraj1462003@gmail.com"
+      email: data?.user?.email
     }
   )
   console.log(compoData);
   const [formData, setFormData] = useState({
-    name: "edwinraj",
+    name: data?.user?.name,
     leaveType: '',
     department: '',
     fromDate: '',
@@ -42,10 +45,9 @@ const [compoOff, setCompoOff] = useState(false);
     approver: 'HR',
     status: 'pending',
     id: uuidv4(),
-    email: "edwinraj1462003@gmail.com"
+    email: data?.user?.email
   });
   const [jsonData, setJsonData] = useState([]);
-  const[holidayData,setHolidayData]=useState([])
   const [jsonDataCompo, setJsonDataCompo] = useState([]);
   
   console.log(formData);
@@ -78,14 +80,23 @@ const CompoOnChange = (name, value) => {
       disabled: false,
     },
     {
-      name: 'day',
-      label: 'Day:',
-      type: 'select',
-      options: [
-        { value: 0.5, label: 'Half day' },
-        { value: 1, label: 'Full day' },
-      ],
+      name: 'timeIn',
+      label: 'Time In:',
+      type: 'Time',
       disabled: false,
+    },
+    {
+      name: 'timeOut',
+      label: 'Time Out:',
+      type: 'Time',
+      disabled: false,
+    },
+    {
+      name: 'hours',
+      label: 'Convert To Hours:',
+      type: 'text',
+      disabled: true,
+
     },
     {
       name: 'approver',
@@ -117,11 +128,10 @@ const CompoOnChange = (name, value) => {
       label: 'Department:',
       type: 'select',
       options: [
-        { value: 'Technology', label: 'Technology' },
+        { value: 'Developer', label: 'Developer' },
+        { value: 'Tester', label: 'Tester' },
         { value: 'Finance', label: 'Finance' },
-        { value: 'Leadership', label: 'Leadership' },
-        { value: 'Testing', label: 'Testing' },
-        { value: 'DevOps', label: 'DevOps' },
+        // { value: 'Others', label: 'Others' },
       ],
       disabled: false,
 
@@ -224,6 +234,19 @@ const CompoOnChange = (name, value) => {
       accessor: "date"
     },
     {
+      Header: "Time In",
+      accessor: "timeIn"
+    },
+    {
+      Header: "Time Out",
+      accessor: "timeOut"
+    },
+
+    {
+      Header: "Hours",
+      accessor: "hours"
+    },
+    {
       Header: "Day",
       accessor: "day"
     }
@@ -258,13 +281,6 @@ const CompoOnChange = (name, value) => {
         setJsonDataCompo(res.data.reverse())
 
       });
-
-      axios.get("/api/holidayfetch")
-      .then(res => {
-          setHolidayData(res.data)
-
-      });
-      
   }
 
   useEffect(() => {
@@ -312,12 +328,9 @@ const CompoOnChange = (name, value) => {
   }
 
 
-  var holidays = [];
+  var holidays = ['2023-09-13', '2023-09-15', '2023-09-18'];
 
-  for (const item of holidayData) {
-    holidays?.push(item.Date);
-  }
-  
+
   const getBusinessDaysExcludingHolidays = (startDate, endDate, holidays) => {
 
 
@@ -385,7 +398,22 @@ const CompoOnChange = (name, value) => {
     }
   }, [formData.fromDate, formData.toDate])
 
+  useEffect(()=>{
+    if(compoData.timeIn && compoData.timeOut){
 
+      const timeInParts = compoData.timeIn.split(':');
+      const timeOutParts = compoData.timeOut.split(':');
+      const timeInMinutes = parseInt(timeInParts[0]) * 60 + parseInt(timeInParts[1]);
+      let timeOutMinutes = parseInt(timeOutParts[0]) * 60 + parseInt(timeOutParts[1]);
+      if (timeOutMinutes < timeInMinutes) {
+        timeOutMinutes += 1440;
+    }
+      const totalMinutes = timeOutMinutes - timeInMinutes;
+      const totalHours = totalMinutes / 60;
+console.log( totalHours.toFixed());
+setCompoData({...compoData,hours:Number(totalHours.toFixed())})
+    }
+  },[compoData.timeIn,compoData.timeOut])
 
   const leavemail = () => {
     axios
@@ -411,7 +439,7 @@ const CompoOnChange = (name, value) => {
   });;
 
 
-  return role==='user' || role==='approver' ? (
+  return (
 
     < main className='parent-tag mt-28'>
       <div className='flex gap-x-8 gap-y-8  flex-wrap w-11/12 m-auto mt-7 items-center justify-between'>
@@ -462,7 +490,7 @@ const CompoOnChange = (name, value) => {
 
 
     </main>
-  ):("")
+  )
 }
 
 export default Status

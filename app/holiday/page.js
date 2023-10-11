@@ -9,7 +9,6 @@ import DynamicForm from '../components/DynamicForm';
 import { validateUserholiday } from '../components/ValidationSchema';
 
 import * as XLSX from 'xlsx/xlsx.mjs';
-import { useMyContext } from '@/app/context/MyContext';
 
 const { v4: uuidv4 } = require('uuid');
 
@@ -18,8 +17,6 @@ const { v4: uuidv4 } = require('uuid');
 
 const holiday = () => {
 
-
-    let {role,setRole}=useMyContext();
     const [addholiday, setAddHoliday] = useState(false)
     const [edit, setEdit] = useState(false)
     const [jsonData, setJsonData] = useState([]);
@@ -91,50 +88,9 @@ const holiday = () => {
         {
             Header: "Edit",
             accessor: "button"
-            
+
         }
     ]
-
-
-    const data = jsonData.map((data, i) => ({
-        id: data.id,
-        Date: data.Date,
-        Day: data.Day,
-        Description: data.Description,
-        button: (
-            <>
-                <button className="edit-btn" onClick={(e) => editbtn(e, data)}>
-                    Edit
-                </button>
-                <button className="delete-btn" onClick={() => deletebtn(data.id)} >
-                    Delete
-                </button>
-            </>
-        )
-
-    }));
-
-    const userHolidayColumns = [
-        {
-            Header: "Date",
-            accessor: "Date"
-        },
-        {
-            Header: "Day",
-            accessor: "Day"
-        },
-        {
-            Header: "Description",
-            accessor: "Description"
-        }
-    ]
-
-    const userHolidaydata = jsonData.map((data, i) => ({
-        Date: data.Date,
-        Day: data.Day,
-        Description: data.Description,
-    }));
-
 
     const deletebtn1 = (dataId) => {
 
@@ -163,6 +119,24 @@ const holiday = () => {
 
     };
 
+
+    const data = jsonData.map((data, i) => ({
+        id: data.id,
+        Date: data.Date,
+        Day: data.Day,
+        Description: data.Description,
+        button: (
+            <>
+                <button className="edit-btn" onClick={(e) => editbtn(e, data)}>
+                    Edit
+                </button>
+                <button className="delete-btn" onClick={() => deletebtn(data.id)} >
+                    Delete
+                </button>
+            </>
+        )
+
+    }));
 
 
     const displayJSON = () => {
@@ -330,7 +304,7 @@ const holiday = () => {
         <>
 
             <main className='add-holiday-parent mt-24'>
-               {role === "admin" ? <div className='flex justify-between w-11/12 m-auto mt-10 items-center'>
+                <div className='flex justify-between w-11/12 m-auto mt-10 items-center'>
                     <div className='flex gap-5'>
                         <input type="file" accept=".xls, .xlsx" onChange={handleFileChange}
                             className='block text-sm text-slate-500
@@ -349,19 +323,19 @@ const holiday = () => {
                         >Cancel</button>}
                     </div>
                     <button className='add-holiday-btn' onClick={overlay}>Add Holiday</button>
-                </div> :""}
-                <Table columns={role === "admin" ? columns : userHolidayColumns} data={role==="admin"? data : userHolidaydata} className={'holiday-table'} />
-               {role === "admin" ?  <div className='flex justify-between w-11/12 m-auto mt-10'>
+                </div>
+                <Table columns={columns} data={data} className={'holiday-table'} />
+                <div className='flex justify-between w-11/12 m-auto mt-10'>
 
                     <button onClick={() => downloadExcel(jsonData)} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                         <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" /></svg>
                         <span>Download Excel</span>
                     </button>
-                </div>:""}
+                </div>
                 {addholiday && <div className='parent-add-holiday' >
                     <div className='add-holiday  d-animate-overlay'>
                         <div className='heaed-and-close'>
-                            <b> <h2 align="center text-2xl">Add Holiday</h2></b>
+                            <b> <h2 className="center text-2xl ">Add Holiday</h2></b>
                             <i className="fa fa-times exit-icon " aria-hidden="true" onClick={() => setAddHoliday(false)} ></i>
                         </div>
                         <DynamicForm fields={fields} onSubmit={handleinsert} onChange={onChange} data={addValue} validate={validateUserholiday} />
@@ -401,8 +375,8 @@ const holiday = () => {
 
                                 />
                             </div>
-                            <div className='add-holiday-submit-btn flex justify-center'>
-                                <button onClick={submitbtn}>Submit</button>
+                            <div className='add-holiday-submit-btn flex justify-center ml-80'>
+                                <button onClick={submitbtn} >Submit</button>
 
                             </div>
 

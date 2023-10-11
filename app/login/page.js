@@ -5,6 +5,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from 'axios';
+import { signIn } from "next-auth/react";
 import Image from 'next/image';
 import logo from "../images/raise.png";
 
@@ -90,6 +91,7 @@ const Login = () => {
                 <button
                   type="button"
                   className="btn-cont mt-6"
+                  onClick={() => signIn("google")}
                 >
                   <i className="fab fa-google">Google</i>
                 </button>

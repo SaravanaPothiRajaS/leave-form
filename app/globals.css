@@ -669,10 +669,10 @@
 }
 
 .d-animate-overlay {
-  animation: fade-right alternate .2s;
+  animation: fade-top alternate .2s;
 }
 
-@keyframes fade-right {
+@keyframes fade-top {
   from {
     transform: scale(0.1);
   }

@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function Table({ columns, data, className }) {
     const [currentPage, setCurrentPage] = useState(0);
@@ -20,8 +20,31 @@ export default function Table({ columns, data, className }) {
     };
 
     const filteredData = getFilteredData();
-
     const totalPages = Math.ceil(filteredData.length / pageSize);
+
+    const calculateVisiblePages = () => {
+        const totalVisibleButtons = 2;
+        const visiblePages = [];
+
+        if (totalPages <= totalVisibleButtons) {
+            for (let i = 0; i < totalPages; i++) {
+                visiblePages.push(i);
+            }
+        } else {
+            visiblePages.push(currentPage);
+            if (currentPage < totalPages - 1) {
+                visiblePages.push(currentPage + 1);
+            }
+        }
+
+        return visiblePages;
+    };
+
+    const [visiblePages, setVisiblePages] = useState(calculateVisiblePages());
+
+    useEffect(() => {
+        setVisiblePages(calculateVisiblePages());
+    }, [currentPage, totalPages]);
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
@@ -55,8 +78,6 @@ export default function Table({ columns, data, className }) {
             return 0;
         }
     }) : filteredData;
-
-    const pageNumbers = Array.from({ length: totalPages }, (_, index) => index);
 
     const prevpage = () => {
         setCurrentPage(currentPage - 1 < 0 ? 0 : currentPage - 1);
@@ -95,12 +116,9 @@ export default function Table({ columns, data, className }) {
                             {sortedData.slice(currentPage * pageSize, (currentPage + 1) * pageSize).map((row, index) => (
                                 <tr key={index}>
                                     {columns.map((column) => (
-
                                         <td key={column.accessor}>{row[column.accessor]}</td>
                                     ))}
                                 </tr>
-
-
                             ))}
                         </tbody>
                     </table>
@@ -123,23 +141,21 @@ export default function Table({ columns, data, className }) {
                     </select>
                 </span>
                 <span>
-                    {totalPages > 0 ?
-                        <button onClick={prevpage} disabled={currentPage === 0}>Prev</button> : ""
-                    }
-                    {pageNumbers.map((page) => (
+                    <button onClick={prevpage} disabled={currentPage === 0} className='border px-4 py-2 rounded-lg mr-1'>perv</button>
+                    {visiblePages.map((page, index) => (
                         <button
-                            key={page}
+                            key={index}
                             onClick={() => handlePageChange(page)}
                             className={page === currentPage ? 'active' : 'inactive'}
                         >
                             {page + 1}
                         </button>
                     ))}
-
-                    {totalPages > 0 ? <button onClick={nextpage} disabled={currentPage === totalPages - 1}>Next</button> : ""
-                    }
+                    <button onClick={nextpage} disabled={currentPage === totalPages - 1} className='border px-4 py-2 rounded-lg ml-1 '>next</button>
                 </span>
             </div>
         </div>
     );
 }
+
+

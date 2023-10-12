@@ -122,8 +122,8 @@ const Employee = () => {
 
 
     return (role==="admin" || role==="approver") ?(
-        <>
-           {role === "admin" ? <div className='flex justify-between w-11/12 m-auto mt-24'>
+         <div className='mt-24'>
+           {role === "admin" ? <div className='flex justify-between w-11/12 m-auto'>
 
                 <div className='flex gap-5'>
                     <input type="file" accept=".xls, .xlsx" onChange={handleFileChange}
@@ -151,7 +151,7 @@ const Employee = () => {
             <Table columns={columns} data={data} className={'emp-table'} />
 
 
-        </>
+        </div>
 
     ):("")
 }

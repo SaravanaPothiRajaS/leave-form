@@ -21,6 +21,6 @@
     "availableLeave": 10,
     "takenLeave": 5,
     "department": "Developer",
-    "compOffLeave": 2
+    "compOffLeave": 0
   }
 ]

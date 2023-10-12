@@ -26,6 +26,10 @@ const Employee = () => {
             accessor: "availableLeave"
         },
         {
+            Header: "Compensatory Leave",
+            accessor: "compOffLeave"
+        },
+        {
             Header: "Department",
             accessor: "department"
         },
@@ -36,6 +40,7 @@ const Employee = () => {
         name: data?.name,
         availableLeave: data?.availableLeave,
         takenLeave: data?.takenLeave,
+        compOffLeave: data?.compOffLeave,
         department: data?.department,
     }));
 

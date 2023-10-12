@@ -698,3 +698,13 @@
 .form-data select {
   padding: 6px;
 }
+.menu-option{
+  background-color: #b4d1cc;
+  color: black;
+}
+.menu-option button{
+  border-right: white 3px solid;
+}
+.menu-option-bg{
+  background-color: #084243;
+}

@@ -16,9 +16,9 @@ import { useMyContext } from '../context/MyContext';
 
 const Status = () => {
 
-  let {role,setRole}=useMyContext();
-const [compoOff, setCompoOff] = useState(false);
-  const[compoData,setCompoData]=useState(
+  let { role, setRole } = useMyContext();
+  const [compoOff, setCompoOff] = useState(false);
+  const [compoData, setCompoData] = useState(
     {
       name: "edwinraj",
       department: "test",
@@ -44,10 +44,11 @@ const [compoOff, setCompoOff] = useState(false);
     id: uuidv4(),
     email: "edwinraj1462003@gmail.com"
   });
+  const [timeOutMenu, setTimeOutMenu] = useState(true);
   const [jsonData, setJsonData] = useState([]);
-  const[holidayData,setHolidayData]=useState([])
+  const [holidayData, setHolidayData] = useState([])
   const [jsonDataCompo, setJsonDataCompo] = useState([]);
-  
+
   console.log(formData);
 
   const onChange = (name, value) => {
@@ -59,7 +60,7 @@ const [compoOff, setCompoOff] = useState(false);
     });
   };
 
-const CompoOnChange = (name, value) => {
+  const CompoOnChange = (name, value) => {
 
     setCompoData({
       ...compoData,
@@ -212,20 +213,16 @@ const CompoOnChange = (name, value) => {
 
   const columnsCompoff = [
     {
-      Header: "Name",
-      accessor: "name"
-    },
-    {
-      Header: "Department",
-      accessor: "department"
-    },
-    {
       Header: "Date",
       accessor: "date"
     },
     {
       Header: "Day",
       accessor: "day"
+    },
+    {
+      Header: "Status",
+      accessor: "status"
     }
   ]
 
@@ -243,8 +240,25 @@ const CompoOnChange = (name, value) => {
     }>{data.status}</span>,
 
   }));
+  /////
+
+  let dataCompo = jsonDataCompo.map((data, i) => {
+
+    return {
+      date: data.date,
+      day: data.day,
+      status: <span className={data.status === 'pending' ? 'pending' : data.status === 'approved' ?
+      'approved' : data.status === 'rejected' ? 'rejected' : ""
+    }>{data.status}</span>,
+    };
+  });
 
 
+
+
+
+
+  ////
   const displayJSON = () => {
 
     axios.get("/api/fetch")
@@ -253,18 +267,18 @@ const CompoOnChange = (name, value) => {
 
       });
 
-      axios.get("/api/compOffStatus")
+    axios.get("/api/compOffStatus")
       .then(res => {
         setJsonDataCompo(res.data.reverse())
 
       });
 
-      axios.get("/api/holidayfetch")
+    axios.get("/api/holidayfetch")
       .then(res => {
-          setHolidayData(res.data)
+        setHolidayData(res.data)
 
       });
-      
+
   }
 
   useEffect(() => {
@@ -317,7 +331,7 @@ const CompoOnChange = (name, value) => {
   for (const item of holidayData) {
     holidays?.push(item.Date);
   }
-  
+
   const getBusinessDaysExcludingHolidays = (startDate, endDate, holidays) => {
 
 
@@ -411,7 +425,7 @@ const CompoOnChange = (name, value) => {
   });;
 
 
-  return role==='user' || role==='approver' ? (
+  return role === 'user' || role === 'approver' ? (
 
     < main className='parent-tag mt-28'>
       <div className='flex gap-x-8 gap-y-8  flex-wrap w-11/12 m-auto mt-7 items-center justify-between'>
@@ -422,47 +436,58 @@ const CompoOnChange = (name, value) => {
           </div>
           <div className='flex justify-between gap-6'>
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">Compensatory Leave:</h5>
-              <h5 className="mb-2 text-2xl font-bold tracking-tight text-green-900 ">2</h5>
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-green-900 ">2</h5>
           </div>
 
 
         </article>
         <div className='apply-btn flex gap-10'>
-          <button onClick={() => setCompoOff(true)}>Apply Compensatory</button>
-          <button onClick={overlay}>Apply Leave</button></div>
+          <button onClick={() => setCompoOff(true)}>Time In</button>
+          <button onClick={overlay}>Time Out</button></div>
       </div>
-            <Table columns={columns} data={datajs} className={'status-table'} />
+      <div>
+        <section className='w-11/12  ml-auto mr-auto mt-7 flex menu-option rounded-lg'>
+        <button
+            onClick={() => { setTimeOutMenu(false) }}
+            className={timeOutMenu ? 'px-7 py-4' : 'px-7 py-4 menu-option-bg text-white rounded-l-lg'}>Time In</button>
+          <button
+            onClick={() => { setTimeOutMenu(true) }}
+            className={timeOutMenu ? 'px-7 py-4 menu-option-bg text-white ' : 'px-7 py-4'}>Time Out </button>
+          
+        </section>
+      </div>
+      <Table columns={timeOutMenu ? columns : columnsCompoff} data={timeOutMenu ? datajs : dataCompo} className={'status-table'} />
 
 
 
       {apply && <div className='parent-border' onClick={() => setApply(false)} >
         <div className='leave-border d-animate-overlay' onClick={(e) => e.stopPropagation()}>
           <div className='heaed-and-close'>
-            <b> <h2 align="center">Apply Leave</h2></b>
+            <b> <h2 align="center">Time Out</h2></b>
             <i onClick={() => setApply(false)} className="fa fa-times exit-icon" aria-hidden="true" ></i>
           </div>
           <DynamicForm fields={fields} onSubmit={handleinsert} onChange={onChange} data={formData} />
         </div>
       </div>}
 
-{compoOff && <div className='parent-border' onClick={() => setCompoOff(false)} >
+      {compoOff && <div className='parent-border' onClick={() => setCompoOff(false)} >
         <div className='leave-border d-animate-overlay' onClick={(e) => e.stopPropagation()}>
           <div className='heaed-and-close'>
-            <b> <h2 align="center">Apply Compensatory</h2></b>
+            <b> <h2 align="center">Time In</h2></b>
             <i onClick={() => setCompoOff(false)} className="fa fa-times exit-icon" aria-hidden="true" ></i>
           </div>
           <DynamicForm fields={compoFields}
-           onSubmit={handleinsertCompo} 
-          onChange={CompoOnChange} 
-          data={compoData}
-       
+            onSubmit={handleinsertCompo}
+            onChange={CompoOnChange}
+            data={compoData}
+
           />
         </div>
       </div>}
 
 
     </main>
-  ):("")
+  ) : ("")
 }
 
 export default Status

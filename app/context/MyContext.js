@@ -6,7 +6,7 @@ export const MyContextProvider = ({ children }) => {
 
 // admin , approver , user
 
-const[role,setRole]=useState('admin')
+const[role,setRole]=useState('approver')
   return (
     <MyContext.Provider value={{ role,setRole}}>
       {children}

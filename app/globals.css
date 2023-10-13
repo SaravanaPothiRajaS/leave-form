@@ -669,10 +669,10 @@
 }
 
 .d-animate-overlay {
-  animation: fade-right alternate .2s;
+  animation: fade-top alternate .2s;
 }
 
-@keyframes fade-right {
+@keyframes fade-top {
   from {
     transform: scale(0.1);
   }
@@ -697,4 +697,14 @@
 .form-data input[type="Time"],
 .form-data select {
   padding: 6px;
+}
+.menu-option{
+  background-color: #b4d1cc;
+  color: black;
+}
+.menu-option button{
+  border-right: white 3px solid;
+}
+.menu-option-bg{
+  background-color: #084243;
 }

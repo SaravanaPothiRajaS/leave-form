@@ -5,11 +5,12 @@ import Image from 'next/image';
 import raise from '../images/raise1.png';
 import user from '../images/user.png';
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useMyContext } from '../context/MyContext';
 
 const Navbar = () => {
 
+  const pathname = usePathname();
 
   const [overlay, setOverlay] = useState(false);
 
@@ -32,12 +33,12 @@ const Navbar = () => {
             />
           </div>
           <div className='btn-parent'>
-            <div><Link href='/holiday'><button className='holiday-btn'>Holiday</button></Link></div>
-            {(role === "admin" || role === "approver") && <><div><Link href='/employee'><button className='emp-detail-btn'>Employee Details</button></Link></div>
-              <div><Link href='/request'><button className='req-btn'>Requests</button></Link></div></>}
+            <div><Link href='/holiday'><button className={`holiday-btn  ${pathname === '/holiday' ? 'holiday-btn   transition duration-150 border-b-2 border-transparent border-zinc-100 ' : ' transition duration-150 border-b-2 border-transparent hover:border-zinc-100'}`}>Holiday</button></Link></div>
+            {(role === "admin" || role === "approver") && <><div><Link href='/employee'><button className={`holiday-btn  ${pathname === '/employee' ? 'holiday-btn   transition duration-150 border-b-2 border-transparent border-zinc-100 ' : 'transition duration-150 border-b-2 border-transparent hover:border-zinc-100'}`}>Employee Details</button></Link></div>
+              <div><Link href='/request'><button className={`holiday-btn  ${pathname === '/request' ? 'holiday-btn   transition duration-150 border-b-2 border-transparent border-zinc-100 ' : ' transition duration-150 border-b-2 border-transparent hover:border-zinc-100'}`}>Requests</button></Link></div></>}
             {/* <div><Link href='/userHoliday'><button className='holiday-btn'>Holiday</button></Link></div> */}
-            {(role === "approver" || role === "user") && <div><Link href='/status'><button className='approve-btn'>Status</button></Link></div>}
-            <div><Link href='/policy'><button className='approve-btn'>Leave Policy</button></Link></div>
+            {(role === "approver" || role === "user") && <div><Link href='/status'><button className={`holiday-btn  ${pathname === '/status' ? 'holiday-btn   transition duration-150 border-b-2 border-transparent border-zinc-100 ' : ' transition duration-150 border-b-2 border-transparent hover:border-zinc-100'}`}>Status</button></Link></div>}
+            <div><Link href='/policy'><button className={`holiday-btn  ${pathname === '/policy' ? 'holiday-btn   transition duration-150 border-b-2 border-transparent border-zinc-100 ' : ' transition duration-150 border-b-2 border-transparent hover:border-zinc-100'}`}>Leave Policy</button></Link></div>
 
             <Image
               src={user}
@@ -49,8 +50,8 @@ const Navbar = () => {
               alt="user image"
             />
           </div>
-          {overlay && <div className='fixed flex w-11/12 mt-8 justify-end h-screen' >
-            <div className=' w-36 h-32 top-0 rounded-md  d-animate-overlay animate-spin  bg-white' onMouseOver={() => setOverlay(true)} onMouseOut={() => setOverlay(false)} >
+          {overlay && <div className='fixed flex w-11/12 mt-8 justify-end h-screen ' >
+            <div className=' w-44 h-36 top-0 rounded-md  d-animate-overlay animate-spin shadow-2xl shadow-slate-900   bg-white' onMouseOver={() => setOverlay(true)} onMouseOut={() => setOverlay(false)} >
 
               <p className='flex justify-center mt-3'>Name :Edwin</p>
               <div className='flex justify-center mt-7'>

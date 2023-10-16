@@ -61,7 +61,8 @@ const holiday = () => {
 
 
     function handleinsert() {
-        axios.post('/api/holidaycreate', { addValue: addValue })
+        let token=localStorage.token
+        axios.post('/api/holidaycreate', { addValue: addValue },{headers:{authorization:token}})
             .then((res) => {
                 console.log(res);
                 if (res.status === 200) {

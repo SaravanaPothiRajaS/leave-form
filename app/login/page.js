@@ -14,13 +14,19 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const route = useRouter();
-  const signbtn = (email, password) => {
+
+  const signbtn = (e) => {
+    e.preventDefault()
+
     axios
-      .post(`/api/login`, { email, password })
+      .post(`/api/login/login`, { email:email, password:password })
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
-          route.push('/')
+          if(res.data.accessToken){
+            localStorage.setItem('token',res.data.accessToken)
+          }
+          route.push('/holiday')
         }
       });
   }

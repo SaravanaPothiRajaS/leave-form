@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -23,7 +24,7 @@ export default function Table({ columns, data, className }) {
     const totalPages = Math.ceil(filteredData.length / pageSize);
 
     const calculateVisiblePages = () => {
-        const totalVisibleButtons = 2;
+        const totalVisibleButtons = 4;
         const visiblePages = [];
 
         if (totalPages <= totalVisibleButtons) {
@@ -31,9 +32,10 @@ export default function Table({ columns, data, className }) {
                 visiblePages.push(i);
             }
         } else {
-            visiblePages.push(currentPage);
-            if (currentPage < totalPages - 1) {
-                visiblePages.push(currentPage + 1);
+            for (let i = currentPage; i < currentPage + totalVisibleButtons; i++) {
+                if (i < totalPages) {
+                    visiblePages.push(i);
+                }
             }
         }
 
@@ -141,7 +143,7 @@ export default function Table({ columns, data, className }) {
                     </select>
                 </span>
                 <span>
-                    <button onClick={prevpage} disabled={currentPage === 0} className='border px-4 py-2 rounded-lg mr-1'>perv</button>
+                    <button onClick={prevpage} disabled={currentPage === 0} className='border px-4 py-2 rounded-lg mr-1'>prev</button>
                     {visiblePages.map((page, index) => (
                         <button
                             key={index}
@@ -157,5 +159,3 @@ export default function Table({ columns, data, className }) {
         </div>
     );
 }
-
-

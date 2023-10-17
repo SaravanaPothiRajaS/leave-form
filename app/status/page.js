@@ -19,6 +19,8 @@ const Status = () => {
 const router=useRouter();
   let { role, setRole } = useMyContext();
   const [compoOff, setCompoOff] = useState(false);
+
+
   const [compoData, setCompoData] = useState(
     {
       name: "edwinraj",
@@ -170,10 +172,10 @@ const router=useRouter();
   }
 
 
-  function applybtn() {
-    setApply((pre) => !pre)
+  // function applybtn() {
+  //   setApply((pre) => !pre)
 
-  }
+  // }
 
 
   const columns = [
@@ -249,8 +251,8 @@ const router=useRouter();
       date: data.date,
       day: data.day,
       status: <span className={data.status === 'pending' ? 'pending' : data.status === 'approved' ?
-      'approved' : data.status === 'rejected' ? 'rejected' : ""
-    }>{data.status}</span>,
+        'approved' : data.status === 'rejected' ? 'rejected' : ""
+      }>{data.status}</span>,
     };
   });
 
@@ -460,20 +462,21 @@ const router=useRouter();
 
         </article>
         <div className='apply-btn flex gap-10'>
-          <button onClick={() => setCompoOff(true)}>Time In</button>
+          <button onClick={() => { setCompoOff(true) }}>Time In</button>
           <button onClick={overlay}>Time Out</button></div>
       </div>
       <div>
-        <section className='w-11/12  ml-auto mr-auto mt-7 flex menu-option rounded-lg'>
-        <button
+        <section className='w-96   mr-auto mt-7 flex   justify-center'>
+          <button
             onClick={() => { setTimeOutMenu(false) }}
-            className={timeOutMenu ? 'px-7 py-4' : 'px-7 py-4 menu-option-bg text-white rounded-l-lg'}>Time In</button>
+            className={timeOutMenu ? 'px-7 py-4 bg-green-200 rounded-l-lg' : 'px-8 py-4 menu-option-bg text-white rounded-l-lg border-b-2 border-l-2 border-t-2 border-red-500  '}>Time In</button>
           <button
             onClick={() => { setTimeOutMenu(true) }}
-            className={timeOutMenu ? 'px-7 py-4 menu-option-bg text-white ' : 'px-7 py-4'}>Time Out </button>
-          
+            className={timeOutMenu ? 'px-8 py-4 menu-option-bg text-white rounded-r-lg underline-offset-8 border-b-2 border-red-500 border-r-2 border-t-2 ' : 'px-7 py-4 rounded-r-lg bg-green-200'}>Time Out </button>
+
         </section>
       </div>
+
       <Table columns={timeOutMenu ? columns : columnsCompoff} data={timeOutMenu ? datajs : dataCompo} className={'status-table'} />
 
 

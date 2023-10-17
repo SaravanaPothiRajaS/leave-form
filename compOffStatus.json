@@ -88,5 +88,15 @@
     "status": "rejected",
     "id": "db3ef5e3-417b-41c6-a18d-b57c3b2ee6e5",
     "email": "edwinraj1462003@gmail.com"
+  },
+  {
+    "name": "Levi Ackerman",
+    "department": "Tech",
+    "date": "2023-10-12",
+    "day": "0.5",
+    "approver": "HR",
+    "status": "pending",
+    "id": "499883ca-b2f7-4a4a-9a8c-7d364c7aa9d7",
+    "email": "alberteinsteinxxvk@gmail.com"
   }
 ]

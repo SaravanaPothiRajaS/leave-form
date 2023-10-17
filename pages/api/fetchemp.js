@@ -1,6 +1,6 @@
 import authenticateToken from '@/app/middleware';
-
 const fs = require('fs').promises;
+
 export default async (req, res) => {
   try {
     authenticateToken(req, res, async (isAuthenticated) => {
@@ -8,17 +8,16 @@ export default async (req, res) => {
         const data = await fs.readFile('statusData.json', 'utf8');
         const jsonData = JSON.parse(data);
 
-        
-        const { department } = req.body;
+        const { department ,role} = req.body;
         console.log(department);
 
-        if (department) {
-          
-          const filteredData = jsonData.filter(item => item.department === department);
+        const filteredData = jsonData.filter(item => item.role === role);
 
+        if (filteredData.length > 0) {
+        
           res.json(filteredData);
         } else {
-          res.status(400).json({ error: 'Email not provided in the request body' });
+          res.status(404).json({ error: 'No records with role "user" found' });
         }
       } else {
         res.status(403).send('Forbidden: Invalid Token');

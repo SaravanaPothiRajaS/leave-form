@@ -23,6 +23,8 @@ const Request = () => {
 
   const [employeeData, setEmployeeData] = useState([]);
 
+  const updatedRole = role === "admin" ? "approver" : "user";
+
   const handleSelectChange = (e) => {
     setSelectedOption(e.target.value);
   };
@@ -283,13 +285,13 @@ let downloadData=jsonData?.map((data, i) => {
     let headers={authorization:token}
     if(token){
       if(department){
-    axios.post("/api/fetchemp", {department:department },{headers})
+    axios.post("/api/fetchemp", {department:department,role:updatedRole },{headers})
       .then(res => {
         setJsonData(res.data.reverse())
 
       })}
       if(department){
-      axios.post("/api/compOffStatus",{department:department},{headers})
+      axios.post("/api/compOffStatus",{department:department,role:updatedRole},{headers})
       .then(res => {
         setJsonDataCompo(res.data.reverse())
 

@@ -33,7 +33,9 @@ const router=useRouter();
       approver: 'HR',
       status: "pending",
       id: uuidv4(),
-      email: email && email
+      email: email && email,
+      role: role && role
+
     }
   )
   console.log(compoData);
@@ -48,13 +50,25 @@ const router=useRouter();
     approver: 'HR',
     status: 'pending',
     id: uuidv4(),
-    email: email && email
+    email: email && email,
+    role: role && role
   });
   const [timeOutMenu, setTimeOutMenu] = useState(true);
   const [jsonData, setJsonData] = useState([]);
   const [holidayData, setHolidayData] = useState([])
   const [jsonDataCompo, setJsonDataCompo] = useState([]);
 
+  useEffect(() => {
+    
+    if (role === 'user') {
+      setCompoData((prevData) => ({ ...prevData, approver: '' }));
+      setFormData((prevData) => ({ ...prevData, approver: 'HR' }));
+    } else if (role === 'approver') {
+      setCompoData((prevData) => ({ ...prevData, approver: 'Some Other Approver' }));
+      setFormData((prevData) => ({ ...prevData, approver: 'Some Other Approver' }));
+    }
+    
+  }, [role]);
   console.log(formData);
 
   const onChange = (name, value) => {
@@ -441,7 +455,7 @@ const router=useRouter();
     let headers={authorization:token}
     if(token){
     axios
-      .post("/api/nodemailer", {},{headers})
+      .post("/api/nodemailer", {email:email},{headers})
       .then((res) => {
         console.log(res.data);
       })

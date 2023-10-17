@@ -2,14 +2,16 @@ const fs = require('fs').promises;
 var jwt = require('jsonwebtoken');
 export default async (req, res) => {
   try {
-    const data = await fs.readFile('login.json', 'utf8');
+    const data = await fs.readFile('empData.json', 'utf8');
     let jsonData = JSON.parse(data);
     const { email,password} = req.body;
     const jwtSecret = 'secretKey';
+    let role='';
 
     function verifyLogin(email, password) {
     for (let i = 0; i < jsonData.length; i++) {
         if (jsonData[i].email === email && jsonData[i].password === password) {
+          role=jsonData[i].role;
             return true; 
         }
     }
@@ -19,8 +21,8 @@ export default async (req, res) => {
 
 if (verifyLogin(email,password)) {
     console.log("Login successful");
-    const role={email:email}
-            const accessToken = jwt.sign(role, jwtSecret);
+    const payLoad={email:email,role:role}
+            const accessToken = jwt.sign(payLoad, jwtSecret);
             res.json({ accessToken: accessToken })
 } else {
     console.log("Login failed. Please check your email and password.");

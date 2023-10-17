@@ -1,19 +1,24 @@
 "use client";
 
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react"
 
 
 export default function Help() {
+  const router=useRouter();
   const [jsonData, setJsonData] = useState([])
 
   const displayJSON = () => {
-
-    axios.get("/api/holidayfetch")
+    let token=localStorage.token
+    let headers={authorization:token}
+    if(token){
+    axios.post("/api/holidayfetch",{},{headers})
       .then(res => {
         setJsonData(res.data)
 
       })
+    }else{router.push('/login')}
   }
 
   useEffect(() => {
@@ -26,7 +31,7 @@ export default function Help() {
 
     <h2 className="font-semibold mb-5 mt-20">I. INTRODUCTION</h2>
 
-    <p class="mb-3 text-gray-900 ">
+    <p className="mb-3 text-gray-900 ">
 
       1PS Software and Solutions Private Limited has to ensure that employees in the organization getadequate time to rest and relax away from work.
       This Leave Policy outlines different types ofleaves that can be availed by the employees.
@@ -69,7 +74,7 @@ export default function Help() {
     </div>
 
     <h2 className="font-semibold mb-5">(b) CASUAL LEAVE (including sick leave):</h2>
-    <p class="text-gray-900 mb-3">
+    <p className="text-gray-900 mb-3">
 
       Each confirmed employee will be eligible for an annual leave of 23 days per annum (Jan - Dec).
       Ofthe 23 days, 5 days should be 'Block leave* taken at a stretch.
@@ -83,7 +88,7 @@ export default function Help() {
 
     <h2 className="font-semibold mb-5"> (c) MATERNITY LEAVE:</h2>
 
-    <p class="text-gray-900 mb-3">
+    <p className="text-gray-900 mb-3">
 
       1.All permanent female employees shall be entitled to maternity leave as per Maternity BenefitAct 2016, with full pay for a period of continuous 26 weeks.
       2.Leave taken for prenatal treatment for the first 9 months of pregnancy will be considered asregular leave and not maternity leave.
@@ -95,7 +100,7 @@ export default function Help() {
 
 
     <h2 className="font-semibold mb-5">(d) PATERNITY LEAVE:</h2>
-    <p class="text-gray-900 mb-3">
+    <p className="text-gray-900 mb-3">
 
 
       1.All permanent male employees are eligible for paternity leave.
@@ -106,19 +111,19 @@ export default function Help() {
     </p>
 
     <h2 className="font-semibold mb-5"> (e) LEAVE ON PROBATION:</h2>
-    <p class="text-gray-900 mb-3">
+    <p className="text-gray-900 mb-3">
 
       An employee under probation is eligible for one day leave per month until their contirmation.
       Theextra days of leave shall be treated as LOP.
     </p>
     <h2 className="font-semibold mb-5"> (f) LOSS OF PAY (LOP):</h2>
-    <p class="text-gray-900 mb-3">
+    <p className="text-gray-900 mb-3">
 
       1.Unauthorised absence will be considered as LOP and may be subject to disciplinary action.
       2.Any leave beyond the annual availability will be considered as LOP.
     </p>
     <h2 className="font-semibold mb-5">Note:</h2>
-    <p class="text-gray-900 mb-3">
+    <p className="text-gray-900 mb-3">
 
       1.All employees must apply leave to the respective team lead through leave form.
       2.Leave application for a duration of more than one week should be made at least 15 days inadvance.

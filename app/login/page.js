@@ -7,10 +7,16 @@ import { useRouter } from "next/navigation";
 import axios from 'axios';
 import Image from 'next/image';
 import logo from "../images/raise.png";
+import { useMyContext } from '../context/MyContext';
+import jwtDecode from 'jwt-decode';
 
 
 const Login = () => {
-  const [email, setEmail] = useState("");
+
+  let { setRole,setEmail } = useMyContext();
+
+
+  const [email, setEmailLogin] = useState("");
   const [password, setPassword] = useState("");
 
   const route = useRouter();
@@ -25,6 +31,10 @@ const Login = () => {
         if (res.status === 200) {
           if(res.data.accessToken){
             localStorage.setItem('token',res.data.accessToken)
+            let token=res.data.accessToken;
+            const decoded = jwtDecode(token);
+      setEmail(decoded.email);
+      setRole(decoded.role)
           }
           route.push('/holiday')
         }
@@ -63,7 +73,7 @@ const Login = () => {
                   id="email_field"
                   className="form-control"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => setEmailLogin(e.target.value)}
                 />
               </div>
 

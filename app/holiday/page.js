@@ -10,6 +10,7 @@ import { validateUserholiday } from '../components/ValidationSchema';
 
 import * as XLSX from 'xlsx/xlsx.mjs';
 import { useMyContext } from '@/app/context/MyContext';
+import { useRouter } from "next/navigation";
 
 const { v4: uuidv4 } = require('uuid');
 
@@ -17,9 +18,10 @@ const { v4: uuidv4 } = require('uuid');
 
 
 const holiday = () => {
+    const route = useRouter();
 
 
-    let {role,setRole}=useMyContext();
+    let { role, setRole } = useMyContext();
     const [addholiday, setAddHoliday] = useState(false)
     const [edit, setEdit] = useState(false)
     const [jsonData, setJsonData] = useState([]);
@@ -61,8 +63,10 @@ const holiday = () => {
 
 
     function handleinsert() {
-        let token=localStorage.token
-        axios.post('/api/holidaycreate', { addValue: addValue },{headers:{authorization:token}})
+        let token = localStorage.token
+        let headers = { authorization: token }
+        if(token){
+        axios.post('/api/holidaycreate', { addValue: addValue }, { headers })
             .then((res) => {
                 console.log(res);
                 if (res.status === 200) {
@@ -73,6 +77,7 @@ const holiday = () => {
             .catch(error => {
                 console.error('Error updating JSON data:', error);
             });
+        }else{route.push('/login')}
     }
 
 
@@ -92,7 +97,7 @@ const holiday = () => {
         {
             Header: "Edit",
             accessor: "button"
-            
+
         }
     ]
 
@@ -138,11 +143,13 @@ const holiday = () => {
 
 
     const deletebtn1 = (dataId) => {
-
+        let token = localStorage.token
+        let headers = { authorization: token }
         const id = dataId;
         console.log(id);
+      if(token){
         axios
-            .post(`/api/holiday/delete`, { id })
+            .post(`/api/holiday/delete`, { id }, { headers })
             .then((res) => {
                 console.log(res);
                 if (res.status === 200) {
@@ -154,7 +161,7 @@ const holiday = () => {
             .catch((error) => {
                 console.error('Error updating JSON data:', error);
             });
-
+        }else{route.push('/login')}
     }
 
     const deletebtn = (id) => {
@@ -167,12 +174,25 @@ const holiday = () => {
 
 
     const displayJSON = () => {
+        let token = localStorage.token
+        let headers = { authorization: token }
+        if (token) {
 
-        axios.get("/api/holidayfetch")
-            .then(res => {
-                setJsonData(res.data)
+            axios.post("/api/holidayfetch", {}, { headers })
+                .then(res => {
+                    console.log("Status:", res.status);
+                    if (res.status === 200) {
+                        setJsonData(res.data)
+                    } else if ((res.status === 403) || (res.status === 401)) {
+                        console.log("edwin");
+                        route.push('/login')
+                    }
 
-            })
+                })
+                .catch(err => console.log(err))
+        } else {
+            route.push('/login')
+        }
     }
 
 
@@ -202,15 +222,19 @@ const holiday = () => {
         if (convertJsonData?.length > 0) {
             const requiredKeys = ["Date", "Day", "Description"];
             const keysExist = requiredKeys.every(key => Object.keys(convertJsonData[0]).includes(key));
-            if (keysExist) {
-                axios.post('/api/importholiday', { addValue: convertJsonData }).then(res => {
-                    if (res?.data === "imported") {
-                        displayJSON();
-                    }
-                }).catch((err) => { console.log(err); })
+            let token = localStorage.token
+            let headers = { authorization: token }
+            if (token) {
+                if (keysExist) {
+                    axios.post('/api/importholiday', { addValue: convertJsonData }, { headers }).then(res => {
+                        if (res?.data === "imported") {
+                            displayJSON();
+                        }
+                    }).catch((err) => { console.log(err); })
 
-                // console.log(1234567);
-            } else { alert('Date ,Day, Description does not exist or change the column name like Date,Day,Description') }
+                    // console.log(1234567);
+                } else { alert('Date ,Day, Description does not exist or change the column name like Date,Day,Description') }
+            } else { route.push('/login') }
         }
     }, [convertJsonData])
 
@@ -265,18 +289,22 @@ const holiday = () => {
 
     const submitbtn = () => {
         console.log('Changevalue', changevalue);
-        axios
-            .post(`/api/holiday/update`, { changevalue: changevalue })
-            .then((res) => {
-                console.log(res);
-                if (res.status === 200) {
-                    displayJSON();
-                    setEdit(false);  // Added this to hide the edit form after submission
-                }
-            })
-            .catch((error) => {
-                console.error('Error updating JSON data:', error);
-            });
+        let token = localStorage.token
+        let headers = { authorization: token }
+        if (token) {
+            axios
+                .post(`/api/holiday/update`, { changevalue: changevalue }, { headers })
+                .then((res) => {
+                    console.log(res);
+                    if (res.status === 200) {
+                        displayJSON();
+                        setEdit(false);  // Added this to hide the edit form after submission
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error updating JSON data:', error);
+                });
+        } else { route.push('/login') }
     };
 
 
@@ -331,7 +359,7 @@ const holiday = () => {
         <>
 
             <main className='add-holiday-parent mt-24'>
-               {role === "admin" ? <div className='flex justify-between w-11/12 m-auto mt-10 items-center'>
+                {role === "admin" ? <div className='flex justify-between w-11/12 m-auto mt-10 items-center'>
                     <div className='flex gap-5'>
                         <input type="file" accept=".xls, .xlsx" onChange={handleFileChange}
                             className='block text-sm text-slate-500
@@ -350,15 +378,15 @@ const holiday = () => {
                         >Cancel</button>}
                     </div>
                     <button className='add-holiday-btn' onClick={overlay}>Add Holiday</button>
-                </div> :""}
-                <Table columns={role === "admin" ? columns : userHolidayColumns} data={role==="admin"? data : userHolidaydata} className={'holiday-table'} />
-               {role === "admin" ?  <div className='flex justify-between w-11/12 m-auto mt-10'>
+                </div> : ""}
+                <Table columns={role === "admin" ? columns : userHolidayColumns} data={role === "admin" ? data : userHolidaydata} className={'holiday-table'} />
+                {role === "admin" ? <div className='flex justify-between w-11/12 m-auto mt-10'>
 
                     <button onClick={() => downloadExcel(jsonData)} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                         <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" /></svg>
                         <span>Download Excel</span>
                     </button>
-                </div>:""}
+                </div> : ""}
                 {addholiday && <div className='parent-add-holiday' >
                     <div className='add-holiday  d-animate-overlay'>
                         <div className='heaed-and-close'>

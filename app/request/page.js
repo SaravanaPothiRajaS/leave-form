@@ -8,11 +8,13 @@ import {  toast } from 'react-toastify';
 
 import * as XLSX from 'xlsx/xlsx.mjs';
 import { useMyContext } from '../context/MyContext';
+import { useRouter } from 'next/navigation';
 
 
 
 
 const Request = () => {
+  const router=useRouter();
   let {role,setRole}=useMyContext();
   const [selectedOption, setSelectedOption] = useState('request');
   const [jsonData, setJsonData] = useState([]);
@@ -186,7 +188,7 @@ let downloadData=jsonData?.map((data, i) => {
     data = jsonData.filter((data) => data.status === 'approved').map((data, i) => {
       const matchingData1 = data1.find((item) => item.email === data.email);
       let availableLeaves = matchingData1 ? matchingData1.availableLeave : 0;
-
+      let takenLeave = matchingData1 ? matchingData1.takenLeave : 0;
 
       return {
         name: data.name,
@@ -196,7 +198,7 @@ let downloadData=jsonData?.map((data, i) => {
         to: data.toDate,
         totalDays: data.totalDays,
         availableLeave: data.availableLeave,
-        takenLeave: data.takenLeave,
+        takenLeave: takenLeave,
         reason: data.reason,
 
         status: <span className={data.status === 'pending' ? 'pending' : data.status === 'approved' ?
@@ -215,7 +217,7 @@ let downloadData=jsonData?.map((data, i) => {
     data = jsonData.filter((data) => data.status === 'rejected').map((data, i) => {
       const matchingData1 = data1.find((item) => item.email === data.email);
       let availableLeaves = matchingData1 ? matchingData1.availableLeave : 0;
-
+      let takenLeave = matchingData1 ? matchingData1.takenLeave : 0;
       return {
         name: data.name,
         leaveType: data.leaveType,
@@ -224,7 +226,7 @@ let downloadData=jsonData?.map((data, i) => {
         to: data.toDate,
         totalDays: data.totalDays,
         availableLeave: data.availableLeave,
-        takenLeave: data.takenLeave,
+        takenLeave: takenLeave,
         reason: data.reason,
 
         status: <span className={data.status === 'pending' ? 'pending' : data.status === 'approved' ?
@@ -277,17 +279,21 @@ let downloadData=jsonData?.map((data, i) => {
   }
 
   const displayJSON = () => {
-
-    axios.post("/api/fetch", { email: 'edwinraj1462003@gmail.com' })
+    let token=localStorage.token
+    let headers={authorization:token}
+    if(token){
+    axios.post("/api/fetch", { email: 'edwinraj1462003@gmail.com' },{headers})
       .then(res => {
         setJsonData(res.data.reverse())
 
       })
-      axios.get("/api/compOffStatus")
+      axios.post("/api/compOffStatus",{},{headers})
       .then(res => {
         setJsonDataCompo(res.data.reverse())
 
       });
+    }else{router.push('/login')}
+
   }
 
   useEffect(() => {
@@ -298,17 +304,24 @@ let downloadData=jsonData?.map((data, i) => {
 
 
   const displayJSO = () => {
-
-    axios.get("/api/empfetch")
+    let token=localStorage.token
+    let headers={authorization:token}
+    if(token){
+    axios.post("/api/empfetch",{},{headers})
       .then(res => {
         setJsoData(res.data)
 
       })
+    }else{router.push('/login')}
+
   }
 
 const UpdateCompOff=(id, status )=>{
+  let token=localStorage.token
+  let headers={authorization:token}
+  if(token){
   axios
-      .post(`/api/updateCompStatus`, { id, status })
+      .post(`/api/updateCompStatus`, { id, status },{headers})
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
@@ -316,10 +329,15 @@ const UpdateCompOff=(id, status )=>{
           displayJSO();
         }
       });
+    }else{router.push('/login')}
+
 }
 const UpdateempCompOff=(email, day)=>{
+  let token=localStorage.token
+  let headers={authorization:token}
+  if(token){
   axios
-  .post(`/api/CompLeave`, { email, day })
+  .post(`/api/CompLeave`, { email, day },{headers})
   .then((res) => {
     console.log(res);
     if (res.status === 200) {
@@ -327,11 +345,15 @@ const UpdateempCompOff=(email, day)=>{
       displayJSO();
     }
   });
+}else{router.push('/login')}
+
 }
   const Update = (id, status) => {
-
+    let token=localStorage.token
+    let headers={authorization:token}
+    if(token){
     axios
-      .post(`/api/update`, { id, status })
+      .post(`/api/update`, { id, status },{headers})
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
@@ -339,12 +361,16 @@ const UpdateempCompOff=(email, day)=>{
           displayJSO();
         }
       });
+    }else{router.push('/login')}
+
   };
 
   const Updateemp = (email, availableLeave, totalDays, takenLeave) => {
-
+    let token=localStorage.token
+    let headers={authorization:token}
+    if(token){
     axios
-      .post(`/api/availableleave`, { email, availableLeave, totalDays, takenLeave })
+      .post(`/api/availableleave`, { email, availableLeave, totalDays, takenLeave },{headers})
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
@@ -352,6 +378,8 @@ const UpdateempCompOff=(email, day)=>{
           displayJSO();
         }
       });
+    }else{router.push('/login')}
+
   };
 
     
@@ -401,14 +429,19 @@ const jsonDataCopy = downloadData;
     URL.revokeObjectURL(url);
   }
   const leavemail = (name,status) => {
+    let token=localStorage.token
+    let headers={authorization:token}
+    if(token){
     axios
-      .post("/api/nodemail", {name:name,status:status})
+      .post("/api/nodemail", {name:name,status:status},{headers})
       .then((res) => {
         console.log(res.data);
       })
       .catch((error) => {
         console.error(error);
       });
+    }else{router.push('/login')}
+
   };
 
 

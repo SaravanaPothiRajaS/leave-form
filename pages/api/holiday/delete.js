@@ -1,7 +1,10 @@
+import authenticateToken from '@/app/middleware';
 import fs from 'fs/promises';
 
 export default async (req, res) => {
     try {
+        authenticateToken(req, res, async(isAuthenticated) => {
+            if (isAuthenticated) {
         const data = await fs.readFile('holidayData.json', 'utf8');
         const jsonData = JSON.parse(data);
         const { id } = req.body;
@@ -15,6 +18,10 @@ export default async (req, res) => {
         } else {
             res.status(404).send('Data not found');
         }
+    } else {
+        res.status(403).send('Forbidden: Invalid Token');
+      }
+    });
     } catch (error) {
         console.error('Error:', error.message);
         res.status(500).json({ error: 'Internal Server Error' });

@@ -268,5 +268,44 @@
     "status": "approved",
     "id": "036b4584-9a0e-4fcc-9f39-f20cee7b423d",
     "email": "alberteinsteinxxvk@gmail.com"
+  },
+  {
+    "name": "edwinraj",
+    "leaveType": "Maternity",
+    "department": "Finance",
+    "fromDate": "2023-10-12",
+    "toDate": "2023-10-18",
+    "totalDays": 3,
+    "reason": "gfgfgff",
+    "approver": "HR",
+    "status": "approved",
+    "id": "bbcb26fa-7201-4f08-8f7e-87e104eef1c4",
+    "email": "edwinraj1462003@gmail.com"
+  },
+  {
+    "name": "edwinraj",
+    "leaveType": "Paternity",
+    "department": "Finance",
+    "fromDate": "2023-10-18",
+    "toDate": "2023-10-24",
+    "totalDays": 5,
+    "reason": "dd",
+    "approver": "HR",
+    "status": "approved",
+    "id": "d4107eaf-966a-4b0c-8430-b0ef5337c442",
+    "email": "edwinraj1462003@gmail.com"
+  },
+  {
+    "name": "edwinraj",
+    "leaveType": "Casual Leave",
+    "department": "Finance",
+    "fromDate": "2023-10-18",
+    "toDate": "2023-10-24",
+    "totalDays": 5,
+    "reason": "hghgh",
+    "approver": "HR",
+    "status": "approved",
+    "id": "944a0bba-129c-4c60-b9a8-76adc9b046e9",
+    "email": "edwinraj1462003@gmail.com"
   }
 ]

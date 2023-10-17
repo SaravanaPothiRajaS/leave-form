@@ -55,7 +55,7 @@ const Navbar = () => {
               src={user}
               height="35"
               width="35"
-              className='rounded-full bg-white'
+              className='rounded-full bg-white cursor-pointer'
               onMouseMove={() => setOverlay(true)}
               onMouseOut={() => setOverlay(false)}
               alt="user image"

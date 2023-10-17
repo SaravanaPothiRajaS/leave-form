@@ -78,5 +78,15 @@
     "status": "approved",
     "id": "b37db2bc-d1bb-4d31-9c64-705f40fc0057",
     "email": "edwinraj1462003@gmail.com"
+  },
+  {
+    "name": "edwinraj",
+    "department": "test",
+    "date": "2023-10-12",
+    "day": "0.5",
+    "approver": "HR",
+    "status": "rejected",
+    "id": "db3ef5e3-417b-41c6-a18d-b57c3b2ee6e5",
+    "email": "edwinraj1462003@gmail.com"
   }
 ]

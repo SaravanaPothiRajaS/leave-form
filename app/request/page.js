@@ -15,7 +15,7 @@ import { useRouter } from 'next/navigation';
 
 const Request = () => {
   const router=useRouter();
-  let {role,setRole}=useMyContext();
+  let {role,department}=useMyContext();
   const [selectedOption, setSelectedOption] = useState('request');
   const [jsonData, setJsonData] = useState([]);
   const [jsoData, setJsoData] = useState([]);
@@ -282,16 +282,18 @@ let downloadData=jsonData?.map((data, i) => {
     let token=localStorage.token
     let headers={authorization:token}
     if(token){
-    axios.post("/api/fetch", { email: 'edwinraj1462003@gmail.com' },{headers})
+      if(department){
+    axios.post("/api/fetchemp", {department:department },{headers})
       .then(res => {
         setJsonData(res.data.reverse())
 
-      })
-      axios.post("/api/compOffStatus",{},{headers})
+      })}
+      if(department){
+      axios.post("/api/compOffStatus",{department:department},{headers})
       .then(res => {
         setJsonDataCompo(res.data.reverse())
 
-      });
+      });}
     }else{router.push('/login')}
 
   }
@@ -299,7 +301,7 @@ let downloadData=jsonData?.map((data, i) => {
   useEffect(() => {
     displayJSON();
     displayJSO();
-  }, [])
+  }, [department])
 
 
 
@@ -428,6 +430,7 @@ const jsonDataCopy = downloadData;
 
     URL.revokeObjectURL(url);
   }
+  
   const leavemail = (name,status) => {
     let token=localStorage.token
     let headers={authorization:token}

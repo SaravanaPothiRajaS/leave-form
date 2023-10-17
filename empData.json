@@ -4,29 +4,69 @@
     "email": "spothispothis@gmail.com",
     "availableLeave": 3,
     "takenLeave": 9,
-    "department": "Designer",
+    "department": "Leadership",
     "compOffLeave": 1,
-    "password":"12345",
-    "role":"admin"
+    "password": "12345",
+    "role": "approver"
   },
   {
     "name": "Levi Ackerman",
     "email": "alberteinsteinxxvk@gmail.com",
-    "availableLeave": 2,
-    "takenLeave": 5,
-    "department": "Developer",
+    "availableLeave": 0,
+    "takenLeave": 7,
+    "department": "Tech",
     "compOffLeave": 1,
-    "password":"12345",
-    "role":"approver"
+    "password": "12345",
+    "role": "approver"
+  },
+  {
+    "name": "Ackerman",
+    "email": "alberteinstein@gmail.com",
+    "availableLeave": 18,
+    "takenLeave": 7,
+    "department": "Tech",
+    "compOffLeave": 1,
+    "password": "12345",
+    "role": "user"
   },
   {
     "name": "Edwin raj",
     "email": "edwinraj1462003@gmail.com",
-    "availableLeave": 5,
-    "takenLeave": 18,
-    "department": "Developer",
+    "availableLeave": -1,
+    "takenLeave": 24,
+    "department": "Finance",
     "compOffLeave": 2,
-    "password":"12345",
-    "role":"user"
+    "password": "12345",
+    "role": "user"
+  },
+  {
+    "name": "Pothis",
+    "email": "pothis123@gmail.com",
+    "availableLeave": 5,
+    "takenLeave": 10,
+    "department": "Testing",
+    "compOffLeave": 2,
+    "password": "12345",
+    "role": "approver"
+  },
+  {
+    "name": "LeviAckerman",
+    "email": "LeviAckerman@gmail.com",
+    "availableLeave": 5,
+    "takenLeave": 10,
+    "department": "DevOps",
+    "compOffLeave": 7,
+    "password": "12345",
+    "role": "approver"
+  },
+  {
+    "name": "Raj",
+    "email": "raj@gmail.com",
+    "availableLeave": 5,
+    "takenLeave": 13,
+    "department": "DevOps",
+    "compOffLeave": 2,
+    "password": "12345",
+    "role": "user"
   }
 ]

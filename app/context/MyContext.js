@@ -8,8 +8,10 @@ export const MyContextProvider = ({ children }) => {
 
 const[role,setRole]=useState('');
 const[email,setEmail]=useState('');
+const[department,setDepartment]=useState('');
+const[name,setName]=useState('');
   return (
-    <MyContext.Provider value={{ role,setRole,email,setEmail}}>
+    <MyContext.Provider value={{ role,setRole,email,setEmail,department,setDepartment,name,setName}}>
       {children}
     </MyContext.Provider>
   );

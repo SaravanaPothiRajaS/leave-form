@@ -8,12 +8,12 @@ export default async (req, res) => {
     const data = await fs.readFile('compOffStatus.json', 'utf8');
         const jsonData = JSON.parse(data);
       
-        const { department } = req.body;
-        console.log(department);
+        const { email } = req.body;
+        console.log(email);
 
-        if (department) {
+        if (email) {
           
-          const filteredData = jsonData.filter(item => item.department === department);
+          const filteredData = jsonData.filter(item => item.email === email);
 
           res.json(filteredData);
         } else {

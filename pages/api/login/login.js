@@ -7,11 +7,15 @@ export default async (req, res) => {
     const { email,password} = req.body;
     const jwtSecret = 'secretKey';
     let role='';
+    let department='';
+    let name='';
 
     function verifyLogin(email, password) {
     for (let i = 0; i < jsonData.length; i++) {
         if (jsonData[i].email === email && jsonData[i].password === password) {
           role=jsonData[i].role;
+          department=jsonData[i].department;
+          name=jsonData[i].name;
             return true; 
         }
     }
@@ -21,7 +25,7 @@ export default async (req, res) => {
 
 if (verifyLogin(email,password)) {
     console.log("Login successful");
-    const payLoad={email:email,role:role}
+    const payLoad={email:email,role:role,department:department,name:name}
             const accessToken = jwt.sign(payLoad, jwtSecret);
             res.json({ accessToken: accessToken })
 } else {

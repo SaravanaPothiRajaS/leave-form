@@ -13,7 +13,7 @@
   },
   {
     "name": "Saravanan",
-    "department": "Developer",
+    "department": "Tech",
     "fromDate": "2023-10-05",
     "toDate": "2023-10-11",
     "totalDays": "6",
@@ -37,7 +37,7 @@
   },
   {
     "name": "Saravanan",
-    "department": "Developer",
+    "department": "Tech",
     "fromDate": "2023-10-20",
     "toDate": "2023-10-21",
     "totalDays": "4",
@@ -49,7 +49,7 @@
   },
   {
     "name": "Saravanan",
-    "department": "Developer",
+    "department": "Tech",
     "fromDate": "2023-10-04",
     "toDate": "2023-10-05",
     "totalDays": "3",
@@ -61,7 +61,7 @@
   },
   {
     "name": "Levi Ackerman",
-    "department": "Developer",
+    "department": "Tech",
     "fromDate": "2023-10-05",
     "toDate": "2023-10-06",
     "totalDays": "2",
@@ -73,7 +73,7 @@
   },
   {
     "name": "Levi Ackerman",
-    "department": "Developer",
+    "department": "Tech",
     "fromDate": "2023-10-05",
     "toDate": "2023-10-11",
     "totalDays": "6",
@@ -85,7 +85,7 @@
   },
   {
     "name": "Saravanan",
-    "department": "Developer",
+    "department": "Tech",
     "fromDate": "2023-10-11",
     "toDate": "2023-10-17",
     "totalDays": "5",
@@ -97,7 +97,7 @@
   },
   {
     "name": "Levi Ackerman",
-    "department": "Developer",
+    "department": "Tech",
     "fromDate": "2023-10-18",
     "toDate": "2023-10-19",
     "totalDays": "2",
@@ -109,7 +109,7 @@
   },
   {
     "name": "Levi Ackerman",
-    "department": "Developer",
+    "department": "Tech",
     "fromDate": "2023-10-18",
     "toDate": "2023-10-20",
     "totalDays": "2",
@@ -121,7 +121,7 @@
   },
   {
     "name": "Levi Ackerman",
-    "department": "Developer",
+    "department": "Tech",
     "fromDate": "2023-10-11",
     "toDate": "2023-10-13",
     "totalDays": "3",
@@ -133,7 +133,7 @@
   },
   {
     "name": "Levi Ackerman",
-    "department": "Developer",
+    "department": "Tech",
     "fromDate": "2023-10-11",
     "toDate": "2023-10-13",
     "totalDays": "3",
@@ -145,7 +145,7 @@
   },
   {
     "name": "Levi Ackerman",
-    "department": "Developer",
+    "department": "Tech",
     "fromDate": "2023-10-05",
     "toDate": "2023-10-06",
     "totalDays": "3",
@@ -157,7 +157,7 @@
   },
   {
     "name": "Levi Ackerman",
-    "department": "Developer",
+    "department": "Tech",
     "fromDate": "2023-10-05",
     "toDate": "2023-10-06",
     "totalDays": "2",
@@ -169,7 +169,7 @@
   },
   {
     "name": "Levi Ackerman",
-    "department": "Developer",
+    "department": "Tech",
     "fromDate": "2023-10-04",
     "toDate": "2023-10-05",
     "totalDays": "2",
@@ -181,7 +181,7 @@
   },
   {
     "name": "Levi Ackerman",
-    "department": "Developer",
+    "department": "Tech",
     "fromDate": "2023-10-17",
     "toDate": "2023-10-18",
     "totalDays": "2",
@@ -194,7 +194,7 @@
   {
     "name": "B Karl",
     "leaveType": "Casual  or Sick Leave",
-    "department": "Developer",
+    "department": "Tech",
     "fromDate": "2023-10-10",
     "toDate": "2023-10-11",
     "totalDays": 2,
@@ -207,7 +207,7 @@
   {
     "name": "B Karl",
     "leaveType": "Casual  or Sick Leave",
-    "department": "Developer",
+    "department": "Tech",
     "fromDate": "2023-10-10",
     "toDate": "2023-10-11",
     "totalDays": 2,
@@ -220,7 +220,7 @@
   {
     "name": "B Karl",
     "leaveType": "Casual  or Sick Leave",
-    "department": "Developer",
+    "department": "Tech",
     "fromDate": "2023-10-11",
     "toDate": "2023-10-11",
     "totalDays": 1,
@@ -233,7 +233,7 @@
   {
     "name": "B Karl",
     "leaveType": "Casual  or Sick Leave",
-    "department": "Developer",
+    "department": "Tech",
     "fromDate": "2023-10-11",
     "toDate": "2023-10-12",
     "totalDays": 2,
@@ -246,7 +246,7 @@
   {
     "name": "B Karl",
     "leaveType": "Casual  or Sick Leave",
-    "department": "Developer",
+    "department": "Tech",
     "fromDate": "2023-10-11",
     "toDate": "2023-10-12",
     "totalDays": 2,
@@ -259,7 +259,7 @@
   {
     "name": "B Karl",
     "leaveType": "Casual  or Sick Leave",
-    "department": "Developer",
+    "department": "Tech",
     "fromDate": "2023-10-18",
     "toDate": "2023-10-19",
     "totalDays": 2,
@@ -307,5 +307,109 @@
     "status": "approved",
     "id": "944a0bba-129c-4c60-b9a8-76adc9b046e9",
     "email": "edwinraj1462003@gmail.com"
+  },
+  {
+    "name": "edwinraj",
+    "leaveType": "Loss of Pay",
+    "department": "Tech",
+    "fromDate": "2023-10-18",
+    "toDate": "2023-10-19",
+    "totalDays": 2,
+    "reason": "Loss of Pay",
+    "approver": "HR",
+    "status": "approved",
+    "id": "0bf58709-e33f-43bc-b2ca-05ad20a251ad",
+    "email": "edwinraj1462003@gmail.com"
+  },
+  {
+    "name": "",
+    "leaveType": "Casual Leave",
+    "department": "",
+    "fromDate": "2023-10-19",
+    "toDate": "2023-10-20",
+    "totalDays": 2,
+    "reason": "Casual Leave",
+    "approver": "HR",
+    "status": "pending",
+    "id": "6a520904-005a-4891-92fa-2236ced6278c",
+    "email": "edwinraj1462003@gmail.com"
+  },
+  {
+    "name": "Levi Ackerman",
+    "leaveType": "Casual Leave",
+    "department": "Tech",
+    "fromDate": "2023-10-25",
+    "toDate": "2023-10-26",
+    "totalDays": 2,
+    "reason": "Casual leave",
+    "approver": "HR",
+    "status": "rejected",
+    "id": "0ca66986-550c-4da1-914b-d2522498f8ca",
+    "email": "edwinraj1462003@gmail.com"
+  },
+  {
+    "name": "LeviAckerman",
+    "leaveType": "Casual Leave",
+    "department": "DevOps",
+    "fromDate": "2023-10-18",
+    "toDate": "2023-10-19",
+    "totalDays": 2,
+    "reason": "Casual",
+    "approver": "HR",
+    "status": "approved",
+    "id": "0469a76b-6bae-48c4-92b7-441dc37d7ce6",
+    "email": "edwinraj1462003@gmail.com"
+  },
+  {
+    "name": "Raj",
+    "leaveType": "Casual Leave",
+    "department": "DevOps",
+    "fromDate": "2023-10-18",
+    "toDate": "2023-10-19",
+    "totalDays": 2,
+    "reason": "Casual",
+    "approver": "HR",
+    "status": "approved",
+    "id": "54d29f62-1597-4935-8f5f-90963b5921ec",
+    "email": "raj@gmail.com"
+  },
+  {
+    "name": "Raj",
+    "leaveType": "Leave  on Propation",
+    "department": "DevOps",
+    "fromDate": "2023-10-18",
+    "toDate": "2023-10-19",
+    "totalDays": 2,
+    "reason": "tttttttt",
+    "approver": "HR",
+    "status": "rejected",
+    "id": "3d862fbd-1d4d-4519-aab2-990fcdb6d6a1",
+    "email": "raj@gmail.com"
+  },
+  {
+    "name": "Levi Ackerman",
+    "leaveType": "Paternity",
+    "department": "Tech",
+    "fromDate": "2023-10-19",
+    "toDate": "2023-10-20",
+    "totalDays": 2,
+    "reason": "test",
+    "approver": "HR",
+    "status": "approved",
+    "id": "3ae85982-4b3d-43c9-a008-ad3c1223b132",
+    "email": "alberteinsteinxxvk@gmail.com"
+  },
+  {
+    "name": "Ackerman",
+    "leaveType": "Paternity",
+    "department": "Tech",
+    "fromDate": "2023-10-12",
+    "toDate": "2023-10-16",
+    "totalDays": 2,
+    "reason": "test",
+    "approver": "HR",
+    "status": "approved",
+    "id": "b75e05de-1101-4fef-a171-a2306863fbea",
+    "email": "alberteinstein@gmail.com"
   }
 ]

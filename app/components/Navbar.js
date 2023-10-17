@@ -14,7 +14,7 @@ const Navbar = () => {
 
   const [overlay, setOverlay] = useState(false);
 
-  let { role, setRole, setEmail } = useMyContext();
+  let { role, setRole, setEmail, setDepartment,setName} = useMyContext();
 
   const route = useRouter();
   const currentpath = usePathname();
@@ -27,8 +27,10 @@ const Navbar = () => {
       const decoded = jwtDecode(token);
       setEmail(decoded.email);
       setRole(decoded.role)
+      setDepartment(decoded.department)
+      setName(decoded.name)
     } else { route.push('/login') }
-  }, [])
+  })
 
   return (currentpath !== "/login") && (
     <>

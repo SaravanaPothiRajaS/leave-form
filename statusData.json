@@ -307,5 +307,31 @@
     "status": "approved",
     "id": "944a0bba-129c-4c60-b9a8-76adc9b046e9",
     "email": "edwinraj1462003@gmail.com"
+  },
+  {
+    "name": "edwinraj",
+    "leaveType": "Casual Leave",
+    "department": "Technology",
+    "fromDate": "2023-10-20",
+    "toDate": "2023-10-24",
+    "totalDays": 3,
+    "reason": "fsfsdfsd",
+    "approver": "HR",
+    "status": "approved",
+    "id": "59398dfb-9960-4bf8-b6b1-7138014841af",
+    "email": "edwinraj1462003@gmail.com"
+  },
+  {
+    "name": "edwinraj",
+    "leaveType": "Paternity",
+    "department": "Technology",
+    "fromDate": "2023-10-18",
+    "toDate": "2023-10-19",
+    "totalDays": 2,
+    "reason": "ffsffs",
+    "approver": "HR",
+    "status": "approved",
+    "id": "87155cb4-c349-44ae-9a96-ce0da30dcbca",
+    "email": "edwinraj1462003@gmail.com"
   }
 ]

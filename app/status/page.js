@@ -16,11 +16,12 @@ import { useRouter } from 'next/navigation';
 
 
 const Status = () => {
-const router=useRouter();
+  const router = useRouter();
   let { role, setRole } = useMyContext();
   const [compoOff, setCompoOff] = useState(false);
   const [available, setAvailable] = useState([""]);
   const [compLeave, setCompLeave] = useState([""]);
+  let { email } = useMyContext();
 
 
   const [compoData, setCompoData] = useState(
@@ -265,28 +266,28 @@ const router=useRouter();
 
   ////
   const displayJSON = () => {
-    let token=localStorage.token
-    let headers={authorization:token}
-    if(token){
-      axios.post("/api/fetch",{},{headers})
+    let token = localStorage.token
+    let headers = { authorization: token }
+    if (token) {
+      axios.post("/api/fetch", {}, { headers })
         .then(res => {
-          setJsonData(res.data.reverse())
-  
-        });
-  
-      axios.post("/api/compOffStatus",{},{headers})
-        .then(res => {
-          setJsonDataCompo(res.data.reverse())
-  
-        });
-  
-      axios.post("/api/holidayfetch",{},{headers})
-        .then(res => {
-          setHolidayData(res.data)
-  
+          setJsonData(res.data.jsonData.reverse())
+
         });
 
-    }else{router.push('/login')}
+      axios.post("/api/compOffStatus", {}, { headers })
+        .then(res => {
+          setJsonDataCompo(res.data.jsonData.reverse())
+
+        });
+
+      axios.post("/api/holidayfetch", {}, { headers })
+        .then(res => {
+          setHolidayData(res.data)
+
+        });
+
+    } else { router.push('/login') }
 
   }
 
@@ -294,9 +295,8 @@ const router=useRouter();
     displayJSON();
   }, [])
 
-
   useEffect(() => {
-    axios.get("/api/fetchAvailableLeave")
+    axios.post("/api/fetchAvailableLeave", { email: email })
       .then(res => {
         console.log("Response data:", res.data);
 
@@ -306,53 +306,53 @@ const router=useRouter();
       .catch(error => {
         console.error("Error fetching available leave:", error);
       });
-  }, [])
+  }, [email])
 
 
   function handleinsert(e) {
 
     e.preventDefault();
-    let token=localStorage.token
-    let headers={authorization:token}
-    if(token){
-    axios.post('/api/create', { addValue: formData },{headers})
-      .then((res) => {
-        console.log(res);
-        if (res.status === 200) {
-          displayJSON();
-          setApply(false);
-          notify();
-          leavemail();
+    let token = localStorage.token
+    let headers = { authorization: token }
+    if (token) {
+      axios.post('/api/create', { addValue: formData }, { headers })
+        .then((res) => {
+          console.log(res);
+          if (res.status === 200) {
+            displayJSON();
+            setApply(false);
+            notify();
+            leavemail();
 
-        }
-      })
-      .catch(error => {
-        console.error('Error updating JSON data:', error);
-      });
-    }else{router.push('/login')}
+          }
+        })
+        .catch(error => {
+          console.error('Error updating JSON data:', error);
+        });
+    } else { router.push('/login') }
 
   }
   function handleinsertCompo(e) {
 
     e.preventDefault();
-    let token=localStorage.token
-    let headers={authorization:token}
-   if(token){ 
-    axios.post('/api/compOffCreate', { addValue: compoData },{headers})
-      .then((res) => {
-        console.log(res);
-        if (res.status === 200) {
-          displayJSON();
-          setCompoOff(false);
-          notify();
-          leavemail();
+    let token = localStorage.token
+    let headers = { authorization: token }
+    if (token) {
+      axios.post('/api/compOffCreate', { addValue: compoData }, { headers })
+        .then((res) => {
+          console.log(res);
+          if (res.status === 200) {
+            displayJSON();
+            setCompoOff(false);
+            notify();
+            leavemail();
 
-        }
-      })
-      .catch(error => {
-        console.error('Error updating JSON data:', error);
-      });
-    }else{router.push('/login')}
+          }
+        })
+        .catch(error => {
+          console.error('Error updating JSON data:', error);
+        });
+    } else { router.push('/login') }
 
   }
 
@@ -433,18 +433,18 @@ const router=useRouter();
 
 
   const leavemail = () => {
-    let token=localStorage.token
-    let headers={authorization:token}
-    if(token){
-    axios
-      .post("/api/nodemailer", {},{headers})
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    }else{router.push('/login')}
+    let token = localStorage.token
+    let headers = { authorization: token }
+    if (token) {
+      axios
+        .post("/api/nodemailer", {}, { headers })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else { router.push('/login') }
 
   };
 
@@ -477,6 +477,8 @@ const router=useRouter();
 
 
         </article>
+
+
         <div className='apply-btn flex gap-10'>
           <button onClick={() => { setCompoOff(true) }}>Time In</button>
           <button onClick={overlay}>Time Out</button></div>
@@ -494,7 +496,6 @@ const router=useRouter();
       </div>
 
       <Table columns={timeOutMenu ? columns : columnsCompoff} data={timeOutMenu ? datajs : dataCompo} className={'status-table'} />
-
 
 
       {apply && <div className='parent-border' onClick={() => setApply(false)} >

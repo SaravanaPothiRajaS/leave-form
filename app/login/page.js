@@ -13,7 +13,7 @@ import jwtDecode from 'jwt-decode';
 
 const Login = () => {
 
-  let { setRole,setEmail } = useMyContext();
+  let { setRole, setEmail } = useMyContext();
 
 
   const [email, setEmailLogin] = useState("");
@@ -25,16 +25,16 @@ const Login = () => {
     e.preventDefault()
 
     axios
-      .post(`/api/login/login`, { email:email, password:password })
+      .post(`/api/login/login`, { email: email, password: password })
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
-          if(res.data.accessToken){
-            localStorage.setItem('token',res.data.accessToken)
-            let token=res.data.accessToken;
+          if (res.data.accessToken) {
+            localStorage.setItem('token', res.data.accessToken)
+            let token = res.data.accessToken;
             const decoded = jwtDecode(token);
-      setEmail(decoded.email);
-      setRole(decoded.role)
+            setEmail(decoded.email);
+            setRole(decoded.role)
           }
           route.push('/holiday')
         }
@@ -103,12 +103,12 @@ const Login = () => {
                   Not a member? <Link href="/register">Register</Link>
                 </p>
                 <p>Or sign up with</p> */}
-                <button
+                {/* <button
                   type="button"
                   className="btn-cont mt-6"
                 >
                   <i className="fab fa-google">Google</i>
-                </button>
+                </button> */}
 
 
 

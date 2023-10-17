@@ -6,8 +6,8 @@
     "takenLeave": 9,
     "department": "Designer",
     "compOffLeave": 1,
-    "password":"12345",
-    "role":"admin"
+    "password": "12345",
+    "role": "admin"
   },
   {
     "name": "Levi Ackerman",
@@ -16,17 +16,17 @@
     "takenLeave": 5,
     "department": "Developer",
     "compOffLeave": 1,
-    "password":"12345",
-    "role":"approver"
+    "password": "12345",
+    "role": "approver"
   },
   {
     "name": "Edwin raj",
     "email": "edwinraj1462003@gmail.com",
-    "availableLeave": 5,
-    "takenLeave": 18,
+    "availableLeave": 0,
+    "takenLeave": 23,
     "department": "Developer",
-    "compOffLeave": 2,
-    "password":"12345",
-    "role":"user"
+    "compOffLeave": 4.5,
+    "password": "12345",
+    "role": "user"
   }
 ]

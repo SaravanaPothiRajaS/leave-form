@@ -88,5 +88,95 @@
     "status": "rejected",
     "id": "db3ef5e3-417b-41c6-a18d-b57c3b2ee6e5",
     "email": "edwinraj1462003@gmail.com"
+  },
+  {
+    "name": "edwinraj",
+    "department": "test",
+    "date": "2023-10-08",
+    "day": 1,
+    "approver": "HR",
+    "status": "approved",
+    "id": "39cbbd68-6963-4ff4-929f-5adedfc9f5ad",
+    "email": "edwinraj1462003@gmail.com"
+  },
+  {
+    "name": "edwinraj",
+    "department": "test",
+    "date": "2023-09-29",
+    "day": 1,
+    "approver": "HR",
+    "status": "rejected",
+    "id": "fcee18e8-6ebb-4354-971c-2c5866426b7a",
+    "email": "edwinraj1462003@gmail.com"
+  },
+  {
+    "name": "edwinraj",
+    "department": "test",
+    "date": "2023-10-13",
+    "day": 1,
+    "approver": "HR",
+    "status": "approved",
+    "id": "8dc40dc2-637f-4720-9a6a-c58540370cad",
+    "email": "edwinraj1462003@gmail.com"
+  },
+  {
+    "name": "edwinraj",
+    "department": "test",
+    "date": "2023-10-13",
+    "day": "0.5",
+    "approver": "HR",
+    "status": "approved",
+    "id": "8fad4396-ff63-429a-91b1-051588535e52",
+    "email": "edwinraj1462003@gmail.com"
+  },
+  {
+    "name": "edwinraj",
+    "department": "test",
+    "date": "2023-10-12",
+    "day": 1,
+    "approver": "HR",
+    "status": "rejected",
+    "id": "94bcfc6d-f0f1-470d-8ccf-556b87ac7bca",
+    "email": "edwinraj1462003@gmail.com"
+  },
+  {
+    "name": "edwinraj",
+    "department": "test",
+    "date": "2023-10-13",
+    "day": "0.5",
+    "approver": "HR",
+    "status": "rejected",
+    "id": "95d32a70-c244-404f-b2ea-679b6056a709",
+    "email": "edwinraj1462003@gmail.com"
+  },
+  {
+    "name": "edwinraj",
+    "department": "test",
+    "date": "2023-10-06",
+    "day": 1,
+    "approver": "HR",
+    "status": "rejected",
+    "id": "b4b5a811-810e-40ae-9e8d-2d3028116fed",
+    "email": "edwinraj1462003@gmail.com"
+  },
+  {
+    "name": "edwinraj",
+    "department": "test",
+    "date": "2023-10-19",
+    "day": 1,
+    "approver": "HR",
+    "status": "pending",
+    "id": "8a3b1b24-dec5-4f36-a760-7b65619a6c59",
+    "email": "edwinraj1462003@gmail.com"
+  },
+  {
+    "name": "edwinraj",
+    "department": "test",
+    "date": "2023-09-30",
+    "day": 1,
+    "approver": "HR",
+    "status": "pending",
+    "id": "0f3dad1d-ef7d-4174-a598-4f1bb175cc54",
+    "email": "edwinraj1462003@gmail.com"
   }
 ]

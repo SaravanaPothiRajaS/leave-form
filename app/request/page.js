@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import Table from '../components/Table';
 import axios from 'axios';
 
-import {  toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import * as XLSX from 'xlsx/xlsx.mjs';
 import { useMyContext } from '../context/MyContext';
@@ -14,8 +14,8 @@ import { useRouter } from 'next/navigation';
 
 
 const Request = () => {
-  const router=useRouter();
-  let {role,setRole}=useMyContext();
+  const router = useRouter();
+  let { role, setRole, setTotalLeave, setCompTotal } = useMyContext();
   const [selectedOption, setSelectedOption] = useState('request');
   const [jsonData, setJsonData] = useState([]);
   const [jsoData, setJsoData] = useState([]);
@@ -110,7 +110,7 @@ const Request = () => {
 
 
   let data = [];
-let downloadData=jsonData?.map((data, i) => {
+  let downloadData = jsonData?.map((data, i) => {
 
     const matchingData1 = data1.find((item) => item.email === data.email);
 
@@ -130,7 +130,7 @@ let downloadData=jsonData?.map((data, i) => {
       availableLeave: availableLeave,
       takenLeave: takenLeave,
       reason: data.reason,
-      status: data.status ,
+      status: data.status,
       id: data.id,
     };
   });;
@@ -162,13 +162,15 @@ let downloadData=jsonData?.map((data, i) => {
               Update(data.id, 'approved');
               Updateemp(data.email, availableLeave, data.totalDays, takenLeave);
               notify();
-              leavemail( data.name,'approved')
+              leavemail(data.name, 'approved')
             }}>
               Approve
             </button>
-            <button className='reject-edit-btn' onClick={() =>{Update(data.id, 'rejected');
-                  notifys();
-                  leavemail( data.name,'rejected')}}>
+            <button className='reject-edit-btn' onClick={() => {
+              Update(data.id, 'rejected');
+              notifys();
+              leavemail(data.name, 'rejected')
+            }}>
               Reject
             </button>
           </>
@@ -241,7 +243,7 @@ let downloadData=jsonData?.map((data, i) => {
       };
     });
   } else if (selectedOption === 'compensatory') {
-     data = jsonDataCompo.map((data, i) => {
+    data = jsonDataCompo.map((data, i) => {
 
       return {
         name: data.name,
@@ -251,17 +253,18 @@ let downloadData=jsonData?.map((data, i) => {
         status: data.status === 'pending' ? (
           <>
             <button className='edit-btn' onClick={() => {
-              UpdateempCompOff(data.email,data.day);
+              UpdateempCompOff(data.email, data.day);
               UpdateCompOff(data.id, 'approved');
               // notify();
               // leavemail( data.name,'approved')
             }}>
               Approve
             </button>
-            <button className='reject-edit-btn' onClick={() =>{UpdateCompOff(data.id, 'rejected');
-                  // notifys();
-                  // leavemail( data.name,'rejected')
-                  }}>
+            <button className='reject-edit-btn' onClick={() => {
+              UpdateCompOff(data.id, 'rejected');
+              // notifys();
+              // leavemail( data.name,'rejected')
+            }}>
               Reject
             </button>
           </>
@@ -279,20 +282,25 @@ let downloadData=jsonData?.map((data, i) => {
   }
 
   const displayJSON = () => {
-    let token=localStorage.token
-    let headers={authorization:token}
-    if(token){
-    axios.post("/api/fetch", { email: 'edwinraj1462003@gmail.com' },{headers})
-      .then(res => {
-        setJsonData(res.data.reverse())
+    let token = localStorage.token
+    let headers = { authorization: token }
+    if (token) {
+      axios.post("/api/fetch", { email: 'edwinraj1462003@gmail.com' }, { headers })
+        .then(res => {
+          setJsonData(res.data.jsonData.reverse());
+          // setTotalLeave(res.data.leaveLength);
 
-      })
-      axios.post("/api/compOffStatus",{},{headers})
-      .then(res => {
-        setJsonDataCompo(res.data.reverse())
 
-      });
-    }else{router.push('/login')}
+
+        })
+      axios.post("/api/compOffStatus", {}, { headers })
+        .then(res => {
+          setJsonDataCompo(res.data.jsonData.reverse());
+
+
+
+        });
+    } else { router.push('/login') }
 
   }
 
@@ -304,85 +312,85 @@ let downloadData=jsonData?.map((data, i) => {
 
 
   const displayJSO = () => {
-    let token=localStorage.token
-    let headers={authorization:token}
-    if(token){
-    axios.post("/api/empfetch",{},{headers})
-      .then(res => {
-        setJsoData(res.data)
+    let token = localStorage.token
+    let headers = { authorization: token }
+    if (token) {
+      axios.post("/api/empfetch", {}, { headers })
+        .then(res => {
+          setJsoData(res.data)
 
-      })
-    }else{router.push('/login')}
+        })
+    } else { router.push('/login') }
 
   }
 
-const UpdateCompOff=(id, status )=>{
-  let token=localStorage.token
-  let headers={authorization:token}
-  if(token){
-  axios
-      .post(`/api/updateCompStatus`, { id, status },{headers})
-      .then((res) => {
-        console.log(res);
-        if (res.status === 200) {
-          displayJSON();
-          displayJSO();
-        }
-      });
-    }else{router.push('/login')}
+  const UpdateCompOff = (id, status) => {
+    let token = localStorage.token
+    let headers = { authorization: token }
+    if (token) {
+      axios
+        .post(`/api/updateCompStatus`, { id, status }, { headers })
+        .then((res) => {
+          console.log(res);
+          if (res.status === 200) {
+            displayJSON();
+            displayJSO();
+          }
+        });
+    } else { router.push('/login') }
 
-}
-const UpdateempCompOff=(email, day)=>{
-  let token=localStorage.token
-  let headers={authorization:token}
-  if(token){
-  axios
-  .post(`/api/CompLeave`, { email, day },{headers})
-  .then((res) => {
-    console.log(res);
-    if (res.status === 200) {
-      displayJSON();
-      displayJSO();
-    }
-  });
-}else{router.push('/login')}
+  }
+  const UpdateempCompOff = (email, day) => {
+    let token = localStorage.token
+    let headers = { authorization: token }
+    if (token) {
+      axios
+        .post(`/api/CompLeave`, { email, day }, { headers })
+        .then((res) => {
+          console.log(res);
+          if (res.status === 200) {
+            displayJSON();
+            displayJSO();
+          }
+        });
+    } else { router.push('/login') }
 
-}
+  }
   const Update = (id, status) => {
-    let token=localStorage.token
-    let headers={authorization:token}
-    if(token){
-    axios
-      .post(`/api/update`, { id, status },{headers})
-      .then((res) => {
-        console.log(res);
-        if (res.status === 200) {
-          displayJSON();
-          displayJSO();
-        }
-      });
-    }else{router.push('/login')}
+    let token = localStorage.token
+    let headers = { authorization: token }
+    if (token) {
+      axios
+        .post(`/api/update`, { id, status }, { headers })
+        .then((res) => {
+          console.log(res);
+          if (res.status === 200) {
+            displayJSON();
+            displayJSO();
+          }
+        });
+    } else { router.push('/login') }
 
   };
 
   const Updateemp = (email, availableLeave, totalDays, takenLeave) => {
-    let token=localStorage.token
-    let headers={authorization:token}
-    if(token){
-    axios
-      .post(`/api/availableleave`, { email, availableLeave, totalDays, takenLeave },{headers})
-      .then((res) => {
-        console.log(res);
-        if (res.status === 200) {
-          displayJSON();
-          displayJSO();
-        }
-      });
-    }else{router.push('/login')}
+    let token = localStorage.token
+    let headers = { authorization: token }
+    if (token) {
+      axios
+        .post(`/api/availableleave`, { email, availableLeave, totalDays, takenLeave }, { headers })
+        .then((res) => {
+          console.log(res);
+          if (res.status === 200) {
+            displayJSON();
+            displayJSO();
+          }
+        });
+    } else { router.push('/login') }
 
   };
 
-    
+
   const notify = () => toast.success('Request Approved!', {
     position: "top-center",
     autoClose: 2000,
@@ -392,24 +400,24 @@ const UpdateempCompOff=(email, day)=>{
     draggable: true,
     progress: undefined,
     theme: "light",
-    });;
-    const notifys = () => toast.success('Request Rejected!', {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      });;
+  });;
+  const notifys = () => toast.success('Request Rejected!', {
+    position: "top-center",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  });;
 
 
   function downloadExcel(downloadData) {
 
-const jsonDataCopy = downloadData;
+    const jsonDataCopy = downloadData;
     jsonDataCopy.forEach((item) => {
-        delete item.id;
+      delete item.id;
     });
 
 
@@ -428,46 +436,46 @@ const jsonDataCopy = downloadData;
 
     URL.revokeObjectURL(url);
   }
-  const leavemail = (name,status) => {
-    let token=localStorage.token
-    let headers={authorization:token}
-    if(token){
-    axios
-      .post("/api/nodemail", {name:name,status:status},{headers})
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    }else{router.push('/login')}
+  const leavemail = (name, status) => {
+    let token = localStorage.token
+    let headers = { authorization: token }
+    if (token) {
+      axios
+        .post("/api/nodemail", { name: name, status: status }, { headers })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else { router.push('/login') }
 
   };
 
 
-  return (role==="admin" || role==="approver") ? (
+  return (role === "admin" || role === "approver") ? (
     <>
       <main>
         <div className='select-request w-11/12 m-auto'>
           <label>Select a Option:</label>
-          <select onChange={handleSelectChange} value={selectedOption}  className='h-8 rounded-md border-0 bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm'>
+          <select onChange={handleSelectChange} value={selectedOption} className='h-8 rounded-md border-0 bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm'>
             <option value="request" > Requests</option>
             <option value="approved">Approved</option>
             <option value="rejected">Rejected</option>
             <option value="compensatory">Compensatory</option>
           </select>
         </div>
-        <Table columns={selectedOption === "compensatory" ? compOffColumns : columns } data={data} className={'status-table'}
+        <Table columns={selectedOption === "compensatory" ? compOffColumns : columns} data={data} className={'status-table'}
         />
-       {role === "admin" ? <div className='w-11/12 m-auto'>
-        <button onClick={() => downloadExcel(downloadData)} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-          <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" /></svg>
-          <span>Download Excel</span>
-        </button>
-</div>: ''}
+        {role === "admin" ? <div className='w-11/12 m-auto'>
+          <button onClick={() => downloadExcel(downloadData)} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+            <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" /></svg>
+            <span>Download Excel</span>
+          </button>
+        </div> : ''}
       </main>
     </>
-  ):("")
+  ) : ("")
 }
 
 export default Request

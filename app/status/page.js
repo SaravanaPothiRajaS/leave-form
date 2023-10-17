@@ -11,11 +11,12 @@ import axios from 'axios'
 const { v4: uuidv4 } = require('uuid');
 import { toast } from 'react-toastify';
 import { useMyContext } from '../context/MyContext';
+import { useRouter } from 'next/navigation';
 
 
 
 const Status = () => {
-
+const router=useRouter();
   let { role, setRole } = useMyContext();
   const [compoOff, setCompoOff] = useState(false);
 
@@ -262,24 +263,28 @@ const Status = () => {
 
   ////
   const displayJSON = () => {
+    let token=localStorage.token
+    let headers={authorization:token}
+    if(token){
+      axios.post("/api/fetch",{},{headers})
+        .then(res => {
+          setJsonData(res.data.reverse())
+  
+        });
+  
+      axios.post("/api/compOffStatus",{},{headers})
+        .then(res => {
+          setJsonDataCompo(res.data.reverse())
+  
+        });
+  
+      axios.post("/api/holidayfetch",{},{headers})
+        .then(res => {
+          setHolidayData(res.data)
+  
+        });
 
-    axios.get("/api/fetch")
-      .then(res => {
-        setJsonData(res.data.reverse())
-
-      });
-
-    axios.get("/api/compOffStatus")
-      .then(res => {
-        setJsonDataCompo(res.data.reverse())
-
-      });
-
-    axios.get("/api/holidayfetch")
-      .then(res => {
-        setHolidayData(res.data)
-
-      });
+    }else{router.push('/login')}
 
   }
 
@@ -291,7 +296,10 @@ const Status = () => {
   function handleinsert(e) {
 
     e.preventDefault();
-    axios.post('/api/create', { addValue: formData })
+    let token=localStorage.token
+    let headers={authorization:token}
+    if(token){
+    axios.post('/api/create', { addValue: formData },{headers})
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
@@ -305,12 +313,16 @@ const Status = () => {
       .catch(error => {
         console.error('Error updating JSON data:', error);
       });
+    }else{router.push('/login')}
 
   }
   function handleinsertCompo(e) {
 
     e.preventDefault();
-    axios.post('/api/compOffCreate', { addValue: compoData })
+    let token=localStorage.token
+    let headers={authorization:token}
+   if(token){ 
+    axios.post('/api/compOffCreate', { addValue: compoData },{headers})
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
@@ -324,6 +336,7 @@ const Status = () => {
       .catch(error => {
         console.error('Error updating JSON data:', error);
       });
+    }else{router.push('/login')}
 
   }
 
@@ -404,14 +417,19 @@ const Status = () => {
 
 
   const leavemail = () => {
+    let token=localStorage.token
+    let headers={authorization:token}
+    if(token){
     axios
-      .post("/api/nodemailer", {})
+      .post("/api/nodemailer", {},{headers})
       .then((res) => {
         console.log(res.data);
       })
       .catch((error) => {
         console.error(error);
       });
+    }else{router.push('/login')}
+
   };
 
 

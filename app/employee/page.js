@@ -4,10 +4,11 @@ import Table from '../components/Table';
 import axios from 'axios'
 import * as XLSX from 'xlsx/xlsx.mjs';
 import { useMyContext } from '../context/MyContext';
+import { useRouter } from 'next/navigation';
 
 
 const Employee = () => {
-
+const router=useRouter();
     let {role,setRole}=useMyContext();
     const [jsonData, setJsonData] = useState([]);
     const [selectedFile, setSelectedFile] = useState(null);
@@ -45,12 +46,15 @@ const Employee = () => {
     }));
 
     const displayJSON = () => {
-
-        axios.get("/api/empfetch")
+        let token=localStorage.token
+        let headers={authorization:token}
+        if(token){
+        axios.post("/api/empfetch",{},{headers})
             .then(res => {
                 setJsonData(res?.data)
 
             })
+        }else{router.push('/login')}
     }
 
 
@@ -78,8 +82,11 @@ const Employee = () => {
         if (convertJsonData?.length > 0) {
             const requiredKeys = ["name", "email", "availableLeave", "takenLeave", "department"];
             const keysExist = requiredKeys.every(key => Object.keys(convertJsonData[0]).includes(key));
+            let token=localStorage.token
+            let headers={authorization:token}
+            if(token){
             if (keysExist) {
-                axios.post('/api/importEmployee', { addValue: convertJsonData }).then(res => {
+                axios.post('/api/importEmployee', { addValue: convertJsonData },{headers}).then(res => {
                     if (res?.data === "imported") {
                         displayJSON();
                     }
@@ -87,6 +94,7 @@ const Employee = () => {
 
                 // console.log(1234567);
             } else { alert('Name ,Email, availableLeave , takenLeave, department does not exist or change the column name like that') }
+        }else{router.push('/login')}
         }
     }, [convertJsonData])
 

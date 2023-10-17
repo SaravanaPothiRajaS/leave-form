@@ -1,12 +1,12 @@
 'use client';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import raise from '../images/raise1.png';
 import user from '../images/user.png';
-
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useMyContext } from '../context/MyContext';
+import jwtDecode from 'jwt-decode';
 
 const Navbar = () => {
 
@@ -14,12 +14,23 @@ const Navbar = () => {
 
   const [overlay, setOverlay] = useState(false);
 
-  let { role, setRole } = useMyContext();
+  let { role, setRole, setEmail } = useMyContext();
 
   const route = useRouter();
+  const currentpath = usePathname();
+  console.log(currentpath);
 
+  useEffect(() => {
+    let token = localStorage.token;
+    if (token) {
 
-  return (
+      const decoded = jwtDecode(token);
+      setEmail(decoded.email);
+      setRole(decoded.role)
+    } else { route.push('/login') }
+  }, [])
+
+  return (currentpath !== "/login") && (
     <>
       <div className='nav-bar h-16 fixed top-0'>
 
@@ -55,7 +66,9 @@ const Navbar = () => {
 
               <p className='flex justify-center mt-3'>Name :Edwin</p>
               <div className='flex justify-center mt-7'>
-                <button className='border px-6 py-2  rounded-full bg-red-500 text-white hover:bg-white hover:border-red-500 hover:text-red-500 duration-300'>Logout</button>
+                <button className='border px-6 py-2  rounded-full bg-red-500 text-white hover:bg-white hover:border-red-500 hover:text-red-500 duration-300'
+                  onClick={() => { localStorage.clear(); route.push('/login') }}
+                >Logout</button>
               </div>
             </div>
           </div>}

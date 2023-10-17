@@ -18,6 +18,8 @@ const Status = () => {
 
   let { role, setRole } = useMyContext();
   const [compoOff, setCompoOff] = useState(false);
+  const [available, setAvailable] = useState([""]);
+  const [compLeave, setCompLeave] = useState([""]);
 
 
   const [compoData, setCompoData] = useState(
@@ -288,6 +290,20 @@ const Status = () => {
   }, [])
 
 
+  useEffect(() => {
+    axios.get("/api/fetchAvailableLeave")
+      .then(res => {
+        console.log("Response data:", res.data);
+
+        setAvailable(res.data.avilableleave);
+        setCompLeave(res.data.availableCompOffLeave);
+      })
+      .catch(error => {
+        console.error("Error fetching available leave:", error);
+      });
+  }, [])
+
+
   function handleinsert(e) {
 
     e.preventDefault();
@@ -434,11 +450,11 @@ const Status = () => {
         <article className="w-auto p-3 border border-gray-200 rounded-lg shadow flex flex-col ld-card">
           <div className='flex justify-between gap-6'>
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">Casual Leave:</h5>
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-green-900 ">15</h5>
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-green-900 ">{available}</h5>
           </div>
           <div className='flex justify-between gap-6'>
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">Compensatory Leave:</h5>
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-green-900 ">2</h5>
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-green-900 ">{compLeave}</h5>
           </div>
 
 
@@ -451,10 +467,10 @@ const Status = () => {
         <section className='w-96   mr-auto mt-7 flex   justify-center'>
           <button
             onClick={() => { setTimeOutMenu(false) }}
-            className={timeOutMenu ? 'px-7 py-4 bg-green-200 rounded-l-lg' : 'px-8 py-4 menu-option-bg text-white rounded-l-lg border-b-2 border-l-2 border-t-2 border-red-500  '}>Time In</button>
+            className={timeOutMenu ? 'px-7 py-4 bg-green-200 rounded-l-lg' : 'px-8 py-4 menu-option-bg text-white rounded-l-lg border-b-2 border-l-2 border-t-2 border-yellow-600  '}>Time In</button>
           <button
             onClick={() => { setTimeOutMenu(true) }}
-            className={timeOutMenu ? 'px-8 py-4 menu-option-bg text-white rounded-r-lg underline-offset-8 border-b-2 border-red-500 border-r-2 border-t-2 ' : 'px-7 py-4 rounded-r-lg bg-green-200'}>Time Out </button>
+            className={timeOutMenu ? 'px-8 py-4 menu-option-bg text-white rounded-r-lg underline-offset-8 border-b-2 border-yellow-600 border-r-2 border-t-2 ' : 'px-7 py-4 rounded-r-lg bg-green-200'}>Time Out </button>
 
         </section>
       </div>

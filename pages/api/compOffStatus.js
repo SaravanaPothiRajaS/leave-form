@@ -8,16 +8,23 @@ export default async (req, res) => {
     const data = await fs.readFile('compOffStatus.json', 'utf8');
         const jsonData = JSON.parse(data);
       
-        const { department,role} = req.body;
+        const { department ,role} = req.body;
         console.log(department);
-        const filteredData = jsonData.filter(item => item.role === role);
+        if(role==="approver"){
+          const filteredData = jsonData.filter(item => item.role === role);
 
-        if (filteredData.length > 0) {
-        
-          res.json(filteredData);
-        } else {
-          res.status(404).json({ error: 'No records with role "user" found' });
-        }   
+          if (filteredData.length > 0) {
+          
+            res.json(filteredData);
+          } 
+        }else if(role==="user"){
+          const filteredData = jsonData.filter(item => (item.role === role)&&(item.department===department));
+
+          if (filteredData.length > 0) {
+          
+            res.json(filteredData);
+          } 
+        } 
       } else {
         res.status(403).send('Forbidden: Invalid Token');
       }

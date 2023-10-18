@@ -138,7 +138,7 @@ const router=useRouter();
       label: 'Department:',
       type: 'select',
       options: [
-        { value: 'Technology', label: 'Technology' },
+        { value: 'Tech', label: 'Tech' },
         { value: 'Finance', label: 'Finance' },
         { value: 'Leadership', label: 'Leadership' },
         { value: 'Testing', label: 'Testing' },
@@ -314,7 +314,7 @@ const router=useRouter();
 
 
   useEffect(() => {
-    axios.get("/api/fetchAvailableLeave")
+  if(email) { axios.post("/api/fetchAvailableLeave",{email:email})
       .then(res => {
         console.log("Response data:", res.data);
 
@@ -323,8 +323,8 @@ const router=useRouter();
       })
       .catch(error => {
         console.error("Error fetching available leave:", error);
-      });
-  }, [])
+      });}
+  }, [email])
 
 
   function handleinsert(e) {

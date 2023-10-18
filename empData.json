@@ -12,8 +12,8 @@
   {
     "name": "Levi Ackerman",
     "email": "alberteinsteinxxvk@gmail.com",
-    "availableLeave": -2,
-    "takenLeave": 9,
+    "availableLeave": -6,
+    "takenLeave": 13,
     "department": "Tech",
     "compOffLeave": 1,
     "password": "12345",
@@ -22,8 +22,8 @@
   {
     "name": "Ackerman",
     "email": "alberteinstein@gmail.com",
-    "availableLeave": 16,
-    "takenLeave": 9,
+    "availableLeave": 13,
+    "takenLeave": 12,
     "department": "Tech",
     "compOffLeave": 1,
     "password": "12345",
@@ -68,5 +68,25 @@
     "compOffLeave": 2,
     "password": "12345",
     "role": "user"
+  },
+  {
+    "name": "Pothis",
+    "email": "pothis1@gmail.com",
+    "availableLeave": 3,
+    "takenLeave": 12,
+    "department": "Testing",
+    "compOffLeave": 2,
+    "password": "12345",
+    "role": "user"
+  },
+  {
+    "name": "Edwin raj",
+    "email": "aaaa@gmail.com",
+    "availableLeave": 28,
+    "takenLeave": 26,
+    "department": "Finance",
+    "compOffLeave": 2,
+    "password": "12345",
+    "role": "approver"
   }
 ]

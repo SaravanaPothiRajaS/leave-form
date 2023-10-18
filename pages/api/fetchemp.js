@@ -9,25 +9,23 @@ export default async (req, res) => {
         const jsonData = JSON.parse(data);
 
         const { department ,role} = req.body;
-        if(role === "admin"){
-          
-          const filteredData = jsonData.filter(item => item.role === "approver");
-          
+        console.log(department);
+        if(role==="approver"){
+          const filteredData = jsonData.filter(item => item.role === role);
+
           if (filteredData.length > 0) {
-            
+          
             res.json(filteredData);
           } 
+        }else if(role==="user"){
+          const filteredData = jsonData.filter(item => (item.role === role)&&(item.department===department));
+
+          if (filteredData.length > 0) {
           
-        }else if(role === "approver"){
-          const filteredData = jsonData.filter(item => (item.department === department) && (item.role === "user"));
-          console.log(filteredData);
-
-  if (filteredData.length > 0) {
-  
-    res.json(filteredData);
-  } 
-
-}
+            res.json(filteredData);
+          } 
+        }
+       
       } else {
         res.status(403).send('Forbidden: Invalid Token');
       }

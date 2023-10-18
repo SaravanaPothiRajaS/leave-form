@@ -23,7 +23,8 @@ const Request = () => {
 
   const [employeeData, setEmployeeData] = useState([]);
 
-  // const updatedRole = role === "admin" ? "approver" : "user";
+  const updatedRole = role === "admin" ? "approver" : "user";
+  
 
   const handleSelectChange = (e) => {
     setSelectedOption(e.target.value);
@@ -284,14 +285,14 @@ let downloadData=jsonData?.map((data, i) => {
     let token=localStorage.token
     let headers={authorization:token}
     if(token){
-      if(department && role){
-    axios.post("/api/fetchemp", {department:department,role:role },{headers})
+      if(department){
+    axios.post("/api/fetchemp", {department:department,role:updatedRole },{headers})
       .then(res => {
         setJsonData(res.data.reverse())
 
-      })
-      
-      axios.post("/api/compOffStatus",{department:department,role:role},{headers})
+      })}
+      if(department){
+      axios.post("/api/compOffStatus",{department:department,role:updatedRole},{headers})
       .then(res => {
         setJsonDataCompo(res.data.reverse())
 
@@ -475,6 +476,4 @@ const jsonDataCopy = downloadData;
   ):("")
 }
 
-export default Request
-
-
+export default Request;

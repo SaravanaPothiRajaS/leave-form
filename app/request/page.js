@@ -15,13 +15,15 @@ import { useRouter } from 'next/navigation';
 
 const Request = () => {
   const router=useRouter();
-  let {role,setRole}=useMyContext();
+  let {role,department}=useMyContext();
   const [selectedOption, setSelectedOption] = useState('request');
   const [jsonData, setJsonData] = useState([]);
   const [jsoData, setJsoData] = useState([]);
   const [jsonDataCompo, setJsonDataCompo] = useState([]);
 
   const [employeeData, setEmployeeData] = useState([]);
+
+  // const updatedRole = role === "admin" ? "approver" : "user";
 
   const handleSelectChange = (e) => {
     setSelectedOption(e.target.value);
@@ -282,16 +284,18 @@ let downloadData=jsonData?.map((data, i) => {
     let token=localStorage.token
     let headers={authorization:token}
     if(token){
-    axios.post("/api/fetch", { email: 'edwinraj1462003@gmail.com' },{headers})
+      if(department && role){
+    axios.post("/api/fetchemp", {department:department,role:role },{headers})
       .then(res => {
         setJsonData(res.data.reverse())
 
       })
-      axios.post("/api/compOffStatus",{},{headers})
+      
+      axios.post("/api/compOffStatus",{department:department,role:role},{headers})
       .then(res => {
         setJsonDataCompo(res.data.reverse())
 
-      });
+      });}
     }else{router.push('/login')}
 
   }
@@ -299,7 +303,7 @@ let downloadData=jsonData?.map((data, i) => {
   useEffect(() => {
     displayJSON();
     displayJSO();
-  }, [])
+  }, [department])
 
 
 
@@ -428,6 +432,7 @@ const jsonDataCopy = downloadData;
 
     URL.revokeObjectURL(url);
   }
+  
   const leavemail = (name,status) => {
     let token=localStorage.token
     let headers={authorization:token}

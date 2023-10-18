@@ -17,7 +17,8 @@ import { useRouter } from 'next/navigation';
 
 const Status = () => {
 const router=useRouter();
-  let { role, setRole } = useMyContext();
+  let { role, email,department,name } = useMyContext();
+  console.log(name);
   const [compoOff, setCompoOff] = useState(false);
   const [available, setAvailable] = useState([""]);
   const [compLeave, setCompLeave] = useState([""]);
@@ -25,21 +26,23 @@ const router=useRouter();
 
   const [compoData, setCompoData] = useState(
     {
-      name: "edwinraj",
-      department: "test",
+      name: name && name,
+      department: department && department,
       date: "",
       day: 1,
       approver: 'HR',
       status: "pending",
       id: uuidv4(),
-      email: "edwinraj1462003@gmail.com"
+      email: email && email,
+      role: role && role
+
     }
   )
   console.log(compoData);
   const [formData, setFormData] = useState({
-    name: "edwinraj",
+    name: name && name,
     leaveType: '',
-    department: '',
+    department: department && department,
     fromDate: '',
     toDate: '',
     totalDays: 0,
@@ -47,13 +50,25 @@ const router=useRouter();
     approver: 'HR',
     status: 'pending',
     id: uuidv4(),
-    email: "edwinraj1462003@gmail.com"
+    email: email && email,
+    role: role && role
   });
   const [timeOutMenu, setTimeOutMenu] = useState(true);
   const [jsonData, setJsonData] = useState([]);
   const [holidayData, setHolidayData] = useState([])
   const [jsonDataCompo, setJsonDataCompo] = useState([]);
 
+  useEffect(() => {
+    
+    if (role === 'user') {
+      setCompoData((prevData) => ({ ...prevData, approver: '' }));
+      setFormData((prevData) => ({ ...prevData, approver: 'HR' }));
+    } else if (role === 'approver') {
+      setCompoData((prevData) => ({ ...prevData, approver: 'Some Other Approver' }));
+      setFormData((prevData) => ({ ...prevData, approver: 'Some Other Approver' }));
+    }
+    
+  }, [role]);
   console.log(formData);
 
   const onChange = (name, value) => {
@@ -123,13 +138,13 @@ const router=useRouter();
       label: 'Department:',
       type: 'select',
       options: [
-        { value: 'Technology', label: 'Technology' },
+        { value: 'Tech', label: 'Tech' },
         { value: 'Finance', label: 'Finance' },
         { value: 'Leadership', label: 'Leadership' },
         { value: 'Testing', label: 'Testing' },
         { value: 'DevOps', label: 'DevOps' },
       ],
-      disabled: false,
+      disabled: true,
 
     },
     {
@@ -268,18 +283,21 @@ const router=useRouter();
     let token=localStorage.token
     let headers={authorization:token}
     if(token){
-      axios.post("/api/fetch",{},{headers})
+      if(email){
+           axios.post("/api/fetch",{email:email},{headers})
         .then(res => {
           setJsonData(res.data.reverse())
   
         });
-  
-      axios.post("/api/compOffStatus",{},{headers})
+      }
+   
+     if(email){  
+      axios.post("/api/compOff",{email:email},{headers})
         .then(res => {
           setJsonDataCompo(res.data.reverse())
   
         });
-  
+      }
       axios.post("/api/holidayfetch",{},{headers})
         .then(res => {
           setHolidayData(res.data)
@@ -292,11 +310,11 @@ const router=useRouter();
 
   useEffect(() => {
     displayJSON();
-  }, [])
+  }, [email])
 
 
   useEffect(() => {
-    axios.get("/api/fetchAvailableLeave")
+  if(email) { axios.post("/api/fetchAvailableLeave",{email:email})
       .then(res => {
         console.log("Response data:", res.data);
 
@@ -305,8 +323,8 @@ const router=useRouter();
       })
       .catch(error => {
         console.error("Error fetching available leave:", error);
-      });
-  }, [])
+      });}
+  }, [email])
 
 
   function handleinsert(e) {
@@ -437,7 +455,7 @@ const router=useRouter();
     let headers={authorization:token}
     if(token){
     axios
-      .post("/api/nodemailer", {},{headers})
+      .post("/api/nodemailer", {email:email},{headers})
       .then((res) => {
         console.log(res.data);
       })

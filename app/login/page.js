@@ -13,7 +13,7 @@ import jwtDecode from 'jwt-decode';
 
 const Login = () => {
 
-  let { setRole,setEmail } = useMyContext();
+  let { setRole,setEmail,setDepartment,setName } = useMyContext();
 
 
   const [email, setEmailLogin] = useState("");
@@ -33,8 +33,10 @@ const Login = () => {
             localStorage.setItem('token',res.data.accessToken)
             let token=res.data.accessToken;
             const decoded = jwtDecode(token);
-      setEmail(decoded.email);
-      setRole(decoded.role)
+            setEmail(decoded.email);
+            setRole(decoded.role)
+            setDepartment(decoded.department)
+            setName(decoded.name)
           }
           route.push('/holiday')
         }

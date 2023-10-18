@@ -476,6 +476,4 @@ const jsonDataCopy = downloadData;
   ):("")
 }
 
-export default Request
-
-
+export default Request;

@@ -3,7 +3,8 @@ export default async (req, res) => {
     try {
         const data = await fs.readFile('empData.json', 'utf8');
         const jsonData = JSON.parse(data);
-        const avail = jsonData.filter(item => item.email === "edwinraj1462003@gmail.com");
+        const {email}=req.body;
+        const avail = jsonData.filter(item => item.email === email);
         const avilableleave = (avail[0].availableLeave);
         const availableCompOffLeave = (avail[0].compOffLeave);
         res.json({ avilableleave: avilableleave, availableCompOffLeave: availableCompOffLeave });

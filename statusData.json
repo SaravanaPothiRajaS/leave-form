@@ -145,6 +145,20 @@
     "role": "user"
   },
   {
+    "name": "Ackerman",
+    "leaveType": "Loss of Pay",
+    "department": "Tech",
+    "fromDate": "2023-10-19",
+    "toDate": "2023-10-20",
+    "totalDays": 2,
+    "reason": "Loss of Pay",
+    "approver": "HR",
+    "status": "approved",
+    "id": "c3b9214b-c005-408f-9c99-3d0789545f13",
+    "email": "alberteinstein@gmail.com",
+    "role": "user"
+  },
+  {
     "name": "Levi Ackerman",
     "leaveType": "Leave  on Propation",
     "department": "Tech",
@@ -189,7 +203,7 @@
   {
     "name": "Levi Ackerman",
     "leaveType": "Loss of Pay",
-    "department": "Tech",
+    "department": "Leadership",
     "fromDate": "2023-10-19",
     "toDate": "2023-10-20",
     "totalDays": 2,

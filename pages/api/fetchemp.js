@@ -13,17 +13,12 @@ export default async (req, res) => {
         if(role==="approver"){
           const filteredData = jsonData.filter(item => item.role === role);
 
-          if (filteredData.length > 0) {
           
             res.json(filteredData);
-          } 
         }else if(role==="user"){
           const filteredData = jsonData.filter(item => (item.role === role)&&(item.department===department));
 
-          if (filteredData.length > 0) {
-          
             res.json(filteredData);
-          } 
         }
        
       } else {

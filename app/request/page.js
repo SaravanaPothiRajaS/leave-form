@@ -15,7 +15,7 @@ import { useRouter } from 'next/navigation';
 
 const Request = () => {
   const router=useRouter();
-  let {role,department}=useMyContext();
+  let {role,department,email}=useMyContext();
   const [selectedOption, setSelectedOption] = useState('request');
   const [jsonData, setJsonData] = useState([]);
   const [jsoData, setJsoData] = useState([]);
@@ -24,7 +24,7 @@ const Request = () => {
   const [employeeData, setEmployeeData] = useState([]);
 
   const updatedRole = role === "admin" ? "approver" : "user";
-  
+  let fromEmail=email;
 
   const handleSelectChange = (e) => {
     setSelectedOption(e.target.value);
@@ -163,15 +163,15 @@ let downloadData=jsonData?.map((data, i) => {
           <>
             <button className='edit-btn' onClick={() => {
               Update(data.id, 'approved');
-              Updateemp(data.email, availableLeave, data.totalDays, takenLeave);
+              Updateemp(data.email, availableLeave, data.totalDays, takenLeave,data.id);
               notify();
-              leavemail( data.name,'approved')
+              leavemail( data.name,'approved',data.email)
             }}>
               Approve
             </button>
             <button className='reject-edit-btn' onClick={() =>{Update(data.id, 'rejected');
                   notifys();
-                  leavemail( data.name,'rejected')}}>
+                  leavemail( data.name,'rejected',data.email)}}>
               Reject
             </button>
           </>
@@ -256,8 +256,8 @@ let downloadData=jsonData?.map((data, i) => {
             <button className='edit-btn' onClick={() => {
               UpdateempCompOff(data.email,data.day);
               UpdateCompOff(data.id, 'approved');
-              // notify();
-              // leavemail( data.name,'approved')
+              notify();
+              leavemail( data.name,'approved',data.email)
             }}>
               Approve
             </button>
@@ -304,7 +304,9 @@ let downloadData=jsonData?.map((data, i) => {
   useEffect(() => {
     displayJSON();
     displayJSO();
-  }, [department])
+  }, [
+    
+  ])
 
 
 
@@ -434,12 +436,12 @@ const jsonDataCopy = downloadData;
     URL.revokeObjectURL(url);
   }
   
-  const leavemail = (name,status) => {
+  const leavemail = (name,status,email) => {
     let token=localStorage.token
     let headers={authorization:token}
     if(token){
     axios
-      .post("/api/nodemail", {name:name,status:status},{headers})
+      .post("/api/nodemail", {name:name,status:status,email:email,fromEmail:fromEmail},{headers})
       .then((res) => {
         console.log(res.data);
       })

@@ -30,7 +30,7 @@ const Navbar = () => {
       setDepartment(decoded.department)
       setName(decoded.name)
     } else { route.push('/login') }
-  })
+  },[])
 
   return (currentpath !== "/login") && (
     <>

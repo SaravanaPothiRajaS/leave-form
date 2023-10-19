@@ -132,7 +132,7 @@ export default function Table({ columns, data, className }) {
                 <div className=' w-11/12 flex justify-center '>
                     <h1 className='font-bold text-rose-800'>No data</h1>
                 </div>}
-            <div className="pagination-controls">
+            <div className="pagination-controls mb-10">
                 <span>
                     <h3>Select Limit:</h3>
                     <select value={pageSize} onChange={handlePageSizeChange}>

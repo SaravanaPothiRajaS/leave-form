@@ -163,7 +163,7 @@ let downloadData=jsonData?.map((data, i) => {
           <>
             <button className='edit-btn' onClick={() => {
               Update(data.id, 'approved');
-              Updateemp(data.email, availableLeave, data.totalDays, takenLeave);
+              Updateemp(data.email, availableLeave, data.totalDays, takenLeave,data.leaveType);
               notify();
               leavemail( data.name,'approved')
             }}>
@@ -370,12 +370,12 @@ const UpdateempCompOff=(email, day)=>{
 
   };
 
-  const Updateemp = (email, availableLeave, totalDays, takenLeave) => {
+  const Updateemp = (email, availableLeave, totalDays, takenLeave,leaveType) => {
     let token=localStorage.token
     let headers={authorization:token}
     if(token){
     axios
-      .post(`/api/availableleave`, { email, availableLeave, totalDays, takenLeave },{headers})
+      .post(`/api/availableleave`, { email, availableLeave, totalDays, takenLeave ,leaveType},{headers})
       .then((res) => {
         console.log(res);
         if (res.status === 200) {

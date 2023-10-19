@@ -386,6 +386,7 @@
   background-color: rgb(248, 234, 209);
   border-radius: 5px;
   padding: 4px 16px;
+  text-transform: capitalize;
 }
 
 .approved {
@@ -393,6 +394,7 @@
   background-color: rgb(203, 252, 203);
   border-radius: 5px;
   padding: 4px 16px;
+  text-transform: capitalize;
 }
 
 .rejected {
@@ -400,6 +402,7 @@
   background-color: #ffc8c8b8;
   border-radius: 5px;
   padding: 4px 16px;
+  text-transform: capitalize;
 }
 
 .apply-btn {

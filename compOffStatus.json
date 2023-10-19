@@ -8,7 +8,7 @@
     "approver": "HR",
     "id": "06274578-7ba5-4369-b48b-fa58a6358525",
     "email": "alberteinsteinxxvk@gmail.com",
-    "role":"user"
+    "role": "user"
   },
   {
     "name": "S.Saravanapothiraja",
@@ -19,7 +19,7 @@
     "status": "approved",
     "id": "dfc34955-ce02-4daf-9428-454357f10d4b",
     "email": "saravanapothiraja.s@gmail.com",
-    "role":"user"
+    "role": "user"
   },
   {
     "name": "Vinodh Kumar",
@@ -30,7 +30,7 @@
     "status": "approved",
     "id": "4f3d9819-a585-4182-b2f5-c366f32b37b4",
     "email": "vinodhkumaryin@gmail.com",
-    "role":"user"
+    "role": "user"
   },
   {
     "name": "edwinraj",
@@ -41,7 +41,7 @@
     "status": "approved",
     "id": "45afa5b5-b635-4361-8cd6-f2c527b095ab",
     "email": "edwinraj1462003@gmail.com",
-    "role":"user"
+    "role": "user"
   },
   {
     "name": "edwinraj",
@@ -52,7 +52,7 @@
     "status": "approved",
     "id": "282c164f-f3aa-4f20-b8b2-9e0b69fbac3c",
     "email": "edwinraj1462003@gmail.com",
-    "role":"user"
+    "role": "user"
   },
   {
     "name": "edwinraj",
@@ -63,7 +63,7 @@
     "status": "approved",
     "id": "4d0b279e-eeeb-429f-ae0e-55e660356349",
     "email": "edwinraj1462003@gmail.com",
-    "role":"user"
+    "role": "user"
   },
   {
     "name": "edwinraj",
@@ -74,7 +74,7 @@
     "status": "approved",
     "id": "3f40610c-bb01-43fa-8d83-b45b3483d365",
     "email": "edwinraj1462003@gmail.com",
-    "role":"user"
+    "role": "user"
   },
   {
     "name": "edwinraj",
@@ -85,7 +85,7 @@
     "status": "approved",
     "id": "b37db2bc-d1bb-4d31-9c64-705f40fc0057",
     "email": "edwinraj1462003@gmail.com",
-    "role":"user"
+    "role": "user"
   },
   {
     "name": "edwinraj",
@@ -96,7 +96,7 @@
     "status": "rejected",
     "id": "db3ef5e3-417b-41c6-a18d-b57c3b2ee6e5",
     "email": "edwinraj1462003@gmail.com",
-    "role":"user"
+    "role": "user"
   },
   {
     "name": "Levi Ackerman",
@@ -104,9 +104,174 @@
     "date": "2023-10-12",
     "day": "0.5",
     "approver": "HR",
-    "status": "pending",
+    "status": "approved",
     "id": "499883ca-b2f7-4a4a-9a8c-7d364c7aa9d7",
     "email": "alberteinsteinxxvk@gmail.com",
-    "role":"user"
+    "role": "user"
+  },
+  {
+    "name": "Edwin raj",
+    "department": "Finance",
+    "date": "2023-10-07",
+    "day": "0.5",
+    "approver": "",
+    "status": "pending",
+    "id": "c131377e-0d22-43d4-b9b0-c34b87c37edf",
+    "email": "edwinraj1462003@gmail.com",
+    "role": "user"
+  },
+  {
+    "name": "Levi Ackerman",
+    "department": "Tech",
+    "date": "2023-10-19",
+    "day": 1,
+    "approver": "Some Other Approver",
+    "status": "approved",
+    "id": "c79e0516-8fb6-4469-8328-dfc0a9710118",
+    "email": "alberteinsteinxxvk@gmail.com",
+    "role": "approver"
+  },
+  {
+    "name": "Levi Ackerman",
+    "department": "Tech",
+    "date": "2023-10-20",
+    "day": 1,
+    "approver": "Some Other Approver",
+    "status": "approved",
+    "id": "2468be9e-2bf8-40ee-8920-812222b9e2ca",
+    "email": "alberteinsteinxxvk@gmail.com",
+    "role": "approver"
+  },
+  {
+    "name": "Levi Ackerman",
+    "department": "Tech",
+    "date": "2023-10-20",
+    "day": 1,
+    "approver": "Some Other Approver",
+    "status": "rejected",
+    "id": "505a25ab-5b81-4f87-9a50-1207983d3dd8",
+    "email": "alberteinsteinxxvk@gmail.com",
+    "role": "approver"
+  },
+  {
+    "name": "Levi Ackerman",
+    "department": "Tech",
+    "date": "2023-10-26",
+    "day": 1,
+    "approver": "Some Other Approver",
+    "status": "pending",
+    "id": "505a25ab-5b81-4f87-9a50-1207983d3dd8",
+    "email": "alberteinsteinxxvk@gmail.com",
+    "role": "approver"
+  },
+  {
+    "name": "Levi Ackerman",
+    "department": "Tech",
+    "date": "2023-10-26",
+    "day": 1,
+    "approver": "Some Other Approver",
+    "status": "pending",
+    "id": "505a25ab-5b81-4f87-9a50-1207983d3dd8",
+    "email": "alberteinsteinxxvk@gmail.com",
+    "role": "approver"
+  },
+  {
+    "name": "Levi Ackerman",
+    "department": "Tech",
+    "date": "2023-10-27",
+    "day": 1,
+    "approver": "Some Other Approver",
+    "status": "rejected",
+    "id": "2c0fe4ba-36c6-4122-adc8-6635c373988e",
+    "email": "alberteinsteinxxvk@gmail.com",
+    "role": "approver"
+  },
+  {
+    "name": "Levi Ackerman",
+    "department": "Tech",
+    "date": "2023-09-26",
+    "day": 1,
+    "approver": "Some Other Approver",
+    "status": "pending",
+    "id": "2c0fe4ba-36c6-4122-adc8-6635c373988e",
+    "email": "alberteinsteinxxvk@gmail.com",
+    "role": "approver"
+  },
+  {
+    "name": "Edwin raj",
+    "department": "Finance",
+    "date": "2023-10-13",
+    "day": 1,
+    "approver": "",
+    "status": "pending",
+    "id": "0777ad06-3538-4ce1-b9b5-1487afff409c",
+    "email": "edwinraj1462003@gmail.com",
+    "role": "user"
+  },
+  {
+    "name": "Ackerman",
+    "department": "Tech",
+    "date": "2023-10-13",
+    "day": 1,
+    "approver": "",
+    "status": "approved",
+    "id": "b6264ec9-c88b-482b-97b7-2b407600c39c",
+    "email": "alberteinstein@gmail.com",
+    "role": "user"
+  },
+  {
+    "name": "Ackerman",
+    "department": "Tech",
+    "date": "2023-10-21",
+    "day": 1,
+    "approver": "",
+    "status": "approved",
+    "id": "bfe319d4-e887-4e20-be2a-0c7ab2d284f8",
+    "email": "alberteinstein@gmail.com",
+    "role": "user"
+  },
+  {
+    "name": "Ackerman",
+    "department": "Tech",
+    "date": "2023-10-20",
+    "day": 1,
+    "approver": "",
+    "status": "approved",
+    "id": "edc70886-c4a2-4405-ba0e-32b86ad2f438",
+    "email": "alberteinstein@gmail.com",
+    "role": "user"
+  },
+  {
+    "name": "Edwin raj",
+    "department": "Finance",
+    "date": "2023-10-27",
+    "day": 1,
+    "approver": "",
+    "status": "pending",
+    "id": "e53de2bb-3174-4e62-9d6e-b26b7b759e5f",
+    "email": "edwinraj1462003@gmail.com",
+    "role": "user"
+  },
+  {
+    "name": "Ackerman",
+    "department": "Tech",
+    "date": "2023-10-19",
+    "day": 1,
+    "approver": "",
+    "status": "approved",
+    "id": "558075ef-3aac-48cb-9697-a7a3208440da",
+    "email": "alberteinstein@gmail.com",
+    "role": "user"
+  },
+  {
+    "name": "Ackerman",
+    "department": "Tech",
+    "date": "2023-10-26",
+    "day": 1,
+    "approver": "",
+    "status": "approved",
+    "id": "18b0d285-bffe-4edc-8978-aa2f012777f2",
+    "email": "alberteinstein@gmail.com",
+    "role": "user"
   }
 ]

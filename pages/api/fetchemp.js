@@ -8,24 +8,22 @@ export default async (req, res) => {
         const data = await fs.readFile('statusData.json', 'utf8');
         const jsonData = JSON.parse(data);
 
-        const { department ,role} = req.body;
+        const { department, role } = req.body;
         console.log(department);
-        if(role==="approver"){
+        if (role === "approver") {
           const filteredData = jsonData.filter(item => item.role === role);
+          const pending = filteredData.filter(item => item.status === "pending");
+          const pendingCount = pending.length;
+          res.json({ filteredData: filteredData, pendingCount: pendingCount });
 
-          if (filteredData.length > 0) {
-          
-            res.json(filteredData);
-          } 
-        }else if(role==="user"){
-          const filteredData = jsonData.filter(item => (item.role === role)&&(item.department===department));
-
-          if (filteredData.length > 0) {
-          
-            res.json(filteredData);
-          } 
+        } else if (role === "user") {
+          const filteredData = jsonData.filter(item => (item.role === role) && (item.department === department));
+          const pending = filteredData.filter(item => item.status === "pending");
+          const pendingCount = pending.length;
+          console.log(pendingCount);
+          res.json({ filteredData: filteredData, pendingCount: pendingCount });
         }
-       
+
       } else {
         res.status(403).send('Forbidden: Invalid Token');
       }

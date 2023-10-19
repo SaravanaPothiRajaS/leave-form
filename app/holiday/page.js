@@ -65,19 +65,19 @@ const holiday = () => {
     function handleinsert() {
         let token = localStorage.token
         let headers = { authorization: token }
-        if(token){
-        axios.post('/api/holidaycreate', { addValue: addValue }, { headers })
-            .then((res) => {
-                console.log(res);
-                if (res.status === 200) {
-                    displayJSON();
-                    setAddHoliday(false);
-                }
-            })
-            .catch(error => {
-                console.error('Error updating JSON data:', error);
-            });
-        }else{route.push('/login')}
+        if (token) {
+            axios.post('/api/holidaycreate', { addValue: addValue }, { headers })
+                .then((res) => {
+                    console.log(res);
+                    if (res.status === 200) {
+                        displayJSON();
+                        setAddHoliday(false);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error updating JSON data:', error);
+                });
+        } else { route.push('/login') }
     }
 
 
@@ -147,21 +147,21 @@ const holiday = () => {
         let headers = { authorization: token }
         const id = dataId;
         console.log(id);
-      if(token){
-        axios
-            .post(`/api/holiday/delete`, { id }, { headers })
-            .then((res) => {
-                console.log(res);
-                if (res.status === 200) {
-                    displayJSON();
-                    setDeleteData(false)
+        if (token) {
+            axios
+                .post(`/api/holiday/delete`, { id }, { headers })
+                .then((res) => {
+                    console.log(res);
+                    if (res.status === 200) {
+                        displayJSON();
+                        setDeleteData(false)
 
-                }
-            })
-            .catch((error) => {
-                console.error('Error updating JSON data:', error);
-            });
-        }else{route.push('/login')}
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error updating JSON data:', error);
+                });
+        } else { route.push('/login') }
     }
 
     const deletebtn = (id) => {
@@ -180,7 +180,6 @@ const holiday = () => {
 
             axios.post("/api/holidayfetch", {}, { headers })
                 .then(res => {
-                    console.log("Status:", res.status);
                     if (res.status === 200) {
                         setJsonData(res.data)
                     } else if ((res.status === 403) || (res.status === 401)) {

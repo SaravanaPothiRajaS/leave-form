@@ -64,7 +64,8 @@ const Login = () => {
                 src={logo}
                 className='rounded-full ml-32'
                 width={100}
-                height={100} />
+                height={100}
+                alt='Raise' />
 
               <div className="form-cont">
                 <label className="form-label" htmlFor="email_field">

@@ -21,9 +21,9 @@
   },
   {
     "name": "Ackerman",
-    "email": "bvk123456@protonmail.com",
-    "availableLeave": 29,
-    "takenLeave": 103,
+    "email": "alberteinstein@gmail.com",
+    "availableLeave": 2,
+    "takenLeave": 85,
     "department": "Tech",
     "compOffLeave": 1.5,
     "password": "12345",
@@ -35,7 +35,7 @@
     "availableLeave": 30,
     "takenLeave": 24,
     "department": "Finance",
-    "compOffLeave": 2,
+    "compOffLeave": 3,
     "password": "12345",
     "role": "user"
   },
@@ -82,8 +82,8 @@
   {
     "name": "Pothis",
     "email": "pothis1@gmail.com",
-    "availableLeave": 3,
-    "takenLeave": 12,
+    "availableLeave": 1,
+    "takenLeave": 14,
     "department": "Testing",
     "compOffLeave": 2,
     "password": "12345",

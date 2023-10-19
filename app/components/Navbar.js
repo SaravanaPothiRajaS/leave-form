@@ -23,29 +23,30 @@ const Navbar = () => {
 
 
 
+
   const pendingJSON = () => {
-    let token = localStorage.token
+    let token = localStorage?.getItem('token')
+
     let headers = { authorization: token }
     const decoded = jwtDecode(token);
     setEmail(decoded.email);
     setRole(decoded.role)
     setDepartment(decoded.department)
     setName(decoded.name)
-    if (token) {
-      if (department) {
-        axios.post("/api/fetchemp", { department: department, role: updatedRole }, { headers })
-          .then(res => {
-            setTotalLeave(res.data.pendingCount)
-          })
-      }
-      if (department) {
-        axios.post("/api/compOffStatus", { department: department, role: updatedRole }, { headers })
-          .then(res => {
-            setCompTotal(res.data.compPendingCount)
 
-          });
-      }
-    } else { router.push('/login') }
+    if (department) {
+      axios.post("/api/fetchemp", { department: department, role: updatedRole }, { headers })
+        .then(res => {
+          setTotalLeave(res.data.pendingCount)
+        })
+    }
+    if (department) {
+      axios.post("/api/compOffStatus", { department: department, role: updatedRole }, { headers })
+        .then(res => {
+          setCompTotal(res.data.compPendingCount)
+
+        });
+    }
 
   }
   console.log(total);
@@ -53,7 +54,12 @@ const Navbar = () => {
 
 
   useEffect(() => {
-    pendingJSON();
+    let token = localStorage?.getItem('token')
+
+    if (token) {
+      pendingJSON();
+    } else { router.push('/login') }
+
   }, [department])
 
   return (currentpath !== "/login") && (

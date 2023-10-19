@@ -152,5 +152,82 @@
     "email": "alberteinstein@gmail.com",
     "role": "user",
     "id": "31823fe0-a44b-4bb6-8eba-36f2c73b00ad"
+  },
+  {
+    "name": "Ackerman",
+    "department": "Tech",
+    "date": "2023-10-25",
+    "day": 1,
+    "approver": "",
+    "status": "rejected",
+    "email": "alberteinstein@gmail.com",
+    "role": "user",
+    "id": "cf6aada3-f7de-4417-bc2d-cd3b2efc234b"
+  },
+  {
+    "name": "Edwin raj",
+    "department": "Finance",
+    "date": "2023-10-20",
+    "day": 1,
+    "approver": "",
+    "status": "approved",
+    "email": "edwinraj1462003@gmail.com",
+    "role": "user",
+    "id": "194d0fdb-ee5c-4702-87ba-7e721ccfc60a"
+  },
+  {
+    "name": "Pothis",
+    "department": "Testing",
+    "date": "2023-10-19",
+    "day": 1,
+    "approver": "",
+    "status": "rejected",
+    "email": "pothis1@gmail.com",
+    "role": "user",
+    "id": "5eb47a44-f1ec-46dd-a510-9d9c26dd17d8"
+  },
+  {
+    "name": "Pothis",
+    "department": "Testing",
+    "date": "2023-10-20",
+    "day": 1,
+    "approver": "",
+    "status": "pending",
+    "email": "pothis1@gmail.com",
+    "role": "user",
+    "id": "eebc9b34-661a-4dd7-a8b5-d2eadd1e211f"
+  },
+  {
+    "name": "Pothis",
+    "department": "Testing",
+    "date": "2023-10-28",
+    "day": 1,
+    "approver": "",
+    "status": "pending",
+    "email": "pothis1@gmail.com",
+    "role": "user",
+    "id": "42e99d54-d20c-4ffe-ba8a-dec82da98857"
+  },
+  {
+    "name": "Levi Ackerman",
+    "department": "Tech",
+    "date": "2023-10-20",
+    "day": 1,
+    "approver": "Some Other Approver",
+    "status": "pending",
+    "email": "alberteinsteinxxvk@gmail.com",
+    "role": "approver",
+    "id": "a587121c-f4bc-45c0-9ecd-16e275e73961"
+  },
+  {
+    "name": "Levi Ackerman",
+    "department": "Tech",
+    "date": "2023-10-25",
+    "day": 1,
+    "approver": "Some Other Approver",
+    "status": "pending",
+    "email": "alberteinsteinxxvk@gmail.com",
+    "role": "approver",
+    "id": "3e5e16ea-18cb-4836-8772-1cb3158379cd"
   }
 ]

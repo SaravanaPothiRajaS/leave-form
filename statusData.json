@@ -353,5 +353,47 @@
     "email": "alberteinstein@gmail.com",
     "role": "user",
     "id": "b30b514b-eb84-4802-85a4-d36ebfb9134c"
+  },
+  {
+    "name": "Ackerman",
+    "leaveType": "Casual Leave",
+    "department": "Tech",
+    "fromDate": "2023-10-20",
+    "toDate": "2023-10-20",
+    "totalDays": 1,
+    "reason": "qwerty",
+    "approver": "HR",
+    "status": "approved",
+    "email": "alberteinstein@gmail.com",
+    "role": "user",
+    "id": "6fc61a37-82a4-4b96-98a2-4998d68d741e"
+  },
+  {
+    "name": "Edwin raj",
+    "leaveType": "Casual Leave",
+    "department": "Finance",
+    "fromDate": "2023-10-19",
+    "toDate": "2023-10-20",
+    "totalDays": 2,
+    "reason": "qwew",
+    "approver": "HR",
+    "status": "approved",
+    "email": "edwinraj1462003@gmail.com",
+    "role": "user",
+    "id": "e7bae592-9bfa-4737-8d0f-0e32ca29261d"
+  },
+  {
+    "name": "Pothis",
+    "leaveType": "Casual Leave",
+    "department": "Testing",
+    "fromDate": "2023-10-19",
+    "toDate": "2023-10-20",
+    "totalDays": 2,
+    "reason": "ffgfgf",
+    "approver": "HR",
+    "status": "approved",
+    "email": "pothis1@gmail.com",
+    "role": "user",
+    "id": "1c0448c1-5fac-43b8-b22b-2c054a5c38f1"
   }
 ]

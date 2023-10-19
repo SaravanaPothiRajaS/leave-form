@@ -15,8 +15,10 @@ import jwtDecode from 'jwt-decode';
 
 
 const Request = () => {
+
   const router = useRouter();
-  let { role, department, setTotalLeave, setCompTotal, setEmail, setDepartment, setRole, setName } = useMyContext();
+  let { role, department, setTotalLeave,email, setCompTotal, setEmail, setDepartment, setRole, setName } = useMyContext();
+
   const [selectedOption, setSelectedOption] = useState('request');
   const [jsonData, setJsonData] = useState([]);
   const [jsoData, setJsoData] = useState([]);
@@ -25,6 +27,8 @@ const Request = () => {
   const [employeeData, setEmployeeData] = useState([]);
 
   const updatedRole = role === "admin" ? "approver" : "user";
+
+  let fromEmail=email;
 
 
   const handleSelectChange = (e) => {
@@ -162,17 +166,16 @@ const Request = () => {
           <>
             <button className='edit-btn' onClick={() => {
               Update(data.id, 'approved');
-              Updateemp(data.email, availableLeave, data.totalDays, takenLeave,data.leaveType);
+
+              Updateemp(data.email, availableLeave, data.totalDays, takenLeave,data.id,data.leaveType);
               notify();
-              leavemail(data.name, 'approved')
+              leavemail( data.name,'approved',data.email)
             }}>
               Approve
             </button>
-            <button className='reject-edit-btn' onClick={() => {
-              Update(data.id, 'rejected');
-              notifys();
-              leavemail(data.name, 'rejected')
-            }}>
+            <button className='reject-edit-btn' onClick={() =>{Update(data.id, 'rejected');
+                  notifys();
+                  leavemail( data.name,'rejected',data.email)}}>
               Reject
             </button>
           </>
@@ -257,8 +260,8 @@ const Request = () => {
             <button className='edit-btn' onClick={() => {
               UpdateempCompOff(data.email, data.day);
               UpdateCompOff(data.id, 'approved');
-              // notify();
-              // leavemail( data.name,'approved')
+              notify();
+              leavemail( data.name,'approved',data.email)
             }}>
               Approve
             </button>
@@ -333,7 +336,9 @@ const Request = () => {
   useEffect(() => {
     displayJSON();
     displayJSO();
-  }, [department])
+  }, [
+    
+  ])
 
 
 
@@ -398,12 +403,12 @@ const Request = () => {
     } else { router.push('/login') }
 
   };
-  const Updateemp = (email, availableLeave, totalDays, takenLeave,leaveType) => {
+  const Updateemp = (email, availableLeave, totalDays, takenLeave,id,leaveType) => {
     let token=localStorage.token
     let headers={authorization:token}
     if(token){
     axios
-      .post(`/api/availableleave`, { email, availableLeave, totalDays, takenLeave ,leaveType},{headers})
+      .post(`/api/availableleave`, { email, availableLeave, totalDays, takenLeave ,id,leaveType},{headers})
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
@@ -462,19 +467,21 @@ const Request = () => {
     URL.revokeObjectURL(url);
   }
 
-  const leavemail = (name, status) => {
-    let token = localStorage.token
-    let headers = { authorization: token }
-    if (token) {
-      axios
-        .post("/api/nodemail", { name: name, status: status }, { headers })
-        .then((res) => {
-          console.log(res.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    } else { router.push('/login') }
+  
+  const leavemail = (name,status,email) => {
+    let token=localStorage.token
+    let headers={authorization:token}
+    if(token){
+    axios
+      .post("/api/nodemail", {name:name,status:status,email:email,fromEmail:fromEmail},{headers})
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }else{router.push('/login')}
+
 
   };
 

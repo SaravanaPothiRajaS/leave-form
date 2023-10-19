@@ -6,10 +6,12 @@ export default async function handler(req, res) {
       try {
         authenticateToken(req, res, async(isAuthenticated) => {
           if (isAuthenticated) {
-        const {name,status}=req.body;
+        const {name,status,email,fromEmail}=req.body;
+       
+        let toEmail;
         await transporter.sendMail({
-          from: 'vinodhkumarjr28@gmail.com',
-          to: 'edwinraj1462003@gmail.com',
+          from: fromEmail,
+          to: email,
           subject: 'Leave status',
           text: `Dear ${name},
           Your request for leave is ${status}`,

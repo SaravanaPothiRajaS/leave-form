@@ -12,20 +12,20 @@
   {
     "name": "Levi Ackerman",
     "email": "alberteinsteinxxvk@gmail.com",
-    "availableLeave": -22,
-    "takenLeave": 29,
+    "availableLeave": -6,
+    "takenLeave": 13,
     "department": "Tech",
-    "compOffLeave": 23.5,
+    "compOffLeave": 1.5,
     "password": "12345",
     "role": "approver"
   },
   {
     "name": "Ackerman",
     "email": "alberteinstein@gmail.com",
-    "availableLeave": 11,
-    "takenLeave": 14,
+    "availableLeave": 3,
+    "takenLeave": 84,
     "department": "Tech",
-    "compOffLeave": 6,
+    "compOffLeave": 0.5,
     "password": "12345",
     "role": "user"
   },

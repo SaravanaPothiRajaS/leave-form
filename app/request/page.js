@@ -162,7 +162,7 @@ const Request = () => {
           <>
             <button className='edit-btn' onClick={() => {
               Update(data.id, 'approved');
-              Updateemp(data.email, availableLeave, data.totalDays, takenLeave);
+              Updateemp(data.email, availableLeave, data.totalDays, takenLeave,data.leaveType);
               notify();
               leavemail(data.name, 'approved')
             }}>
@@ -398,21 +398,20 @@ const Request = () => {
     } else { router.push('/login') }
 
   };
-
-  const Updateemp = (email, availableLeave, totalDays, takenLeave) => {
-    let token = localStorage.token
-    let headers = { authorization: token }
-    if (token) {
-      axios
-        .post(`/api/availableleave`, { email, availableLeave, totalDays, takenLeave }, { headers })
-        .then((res) => {
-          console.log(res);
-          if (res.status === 200) {
-            displayJSON();
-            displayJSO();
-          }
-        });
-    } else { router.push('/login') }
+  const Updateemp = (email, availableLeave, totalDays, takenLeave,leaveType) => {
+    let token=localStorage.token
+    let headers={authorization:token}
+    if(token){
+    axios
+      .post(`/api/availableleave`, { email, availableLeave, totalDays, takenLeave ,leaveType},{headers})
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          displayJSON();
+          displayJSO();
+        }
+      });
+    }else{router.push('/login')}
 
   };
 

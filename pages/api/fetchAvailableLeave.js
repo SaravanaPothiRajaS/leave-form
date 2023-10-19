@@ -6,7 +6,8 @@ export default async (req, res) => {
         const {email}=req.body;
         const avail = jsonData.filter(item => item.email === email);
         const avilableleave = (avail[0].availableLeave);
-        const availableCompOffLeave = (avail[0].compOffLeave);
+        const availableCompOffLeave = parseFloat(avail[0].compOffLeave);
+        console.log("float",avail);
         res.json({ avilableleave: avilableleave, availableCompOffLeave: availableCompOffLeave });
     } catch (error) {
         console.error('Error fetching data:', error);

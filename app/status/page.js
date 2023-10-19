@@ -16,11 +16,8 @@ import { useRouter } from 'next/navigation';
 
 
 const Status = () => {
-const router=useRouter();
-  let { role, email,department,name } = useMyContext();
-  console.log(email);
-  console.log(department);
-  console.log(role);
+  const router = useRouter();
+  let { role, email, department, name } = useMyContext();
   const [compoOff, setCompoOff] = useState(false);
   const [available, setAvailable] = useState([""]);
   const [compLeave, setCompLeave] = useState([""]);
@@ -34,7 +31,6 @@ const router=useRouter();
       day: 1,
       approver: 'HR',
       status: "pending",
-      id: uuidv4(),
       email: email && email,
       role: role && role
 
@@ -51,17 +47,17 @@ const router=useRouter();
     reason: '',
     approver: 'HR',
     status: 'pending',
-    id: uuidv4(),
     email: email && email,
     role: role && role
   });
+  console.log(formData);
   const [timeOutMenu, setTimeOutMenu] = useState(true);
   const [jsonData, setJsonData] = useState([]);
   const [holidayData, setHolidayData] = useState([])
   const [jsonDataCompo, setJsonDataCompo] = useState([]);
 
   useEffect(() => {
-    
+
     if (role === 'user') {
       setCompoData((prevData) => ({ ...prevData, approver: '' }));
       setFormData((prevData) => ({ ...prevData, approver: 'HR' }));
@@ -69,9 +65,8 @@ const router=useRouter();
       setCompoData((prevData) => ({ ...prevData, approver: 'Some Other Approver' }));
       setFormData((prevData) => ({ ...prevData, approver: 'Some Other Approver' }));
     }
-    
+
   }, [role]);
-  console.log(formData);
 
   const onChange = (name, value) => {
 
@@ -186,15 +181,6 @@ const router=useRouter();
 
   const [apply, setApply] = useState(false)
 
-  function overlay() {
-    setApply((pre) => !pre)
-  }
-
-
-  // function applybtn() {
-  //   setApply((pre) => !pre)
-
-  // }
 
 
   const columns = [
@@ -282,31 +268,31 @@ const router=useRouter();
 
   ////
   const displayJSON = () => {
-    let token=localStorage.token
-    let headers={authorization:token}
-    if(token){
-      if(email){
-           axios.post("/api/fetch",{email:email},{headers})
-        .then(res => {
-          setJsonData(res.data.reverse())
-  
-        });
+    let token = localStorage.token
+    let headers = { authorization: token }
+    if (token) {
+      if (email) {
+        axios.post("/api/fetch", { email: email }, { headers })
+          .then(res => {
+            setJsonData(res.data.reverse())
+
+          });
       }
-   
-     if(email){  
-      axios.post("/api/compOff",{email:email},{headers})
-        .then(res => {
-          setJsonDataCompo(res.data.reverse())
-  
-        });
+
+      if (email) {
+        axios.post("/api/compOff", { email: email }, { headers })
+          .then(res => {
+            setJsonDataCompo(res.data.reverse())
+
+          });
       }
-      axios.post("/api/holidayfetch",{},{headers})
+      axios.post("/api/holidayfetch", {}, { headers })
         .then(res => {
           setHolidayData(res.data)
-  
+
         });
 
-    }else{router.push('/login')}
+    } else { router.push('/login') }
 
   }
 
@@ -316,7 +302,8 @@ const router=useRouter();
 
 
   useEffect(() => {
-  if(email) { axios.post("/api/fetchAvailableLeave",{email:email})
+    if (email) {
+      axios.post("/api/fetchAvailableLeave", { email: email })
       .then(res => {
         console.log("Response data:", res.data);
 
@@ -325,54 +312,55 @@ const router=useRouter();
       })
       .catch(error => {
         console.error("Error fetching available leave:", error);
-      });}
+      });
+    }
   }, [email])
 
 
   function handleinsert(e) {
 
     e.preventDefault();
-    let token=localStorage.token
-    let headers={authorization:token}
-    if(token){
-    axios.post('/api/create', { addValue: formData },{headers})
-      .then((res) => {
-        console.log(res);
-        if (res.status === 200) {
-          displayJSON();
-          setApply(false);
-          notify();
-          leavemail();
+    let token = localStorage.token
+    let headers = { authorization: token }
+    if (token) {
+      axios.post('/api/create', { addValue: formData }, { headers })
+        .then((res) => {
+          console.log(res);
+          if (res.status === 200) {
+            displayJSON();
+            setApply(false);
+            notify();
+            leavemail();
 
-        }
-      })
-      .catch(error => {
-        console.error('Error updating JSON data:', error);
-      });
-    }else{router.push('/login')}
+          }
+        })
+        .catch(error => {
+          console.error('Error updating JSON data:', error);
+        });
+    } else { router.push('/login') }
 
   }
   function handleinsertCompo(e) {
 
     e.preventDefault();
-    let token=localStorage.token
-    let headers={authorization:token}
-   if(token){ 
-    axios.post('/api/compOffCreate', { addValue: compoData },{headers})
-      .then((res) => {
-        console.log(res);
-        if (res.status === 200) {
-          displayJSON();
-          setCompoOff(false);
-          notify();
-          leavemail();
+    let token = localStorage.token
+    let headers = { authorization: token }
+    if (token) {
+      axios.post('/api/compOffCreate', { addValue: compoData }, { headers })
+        .then((res) => {
+          console.log(res);
+          if (res.status === 200) {
+            displayJSON();
+            setCompoOff(false);
+            notify();
+            leavemail();
 
-        }
-      })
-      .catch(error => {
-        console.error('Error updating JSON data:', error);
-      });
-    }else{router.push('/login')}
+          }
+        })
+        .catch(error => {
+          console.error('Error updating JSON data:', error);
+        });
+    } else { router.push('/login') }
 
   }
 
@@ -435,20 +423,58 @@ const router=useRouter();
 
     }
 
+    if (formData.leaveType === "Casual Leave") {
+      if (formData.fromDate && formData.toDate) {
 
-    if (formData.fromDate && formData.toDate) {
+        var startDate = new Date(formData.fromDate);
+        var endDate = new Date(formData.toDate);
+        var businessDays = getBusinessDaysExcludingHolidays(startDate, endDate, holidays);
+        if (businessDays > 5) {
+          alert("Only select 5 working days only")
+          setFormData({ ...formData, toDate: '', fromDate: '', totalDays: 0 })
+        } else {
+          if (Number(available) >= businessDays) {
 
-      var startDate = new Date(formData.fromDate);
-      var endDate = new Date(formData.toDate);
-      var businessDays = getBusinessDaysExcludingHolidays(startDate, endDate, holidays);
-      if (businessDays > 5) {
-        alert("Only select 5 working days only")
-        setFormData({ ...formData, toDate: '' })
-      } else { setFormData({ ...formData, totalDays: businessDays }) }
+            setFormData({ ...formData, totalDays: businessDays })
+          } else {
+            alert("Select leave days less then or equal to available leave!")
+            setFormData({ ...formData, toDate: '', fromDate: '', totalDays: 0 })
+          }
+        }
 
 
+      }
+    } else if (formData.leaveType === "Compensatory Leave") {
+      if (formData.fromDate && formData.toDate) {
+
+        var startDate = new Date(formData.fromDate);
+        var endDate = new Date(formData.toDate);
+        var businessDays = getBusinessDaysExcludingHolidays(startDate, endDate, holidays);
+        if (businessDays > 5) {
+          alert("Only select 5 working days only")
+          setFormData({ ...formData, toDate: '', fromDate: '', totalDays: 0 })
+        } else {
+          if (Number(compLeave) >= businessDays) {
+
+            setFormData({ ...formData, totalDays: businessDays })
+          } else {
+            alert("Select leave days less then or equal to available Compensatory leave!")
+            setFormData({ ...formData, toDate: '', fromDate: '', totalDays: 0 })
+          }
+        }
+
+
+      }
+    } else {
+      if (formData.fromDate && formData.toDate) {
+
+        var startDate = new Date(formData.fromDate);
+        var endDate = new Date(formData.toDate);
+        var businessDays = getBusinessDaysExcludingHolidays(startDate, endDate, holidays);
+        setFormData({ ...formData, totalDays: businessDays })
+      }
     }
-  }, [formData.fromDate, formData.toDate])
+  }, [formData.fromDate, formData.toDate, formData.leaveType])
 
 
 
@@ -499,8 +525,8 @@ const router=useRouter();
 
         </article>
         <div className='apply-btn flex gap-10'>
-          <button onClick={() => { setCompoOff(true) }}>Time In</button>
-          <button onClick={overlay}>Time Out</button></div>
+          <button onClick={() => { setCompoOff(true); setCompoData({ ...compoData, id: uuidv4() }); }}>Time In</button>
+          <button onClick={() => { setApply(true); setFormData({ ...formData, id: uuidv4() }); }}>Time Out</button></div>
       </div>
       <div>
         <section className='w-96   mr-auto mt-7 flex   justify-center'>

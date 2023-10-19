@@ -14,13 +14,13 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
 
- <MyContextProvider>
-        <Navbar />
-        {children}
-        <ToastContainer />
- </MyContextProvider>
-   
-        </body>
+        <MyContextProvider>
+          <Navbar />
+          {children}
+          <ToastContainer />
+        </MyContextProvider>
+
+      </body>
 
     </html>
   )

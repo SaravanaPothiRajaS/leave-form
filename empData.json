@@ -15,7 +15,7 @@
     "availableLeave": 19,
     "takenLeave": 24,
     "department": "Tech",
-    "compOffLeave": 1,
+    "compOffLeave": 1.5,
     "password": "12345",
     "role": "approver"
   },

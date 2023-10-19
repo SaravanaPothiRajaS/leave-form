@@ -22,6 +22,7 @@ export default async (req, res) => {
           const pendingCount = pending.length;
           console.log(pendingCount);
           res.json({ filteredData: filteredData, pendingCount: pendingCount });
+
         }
 
       } else {

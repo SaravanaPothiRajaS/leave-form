@@ -23,7 +23,6 @@ export default async (req, res) => {
           const compPendingCount = compPending.length;
           console.log(compPendingCount);
 
-
           res.json({ filteredData: filteredData, compPendingCount: compPendingCount });
         }
       } else {

@@ -18,7 +18,6 @@ import { useRouter } from 'next/navigation';
 const Status = () => {
   const router = useRouter();
   let { role, email, department, name } = useMyContext();
-  console.log(name);
   const [compoOff, setCompoOff] = useState(false);
   const [available, setAvailable] = useState([""]);
   const [compLeave, setCompLeave] = useState([""]);
@@ -480,18 +479,19 @@ const Status = () => {
 
 
   const leavemail = () => {
-    let token = localStorage.token
-    let headers = { authorization: token }
-    if (token) {
-      axios
-        .post("/api/nodemailer", { email: email }, { headers })
-        .then((res) => {
-          console.log(res.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    } else { router.push('/login') }
+    let token=localStorage.token
+    let headers={authorization:token}     
+    if(token){
+      
+    axios
+      .post("/api/nodemailer", {email:email,department:department,role:role,name:name},{headers})
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }else{router.push('/login')}
 
   };
 

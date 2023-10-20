@@ -12,7 +12,7 @@ export default function Table({ columns, data, className }) {
     const [sortOrder, setSortOrder] = useState('asc');
 
     const getFilteredData = () => {
-        return data.filter(item => {
+        return data?.filter(item => {
             const values = Object.values(item);
             return values.some(value =>
                 String(value).toLowerCase().includes(searchQuery.toLowerCase())
@@ -21,7 +21,7 @@ export default function Table({ columns, data, className }) {
     };
 
     const filteredData = getFilteredData();
-    const totalPages = Math.ceil(filteredData.length / pageSize);
+    const totalPages = Math.ceil(filteredData?.length / pageSize);
 
     const calculateVisiblePages = () => {
         const totalVisibleButtons = 4;
@@ -97,7 +97,7 @@ export default function Table({ columns, data, className }) {
                     <input type="text" value={searchQuery} onChange={handleSearchChange} className='search-bar p-2' />
                 </span>
             </div>
-            {filteredData.length > 0 ? <div>
+            {filteredData?.length > 0 ? <div>
                 {data?.length > 0 ?
                     <table className={className}>
                         <thead className="table-head">
@@ -132,7 +132,7 @@ export default function Table({ columns, data, className }) {
                 <div className=' w-11/12 flex justify-center '>
                     <h1 className='font-bold text-rose-800'>No data</h1>
                 </div>}
-            <div className="pagination-controls">
+            <div className="pagination-controls mb-10">
                 <span>
                     <h3>Select Limit:</h3>
                     <select value={pageSize} onChange={handlePageSizeChange}>

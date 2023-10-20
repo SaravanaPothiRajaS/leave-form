@@ -4,12 +4,16 @@ const MyContext = createContext();
 
 export const MyContextProvider = ({ children }) => {
 
-// admin , approver , user
+  // admin , approver , user
 
-const[role,setRole]=useState('');
-const[email,setEmail]=useState('');
+  const [role, setRole] = useState('');
+  const [email, setEmail] = useState('');
+  const [department, setDepartment] = useState('');
+  const [name, setName] = useState('');
+  const [total, setTotalLeave] = useState('');
+  const [comptotal, setCompTotal] = useState('');
   return (
-    <MyContext.Provider value={{ role,setRole,email,setEmail}}>
+    <MyContext.Provider value={{ role, setRole, email, setEmail, department, setDepartment, name, setName, total, setTotalLeave, comptotal, setCompTotal }}>
       {children}
     </MyContext.Provider>
   );

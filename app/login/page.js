@@ -13,7 +13,7 @@ import jwtDecode from 'jwt-decode';
 
 const Login = () => {
 
-  let { setRole,setEmail } = useMyContext();
+  let { setRole, setEmail, setDepartment, setName } = useMyContext();
 
 
   const [email, setEmailLogin] = useState("");
@@ -25,16 +25,18 @@ const Login = () => {
     e.preventDefault()
 
     axios
-      .post(`/api/login/login`, { email:email, password:password })
+      .post(`/api/login/login`, { email: email, password: password })
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
-          if(res.data.accessToken){
-            localStorage.setItem('token',res.data.accessToken)
-            let token=res.data.accessToken;
+          if (res.data.accessToken) {
+            localStorage.setItem('token', res.data.accessToken)
+            let token = res.data.accessToken;
             const decoded = jwtDecode(token);
-      setEmail(decoded.email);
-      setRole(decoded.role)
+            setEmail(decoded.email);
+            setRole(decoded.role)
+            setDepartment(decoded.department)
+            setName(decoded.name)
           }
           route.push('/holiday')
         }
@@ -62,7 +64,8 @@ const Login = () => {
                 src={logo}
                 className='rounded-full ml-32'
                 width={100}
-                height={100} />
+                height={100}
+                alt='Raise' />
 
               <div className="form-cont">
                 <label className="form-label" htmlFor="email_field">
@@ -98,22 +101,7 @@ const Login = () => {
                 Sign in
               </button>
 
-              <div className="text-center">
-                {/* <p>
-                  Not a member? <Link href="/register">Register</Link>
-                </p>
-                <p>Or sign up with</p> */}
-                <button
-                  type="button"
-                  className="btn-cont mt-6"
-                >
-                  <i className="fab fa-google">Google</i>
-                </button>
 
-
-
-
-              </div>
             </form>
           </div>
         </div>

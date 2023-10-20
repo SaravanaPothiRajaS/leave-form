@@ -1,22 +1,24 @@
 import authenticateToken from '@/app/middleware';
 
 const fs = require('fs').promises;
-
-
 export default async (req, res) => {
   try {
     authenticateToken(req, res, async(isAuthenticated) => {
       if (isAuthenticated) {
-      
     const data = await fs.readFile('compOffStatus.json', 'utf8');
-    const jsonData = JSON.parse(data);
-    const {addValue}=req.body;
-    
-    console.log(addValue);
-        jsonData.push(addValue);
+        const jsonData = JSON.parse(data);
+      
+        const { email } = req.body;
+        console.log(email);
 
-        await fs.writeFile('compOffStatus.json', JSON.stringify(jsonData, null, 2));
-        res.json(jsonData);
+        if (email) {
+          
+          const filteredData = jsonData.filter(item => item.email === email);
+
+          res.json(filteredData);
+        } else {
+          res.status(400).json({ error: 'Email not provided in the request body' });
+        }
       } else {
         res.status(403).send('Forbidden: Invalid Token');
       }

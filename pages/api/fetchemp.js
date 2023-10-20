@@ -11,7 +11,7 @@ export default async (req, res) => {
         const { department, role } = req.body;
         console.log(department);
         if (role === "approver") {
-          const filteredData = jsonData.filter(item => item.role === role);
+          const filteredData = jsonData.filter(item => item.role === role || (item.role === "user" ));
           const pending = filteredData.filter(item => item.status === "pending");
           const pendingCount = pending.length;
           res.json({ filteredData: filteredData, pendingCount: pendingCount });

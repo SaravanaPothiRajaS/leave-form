@@ -52,7 +52,7 @@ console.log(data);
          (<textarea 
          type='text'
          disabled={field?.disabled}
-
+         required
          onChange={(e) => onChange(field.name, e.target.value)}
               className='leave-apply-textarea border'
          /> ):(

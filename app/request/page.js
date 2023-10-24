@@ -143,7 +143,9 @@ const Request = () => {
   });;
 
   if (selectedOption === 'request') {
-    data = jsonData?.map((data, i) => {
+    //
+    if(role==="approver"){
+       data = jsonData?.filter((data) => data.status === 'pending')?.map((data, i) => {
 
       const matchingData1 = data1.find((item) => item.email === data.email);
 
@@ -165,9 +167,9 @@ const Request = () => {
         status: data.status === 'pending' ? (
           <>
             <button className='edit-btn' onClick={() => {
-              Update(data.id, 'approved');
+              // Update(data.id, 'approved');
 
-              Updateemp(data.email, availableLeave, data.totalDays, takenLeave,data.id,data.leaveType);
+              Updateemp(data.email, availableLeave, data.totalDays, takenLeave,data.id,data.leaveType,'approved');
               notify();
               leavemail( data.name,'approved',data.email)
             }}>
@@ -191,6 +193,60 @@ const Request = () => {
         id: data.id,
       };
     });
+    }else if(role === "admin"){
+      data = jsonData?.filter((data) => data.status === 'pending')?.map((data, i) => {
+
+        const matchingData1 = data1.find((item) => item.email === data.email);
+  
+        let availableLeave = matchingData1 ? matchingData1.availableLeave : 0;
+        let takenLeave = matchingData1 ? matchingData1.takenLeave : 0;
+  
+  
+  
+        return {
+          name: data.name,
+          leaveType: data.leaveType,
+          department: data.department,
+          from: data.fromDate,
+          to: data.toDate,
+          totalDays: data.totalDays,
+          availableLeave: availableLeave,
+          takenLeave: takenLeave,
+          reason: data.reason,
+          status: data.status === 'pending' ? (
+            data.role==="approver" ? <>
+              <button className='edit-btn' onClick={() => {
+                // Update(data.id, 'approved');
+  
+                Updateemp(data.email, availableLeave, data.totalDays, takenLeave,data.id,data.leaveType,'approved');
+                notify();
+                leavemail( data.name,'approved',data.email)
+              }}>
+                Approve
+              </button>
+              <button className='reject-edit-btn' onClick={() =>{Update(data.id, 'rejected');
+                    notifys();
+                    leavemail( data.name,'rejected',data.email)}}>
+                Reject
+              </button>
+            </> : <span className='pending' >pending</span>
+          ) : (
+            <span
+              className={
+                data.status === 'approved' ? 'approved' : data.status === 'rejected' ? 'rejected' : ''
+              }
+            >
+              {data.status}
+            </span>
+          ),
+          id: data.id,
+        };
+      });
+    }
+   
+
+
+    //
   } else if (selectedOption === 'approved') {
     data = jsonData?.filter((data) => data.status === 'approved').map((data, i) => {
       const matchingData1 = data1.find((item) => item.email === data.email);
@@ -403,7 +459,7 @@ const Request = () => {
     } else { router.push('/login') }
 
   };
-  const Updateemp = (email, availableLeave, totalDays, takenLeave,id,leaveType) => {
+  const Updateemp = (email, availableLeave, totalDays, takenLeave,id,leaveType,status) => {
     let token=localStorage.token
     let headers={authorization:token}
     if(token){
@@ -412,8 +468,15 @@ const Request = () => {
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
-          displayJSON();
-          displayJSO();
+          axios
+        .post(`/api/update`, { id, status }, { headers })
+        .then((res) => {
+          console.log(res);
+          if (res.status === 200) {
+            displayJSON();
+            displayJSO();
+          }
+        });
         }
       });
     }else{router.push('/login')}

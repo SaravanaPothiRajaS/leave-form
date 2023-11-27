@@ -1,4 +1,4 @@
-import authenticateToken from '@/app/middleware';
+import authenticateToken from '../../app/middleware';
 
 const fs = require('fs').promises;
 export default async (req, res) => {

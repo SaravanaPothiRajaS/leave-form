@@ -1,5 +1,6 @@
-import authenticateToken from '@/app/middleware';
+
 import fs from 'fs/promises';
+import authenticateToken from '../../app/middleware';
 
 export default async (req, res) => {
   try {

@@ -1,17 +1,17 @@
-import authenticateToken from '@/app/middleware';
+import authenticateToken from '../../app/middleware';
 
 const fs = require('fs').promises;
 
 
 export default async (req, res) => {
   try {
-    authenticateToken(req, res, async(isAuthenticated) => {
+    authenticateToken(req, res, async (isAuthenticated) => {
       if (isAuthenticated) {
-    const data = await fs.readFile('holidayData.json', 'utf8');
-    let jsonData = JSON.parse(data);
-    const {addValue}=req.body;
-    
-    console.log(req.body);
+        const data = await fs.readFile('holidayData.json', 'utf8');
+        let jsonData = JSON.parse(data);
+        const { addValue } = req.body;
+
+        console.log(req.body);
         jsonData = addValue;
 
         await fs.writeFile('holidayData.json', JSON.stringify(jsonData, null, 2));

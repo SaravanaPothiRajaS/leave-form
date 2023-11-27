@@ -389,7 +389,7 @@ const holiday = () => {
                 {addholiday && <div className='parent-add-holiday' >
                     <div className='add-holiday  d-animate-overlay'>
                         <div className='heaed-and-close'>
-                            <b> <h2 align="center text-2xl">Add Holiday</h2></b>
+                            <b> <h2 align="center " className='decoration-emerald-600'>Add Holiday</h2></b>
                             <i className="fa fa-times exit-icon " aria-hidden="true" onClick={() => setAddHoliday(false)} ></i>
                         </div>
                         <DynamicForm fields={fields} onSubmit={handleinsert} onChange={onChange} data={addValue} validate={validateUserholiday} />
@@ -429,7 +429,7 @@ const holiday = () => {
 
                                 />
                             </div>
-                            <div className='add-holiday-submit-btn flex justify-center'>
+                            <div className='add-holiday-submit-btn flex w-1/2'>
                                 <button onClick={submitbtn}>Submit</button>
 
                             </div>

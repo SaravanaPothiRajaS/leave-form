@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react';
 
 export default function Table({ columns, data, className }) {
     const [currentPage, setCurrentPage] = useState(0);
-    const [pageSize, setPageSize] = useState(4);
+    const [pageSize, setPageSize] = useState(5);
     const [searchQuery, setSearchQuery] = useState('');
     const [sortColumn, setSortColumn] = useState(null);
     const [sortOrder, setSortOrder] = useState('asc');
@@ -136,10 +136,10 @@ export default function Table({ columns, data, className }) {
                 <span>
                     <h3>Select Limit:</h3>
                     <select value={pageSize} onChange={handlePageSizeChange}>
-                        <option value={4}>4</option>
-                        <option value={8}>8</option>
-                        <option value={12}>12</option>
-                        <option value={16}>16</option>
+                        <option value={5}>5</option>
+                        <option value={20}>20</option>
+                        <option value={50}>50</option>
+                        <option value={100}>100</option>
                     </select>
                 </span>
                 <span>

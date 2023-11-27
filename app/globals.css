@@ -192,8 +192,9 @@
 .table-body td {
   padding: 7px 7px;
 }
-.table-body tr{
-  border-bottom: solid 1px rgba(0,0,0,0.2);
+
+.table-body tr {
+  border-bottom: solid 1px rgba(0, 0, 0, 0.2);
 
 }
 
@@ -450,7 +451,7 @@
 }
 
 .add-holiday {
-  padding: 25px;
+  padding: 5px;
   border-radius: 5px;
   width: 40%;
   box-shadow: 4px 2px 14px 2px #8888A3;
@@ -705,13 +706,16 @@
 .form-data select {
   padding: 6px;
 }
-.menu-option{
+
+.menu-option {
   background-color: #b4d1cc;
   color: black;
 }
-.menu-option button{
+
+.menu-option button {
   border-right: white 3px solid;
 }
-.menu-option-bg{
+
+.menu-option-bg {
   background-color: #084243;
 }

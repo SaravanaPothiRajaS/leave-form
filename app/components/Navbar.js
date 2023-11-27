@@ -66,7 +66,7 @@ const Navbar = () => {
     <>
       <div className='nav-bar h-16 fixed top-0'>
 
-        <div className='flex justify-between w-11/12 m-auto  '>
+        <div className='flex justify-between w-11/12 m-auto responsive  '>
           <div>
             <Image
               src={raise}
@@ -93,6 +93,7 @@ const Navbar = () => {
             <button className='border px-6 py-2 border-orange-900  font-bold rounded-full bg-orange-900 text-white hover:bg-white hover:border-white hover:text-orange-900 duration-300'
               onClick={() => { localStorage.clear(); route.push('/login'); setOverlay(false) }}
             >Logout</button>
+            {/* <div className='cursor-pointer text-2xl '><i class="fa fa-bars" aria-hidden="true"></i></div> */}
           </div>
 
 

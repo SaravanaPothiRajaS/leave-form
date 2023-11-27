@@ -17,9 +17,9 @@ import jwtDecode from 'jwt-decode';
 const Request = () => {
 
   const router = useRouter();
-  let { role, department, setTotalLeave,email, setCompTotal, setEmail, setDepartment, setRole, setName } = useMyContext();
+  let { role, department, setTotalLeave, email, setCompTotal, setEmail, setDepartment, setRole, setName } = useMyContext();
 
-  const [selectedOption, setSelectedOption] = useState('request');
+  const [selectedOption, setSelectedOption] = useState('all');
   const [jsonData, setJsonData] = useState([]);
   const [jsoData, setJsoData] = useState([]);
   const [jsonDataCompo, setJsonDataCompo] = useState([]);
@@ -28,7 +28,7 @@ const Request = () => {
 
   const updatedRole = role === "admin" ? "approver" : "user";
 
-  let fromEmail=email;
+  let fromEmail = email;
 
 
   const handleSelectChange = (e) => {
@@ -142,67 +142,18 @@ const Request = () => {
     };
   });;
 
-  if (selectedOption === 'request') {
+  if (selectedOption === 'all') {
     //
-    if(role==="approver"){
-       data = jsonData?.filter((data) => data.status === 'pending')?.map((data, i) => {
-
-      const matchingData1 = data1.find((item) => item.email === data.email);
-
-      let availableLeave = matchingData1 ? matchingData1.availableLeave : 0;
-      let takenLeave = matchingData1 ? matchingData1.takenLeave : 0;
-
-
-
-      return {
-        name: data.name,
-        leaveType: data.leaveType,
-        department: data.department,
-        from: data.fromDate,
-        to: data.toDate,
-        totalDays: data.totalDays,
-        availableLeave: availableLeave,
-        takenLeave: takenLeave,
-        reason: data.reason,
-        status: data.status === 'pending' ? (
-          <>
-            <button className='edit-btn' onClick={() => {
-              // Update(data.id, 'approved');
-
-              Updateemp(data.email, availableLeave, data.totalDays, takenLeave,data.id,data.leaveType,'approved');
-              notify();
-              leavemail( data.name,'approved',data.email)
-            }}>
-              Approve
-            </button>
-            <button className='reject-edit-btn' onClick={() =>{Update(data.id, 'rejected');
-                  notifys();
-                  leavemail( data.name,'rejected',data.email)}}>
-              Reject
-            </button>
-          </>
-        ) : (
-          <span
-            className={
-              data.status === 'approved' ? 'approved' : data.status === 'rejected' ? 'rejected' : ''
-            }
-          >
-            {data.status}
-          </span>
-        ),
-        id: data.id,
-      };
-    });
-    }else if(role === "admin"){
-      data = jsonData?.filter((data) => data.status === 'pending')?.map((data, i) => {
+    if (role === "approver") {
+      data = jsonData?.filter((data) => data.status)?.map((data, i) => {
 
         const matchingData1 = data1.find((item) => item.email === data.email);
-  
+
         let availableLeave = matchingData1 ? matchingData1.availableLeave : 0;
         let takenLeave = matchingData1 ? matchingData1.takenLeave : 0;
-  
-  
-  
+
+
+
         return {
           name: data.name,
           leaveType: data.leaveType,
@@ -213,20 +164,75 @@ const Request = () => {
           availableLeave: availableLeave,
           takenLeave: takenLeave,
           reason: data.reason,
-          status: data.status === 'pending' ? (
-            data.role==="approver" ? <>
+          status: data.status === 'pending' && 'approved' && 'rejected' ? (
+            <>
               <button className='edit-btn' onClick={() => {
                 // Update(data.id, 'approved');
-  
-                Updateemp(data.email, availableLeave, data.totalDays, takenLeave,data.id,data.leaveType,'approved');
+
+                Updateemp(data.email, availableLeave, data.totalDays, takenLeave, data.id, data.leaveType, 'approved');
                 notify();
-                leavemail( data.name,'approved',data.email)
+                leavemail(data.name, 'approved', data.email)
               }}>
                 Approve
               </button>
-              <button className='reject-edit-btn' onClick={() =>{Update(data.id, 'rejected');
-                    notifys();
-                    leavemail( data.name,'rejected',data.email)}}>
+              <button className='reject-edit-btn' onClick={() => {
+                Update(data.id, 'rejected');
+                notifys();
+                leavemail(data.name, 'rejected', data.email)
+              }}>
+                Reject
+              </button>
+            </>
+          ) : (
+            <span
+              className={
+                data.status === 'request' ? 'request' : data.status === 'approved' ? 'approved' : data.status === 'rejected' ? 'rejected' : ''
+              }
+            >
+              {data.status}
+            </span>
+          ),
+          id: data.id,
+        };
+      });
+
+    }
+    else if (role === 'admin') {
+      data = jsonData?.filter((data) => data.status === 'pending' && 'approved' && 'rejected')?.map((data, i) => {
+
+        const matchingData1 = data1.find((item) => item.email === data.email);
+
+        let availableLeave = matchingData1 ? matchingData1.availableLeave : 0;
+        let takenLeave = matchingData1 ? matchingData1.takenLeave : 0;
+
+
+
+        return {
+          name: data.name,
+          leaveType: data.leaveType,
+          department: data.department,
+          from: data.fromDate,
+          to: data.toDate,
+          totalDays: data.totalDays,
+          availableLeave: availableLeave,
+          takenLeave: takenLeave,
+          reason: data.reason,
+          status: data.status === 'pending' && 'approved' && 'rejected' ? (
+            data.role === "approver" ? <>
+              <button className='edit-btn' onClick={() => {
+                // Update(data.id, 'approved');
+
+                Updateemp(data.email, availableLeave, data.totalDays, takenLeave, data.id, data.leaveType, 'approved');
+                notify();
+                leavemail(data.name, 'approved', data.email)
+              }}>
+                Approve
+              </button>
+              <button className='reject-edit-btn' onClick={() => {
+                Update(data.id, 'rejected');
+                notifys();
+                leavemail(data.name, 'rejected', data.email)
+              }}>
                 Reject
               </button>
             </> : <span className='pending' >pending</span>
@@ -243,11 +249,118 @@ const Request = () => {
         };
       });
     }
-   
+
+
+    if (role === "admin") {
+      data = jsonData?.filter((data) => data.status)?.map((data, i) => {
+
+        const matchingData1 = data1.find((item) => item.email === data.email);
+
+        let availableLeave = matchingData1 ? matchingData1.availableLeave : 0;
+        let takenLeave = matchingData1 ? matchingData1.takenLeave : 0;
+
+
+
+        return {
+          name: data.name,
+          leaveType: data.leaveType,
+          department: data.department,
+          from: data.fromDate,
+          to: data.toDate,
+          totalDays: data.totalDays,
+          availableLeave: availableLeave,
+          takenLeave: takenLeave,
+          reason: data.reason,
+          status: data.status === 'pending' ? (
+            data.role === "approver" ? <>
+              <button className='edit-btn' onClick={() => {
+                // Update(data.id, 'approved');
+
+                Updateemp(data.email, availableLeave, data.totalDays, takenLeave, data.id, data.leaveType, 'approved');
+                notify();
+                leavemail(data.name, 'approved', data.email)
+              }}>
+                Approve
+              </button>
+              <button className='reject-edit-btn' onClick={() => {
+                Update(data.id, 'rejected');
+                notifys();
+                leavemail(data.name, 'rejected', data.email)
+              }}>
+                Reject
+              </button>
+            </> : <span className='pending' >pending</span>
+          ) : (
+            <span
+              className={
+                data.status === 'approved' ? 'approved' : data.status === 'rejected' ? 'rejected' : ''
+              }
+            >
+              {data.status}
+            </span>
+          ),
+          id: data.id,
+        };
+      });
+    }
+
 
 
     //
-  } else if (selectedOption === 'approved') {
+  }
+  else if (selectedOption === 'request') {
+    data = jsonData?.filter((data) => data.status === 'pending').map((data, i) => {
+      const matchingData1 = data1.find((item) => item.email === data.email);
+
+      let availableLeave = matchingData1 ? matchingData1.availableLeave : 0;
+      let takenLeave = matchingData1 ? matchingData1.takenLeave : 0;
+
+      return {
+        name: data.name,
+        leaveType: data.leaveType,
+        department: data.department,
+        from: data.fromDate,
+        to: data.toDate,
+        totalDays: data.totalDays,
+        availableLeave: data.availableLeave,
+        takenLeave: takenLeave,
+        reason: data.reason,
+
+        status: data.status === 'pending' ? (
+          <>
+            <button className='edit-btn' onClick={() => {
+              // Update(data.id, 'approved');
+
+              Updateemp(data.email, availableLeave, data.totalDays, takenLeave, data.id, data.leaveType, 'approved');
+              notify();
+              leavemail(data.name, 'approved', data.email)
+            }}>
+              Approve
+            </button>
+            <button className='reject-edit-btn' onClick={() => {
+              Update(data.id, 'rejected');
+              notifys();
+              leavemail(data.name, 'rejected', data.email)
+            }}>
+              Reject
+            </button>
+          </>
+        ) : (
+          <span
+            className={
+              data.status === 'request' ? 'request' : data.status === 'approved' ? 'approved' : data.status === 'rejected' ? 'rejected' : ''
+            }
+          >
+            {data.status}
+          </span>
+        ),
+        id: data.id,
+      };
+    });
+
+  }
+
+  else if (selectedOption === 'approved') {
     data = jsonData?.filter((data) => data.status === 'approved').map((data, i) => {
       const matchingData1 = data1.find((item) => item.email === data.email);
       let availableLeaves = matchingData1 ? matchingData1.availableLeave : 0;
@@ -317,7 +430,7 @@ const Request = () => {
               UpdateempCompOff(data.email, data.day);
               UpdateCompOff(data.id, 'approved');
               notify();
-              leavemail( data.name,'approved',data.email)
+              leavemail(data.name, 'approved', data.email)
             }}>
               Approve
             </button>
@@ -393,7 +506,7 @@ const Request = () => {
     displayJSON();
     displayJSO();
   }, [
-    
+
   ])
 
 
@@ -459,27 +572,27 @@ const Request = () => {
     } else { router.push('/login') }
 
   };
-  const Updateemp = (email, availableLeave, totalDays, takenLeave,id,leaveType,status) => {
-    let token=localStorage.token
-    let headers={authorization:token}
-    if(token){
-    axios
-      .post(`/api/availableleave`, { email, availableLeave, totalDays, takenLeave ,id,leaveType},{headers})
-      .then((res) => {
-        console.log(res);
-        if (res.status === 200) {
-          axios
-        .post(`/api/update`, { id, status }, { headers })
+  const Updateemp = (email, availableLeave, totalDays, takenLeave, id, leaveType, status) => {
+    let token = localStorage.token
+    let headers = { authorization: token }
+    if (token) {
+      axios
+        .post(`/api/availableleave`, { email, availableLeave, totalDays, takenLeave, id, leaveType }, { headers })
         .then((res) => {
           console.log(res);
           if (res.status === 200) {
-            displayJSON();
-            displayJSO();
+            axios
+              .post(`/api/update`, { id, status }, { headers })
+              .then((res) => {
+                console.log(res);
+                if (res.status === 200) {
+                  displayJSON();
+                  displayJSO();
+                }
+              });
           }
         });
-        }
-      });
-    }else{router.push('/login')}
+    } else { router.push('/login') }
 
   };
 
@@ -530,20 +643,20 @@ const Request = () => {
     URL.revokeObjectURL(url);
   }
 
-  
-  const leavemail = (name,status,email) => {
-    let token=localStorage.token
-    let headers={authorization:token}
-    if(token){
-    axios
-      .post("/api/nodemail", {name:name,status:status,email:email,fromEmail:fromEmail},{headers})
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    }else{router.push('/login')}
+
+  const leavemail = (name, status, email) => {
+    let token = localStorage.token
+    let headers = { authorization: token }
+    if (token) {
+      axios
+        .post("/api/nodemail", { name: name, status: status, email: email, fromEmail: fromEmail }, { headers })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else { router.push('/login') }
 
 
   };
@@ -555,7 +668,8 @@ const Request = () => {
         <div className='select-request w-11/12 m-auto'>
           <label>Select a Option:</label>
           <select onChange={handleSelectChange} value={selectedOption} className='h-8 rounded-md border-0 bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm'>
-            <option value="request" > Requests</option>
+            <option value="all" defaultChecked > All</option>
+            <option value="request"> Requests</option>
             <option value="approved">Approved</option>
             <option value="rejected">Rejected</option>
             <option value="compensatory">Compensatory</option>

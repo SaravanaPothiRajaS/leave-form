@@ -56,9 +56,9 @@ export default function LoginTwo() {
     };
 
     return (
-        <div className='bg-neutral-200'>
-            <div className="container bg-neutral-200 ">
-                <div className="row-container">
+        <div className='bg-neutral-200 w-full'>
+            <div className="container bg-neutral-200 w-full ">
+                <div className="row-container w-1/4 ">
                     <div className="col-cont">
                         <form
                             className="border-cont"
@@ -66,10 +66,9 @@ export default function LoginTwo() {
                         >
                             {/* <h1 className="maa">Login</h1> */}
                             <div className="form-cont">
-                                <label className="form-label" htmlFor="email_field">
-                                    Email address
-                                </label>
+
                                 <input
+                                    placeholder="Enter Your Email Address ..."
                                     type="email"
                                     id="email_field"
                                     className="form-control"
@@ -81,7 +80,7 @@ export default function LoginTwo() {
                                 type="submit"
                                 className="btn-cont"
                             >
-                                Sign in
+                                Get Verification code
                             </button>
                         </form>
                     </div>

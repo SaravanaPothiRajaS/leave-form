@@ -9,7 +9,7 @@ import DynamicForm from '../components/DynamicForm';
 import { validateUserholiday } from '../components/ValidationSchema';
 
 import * as XLSX from 'xlsx/xlsx.mjs';
-import { useMyContext } from '@/app/context/MyContext';
+// import { useMyContext } from '@/app/context/MyContext';
 import { useRouter } from "next/navigation";
 
 const { v4: uuidv4 } = require('uuid');
@@ -21,7 +21,8 @@ const holiday = () => {
     const route = useRouter();
 
 
-    let { role, setRole } = useMyContext();
+    // let { role, setRole } = useMyContext();
+    const role = "approver";
     const [addholiday, setAddHoliday] = useState(false)
     const [edit, setEdit] = useState(false)
     const [jsonData, setJsonData] = useState([]);

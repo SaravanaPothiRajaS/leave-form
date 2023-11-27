@@ -465,7 +465,32 @@ const Status = () => {
 
 
       }
-    } else {
+    } 
+    else if (formData.leaveType === "Paternity") {
+      if (formData.fromDate && formData.toDate) {
+
+        var startDate = new Date(formData.fromDate);
+        var endDate = new Date(formData.toDate);
+        var businessDays = getBusinessDaysExcludingHolidays(startDate, endDate, holidays);
+        if (businessDays > 10) {
+          alert("Only select less than 10 working days only for Paternity")
+          setFormData({ ...formData, toDate: '', fromDate: '', totalDays: 0 })
+        } else {
+          if (10 >= businessDays) {
+
+            setFormData({ ...formData, totalDays: businessDays })
+          }
+          //  else {
+          //   alert("Select leave days less then or equal to available Compensatory leave!")
+          //   setFormData({ ...formData, toDate: '', fromDate: '', totalDays: 0 })
+          // }
+        }
+
+
+      }
+    } 
+    
+    else {
       if (formData.fromDate && formData.toDate) {
 
         var startDate = new Date(formData.fromDate);

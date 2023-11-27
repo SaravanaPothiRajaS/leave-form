@@ -1,4 +1,4 @@
-import authenticateToken from '@/app/middleware';
+import authenticateToken from '../../app/middleware';
 
 const fs = require('fs').promises;
 export default async (req, res) => {
@@ -8,12 +8,12 @@ export default async (req, res) => {
         const data = await fs.readFile('statusData.json', 'utf8');
         const jsonData = JSON.parse(data);
 
-        
+
         const { email } = req.body;
         console.log(email);
 
         if (email) {
-          
+
           const filteredData = jsonData.filter(item => item.email === email);
 
           res.json(filteredData);

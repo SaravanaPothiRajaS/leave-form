@@ -106,7 +106,25 @@ const router=useRouter();
 
     };
 
+    function downloadExcelSample() {
 
+        const jsonDataCopy = JSON.parse(JSON.stringify(jsonData));
+        const headers=Object.keys(jsonDataCopy[0])
+        const ws = XLSX.utils.json_to_sheet([{}], { header: headers, skipHeader: false });
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    
+        const url = URL.createObjectURL(blob);
+    
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Employee Details Sample.xlsx';
+        a.click();
+    
+        URL.revokeObjectURL(url);
+    }
 
     function downloadExcel(jsonData) {
 
@@ -150,9 +168,11 @@ const router=useRouter();
 
                     >Cancel</button>}
                 </div>
+                <button className='add-holiday-btn' onClick={downloadExcelSample}>Sample Data</button>
+
                 <button onClick={() => downloadExcel(jsonData)} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                     <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" /></svg>
-                    <span>Download Excel</span>
+                    <span title='Download employee details as excel file'>Employee Details(Excel)</span>
                 </button>
             </div>:''}
 

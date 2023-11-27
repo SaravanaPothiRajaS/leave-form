@@ -2,6 +2,7 @@
 
 "use client";
 
+import { format } from 'date-fns';
 import React, { useState, useEffect } from 'react';
 
 export default function Table({ columns, data, className }) {
@@ -118,7 +119,11 @@ export default function Table({ columns, data, className }) {
                             {sortedData.slice(currentPage * pageSize, (currentPage + 1) * pageSize).map((row, index) => (
                                 <tr key={index}>
                                     {columns.map((column) => (
-                                        <td key={column.accessor}>{row[column.accessor]}</td>
+                                        <td key={column.accessor}>
+                                             {(column.accessor === 'Date' || column.accessor === 'from' || column.accessor === 'to') && typeof row[column.accessor] === 'string'
+                ? format(new Date(row[column.accessor]), 'dd/MM/yyyy')
+                : row[column.accessor]}
+                                            </td>
                                     ))}
                                 </tr>
                             ))}

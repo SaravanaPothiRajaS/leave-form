@@ -205,11 +205,13 @@ const holiday = () => {
                 const workbook = XLSX.read(data, { type: 'array' });
                 const firstSheetName = workbook.SheetNames[0];
                 const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheetName]);
-                const dataWithUUIDs = sheetData.map((item) => ({
-                    ...item,
-                    id: uuidv4(),
-                }));
-                setconvertJsonData(dataWithUUIDs);
+                if(sheetData.length > 0){
+                    const dataWithUUIDs = sheetData.map((item) => ({
+                        ...item,
+                        id: uuidv4(),
+                    }));
+                    setconvertJsonData(dataWithUUIDs);
+                }
             };
             reader.readAsArrayBuffer(selectedFile);
 
@@ -317,29 +319,51 @@ const holiday = () => {
     };
 
 
-    function downloadExcel(jsonData) {
+ 
+function downloadExcelSample() {
 
-        const jsonDataCopy = JSON.parse(JSON.stringify(jsonData));
-        jsonDataCopy.forEach((item) => {
-            delete item.id;
-        });
+    const jsonDataCopy = JSON.parse(JSON.stringify(jsonData));
+    jsonDataCopy.forEach((item) => {
+        delete item.id;
+    });
+    const headers=Object.keys(jsonDataCopy[0])
+    const ws = XLSX.utils.json_to_sheet([{}], { header: headers, skipHeader: false });
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 
-        const ws = XLSX.utils.json_to_sheet(jsonDataCopy);
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-        const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-        const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    const url = URL.createObjectURL(blob);
 
-        const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'holidays.xlsx';
+    a.click();
 
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'holidays.xlsx';
-        a.click();
+    URL.revokeObjectURL(url);
+}
+function downloadExcel(jsonData) {
 
-        URL.revokeObjectURL(url);
-    }
+    const jsonDataCopy = JSON.parse(JSON.stringify(jsonData));
+    jsonDataCopy.forEach((item) => {
+        delete item.id;
+    });
 
+    const ws = XLSX.utils.json_to_sheet(jsonDataCopy);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'holidays.xlsx';
+    a.click();
+
+    URL.revokeObjectURL(url);
+}
 
     useEffect(() => {
         if (addValue.Date.length > 0) {
@@ -378,13 +402,14 @@ const holiday = () => {
                         >Cancel</button>}
                     </div>
                     <button className='add-holiday-btn' onClick={overlay}>Add Holiday</button>
+                    <button className='add-holiday-btn' onClick={downloadExcelSample}>Sample Data</button>
                 </div> : ""}
                 <Table columns={role === "admin" ? columns : userHolidayColumns} data={role === "admin" ? data : userHolidaydata} className={'holiday-table'} />
                 {role === "admin" ? <div className='flex justify-between w-11/12 m-auto mt-10'>
 
                     <button onClick={() => downloadExcel(jsonData)} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                         <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" /></svg>
-                        <span>Download Excel</span>
+                        <span title='Download holidays as excel file'>Holiday(Excel)</span>
                     </button>
                 </div> : ""}
                 {addholiday && <div className='parent-add-holiday' >
@@ -462,3 +487,29 @@ export default holiday
 
 
 
+
+
+
+
+// function downloadExcel(jsonData) {
+
+//     const jsonDataCopy = JSON.parse(JSON.stringify(jsonData));
+//     jsonDataCopy.forEach((item) => {
+//         delete item.id;
+//     });
+
+//     const ws = XLSX.utils.json_to_sheet(jsonDataCopy);
+//     const wb = XLSX.utils.book_new();
+//     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+//     const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+//     const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+//     const url = URL.createObjectURL(blob);
+
+//     const a = document.createElement('a');
+//     a.href = url;
+//     a.download = 'holidays.xlsx';
+//     a.click();
+
+//     URL.revokeObjectURL(url);
+// }

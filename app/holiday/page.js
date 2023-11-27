@@ -21,8 +21,8 @@ const holiday = () => {
     const route = useRouter();
 
 
-    // let { role, setRole } = useMyContext();
-    const role = "approver";
+    let { role, setRole } = useMyContext();
+  
     const [addholiday, setAddHoliday] = useState(false)
     const [edit, setEdit] = useState(false)
     const [jsonData, setJsonData] = useState([]);

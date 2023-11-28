@@ -15,45 +15,59 @@ export default function LoginTwo() {
     const [email, setEmailLogin] = useState('');
     const route = useRouter();
     let token
-    const signbtn = async (e) => {
+    const signbtn = (e) => {
         e.preventDefault();
-        const magic = new Magic(process.env.PUBLISHABLE_API_KEY);
 
-        try {
-            const didToken = await magic.auth.loginWithMagicLink({ email });
+        axios.post('api/login/checkEmployee', { email })
+            .then(async (res) => {
+                if (res?.data?.message === "ok") {
+                    const magic = new Magic(process.env.PUBLISHABLE_API_KEY);
 
-            const requestBody = { email };
+                    try {
+                        const didToken = await magic.auth.loginWithMagicLink({ email });
 
-            const headers = {
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + didToken,
-            };
-            axios.post('/api/login/login', requestBody, { headers })
-                .then(response => {
-                    console.log(response);
-                    if (response.status === 200 || response.data.accessToken) {
-                        // console.log("fjdksfjkdsfs");
-                        localStorage.setItem('token', response.data.accessToken)
+                        const requestBody = { email };
 
-                        route.push('/holiday')
+                        const headers = {
+                            'Content-Type': 'application/json',
+                            Authorization: 'Bearer ' + didToken,
+                        };
+
+                        axios.post('/api/login/login', requestBody, { headers })
+                            .then(response => {
+                                console.log(response);
+                                if (response.status === 200 || response.data.accessToken) {
+                                    localStorage.setItem('token', response.data.accessToken)
+                                    route.push('/holiday');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error response from server:', error.response);
+                                // Handle specific error cases if needed
+                                if (error.response && error.response.status === 401) {
+                                    alert("Authentication failed");
+                                } else {
+                                    alert("An error occurred during login");
+                                }
+                            });
+
+                    } catch (error) {
+                        // Handle other errors (e.g., Magic SDK errors)
+                        console.error("Error:", error);
                     }
+                } else {
+                    alert("Invalid user , Check your Email ");
+                }
 
-                })
-                .catch(error => {
-                    console.error('Error response from server:', error);
-                    // Handle error
-                });
-
+            })
 
 
 
-        } catch (error) {
-            // handle other errors (e.g., Magic SDK errors)
-            console.error("Error:", error);
-        }
+
 
 
     };
+
 
     return (
         <div className='bg-neutral-200 w-full'>

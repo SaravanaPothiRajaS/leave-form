@@ -456,7 +456,7 @@
     "totalDays": 1,
     "reason": "sick",
     "approver": "Some Other Approver",
-    "status": "pending",
+    "status": "approved",
     "email": "edwinraj1462003@gmail.com",
     "role": "approver",
     "id": "e40d2546-b59c-4803-9197-f0622f4e3e6b"
@@ -484,9 +484,51 @@
     "totalDays": 1,
     "reason": "sick",
     "approver": "Some Other Approver",
-    "status": "pending",
+    "status": "approved",
     "email": "edwinraj1462003@gmail.com",
     "role": "approver",
     "id": "c1ac06fa-8c96-4207-8aee-c1fdbce2bb4d"
+  },
+  {
+    "name": "Pothis",
+    "leaveType": "Casual Leave",
+    "department": "Testing",
+    "fromDate": "2023-11-17",
+    "toDate": "2023-11-17",
+    "totalDays": 1,
+    "reason": "sick",
+    "approver": "Some Other Approver",
+    "status": "approved",
+    "email": "edwinraj1462003@gmail.com",
+    "role": "approver",
+    "id": "1b80e12b-6ded-4b08-b4f4-36ed95d6960e"
+  },
+  {
+    "name": "Pothis",
+    "leaveType": "Casual Leave",
+    "department": "Testing",
+    "fromDate": "2023-11-17",
+    "toDate": "2023-11-17",
+    "totalDays": 1,
+    "reason": "sick",
+    "approver": "Some Other Approver",
+    "status": "approved",
+    "email": "edwinraj1462003@gmail.com",
+    "role": "approver",
+    "id": "773a1f69-a5f5-4130-8b6f-12ef49658a41"
+  },
+  {
+    "name": "Pothis",
+    "leaveType": "Casual Leave",
+    "department": "Testing",
+    "fromDate": "2023-11-30",
+    "toDate": "2023-11-30",
+    "totalDays": 1,
+    "reason": "sick",
+    "approver": "Some Other Approver",
+    "status": "rejected",
+    "email": "edwinraj1462003@gmail.com",
+    "role": "approver",
+    "id": "48cf3907-b30a-4dd8-8489-0742d8265e82"
   }
 ]

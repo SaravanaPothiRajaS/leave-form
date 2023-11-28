@@ -225,9 +225,20 @@
     "date": "2023-10-25",
     "day": 1,
     "approver": "Some Other Approver",
-    "status": "pending",
+    "status": "approved",
     "email": "alberteinsteinxxvk@gmail.com",
     "role": "approver",
     "id": "3e5e16ea-18cb-4836-8772-1cb3158379cd"
+  },
+  {
+    "name": "Pothis",
+    "department": "Testing",
+    "date": "2023-11-30",
+    "day": 1,
+    "approver": "Some Other Approver",
+    "status": "approved",
+    "email": "edwinraj1462003@gmail.com",
+    "role": "approver",
+    "id": "7abc2917-825e-4037-bfe8-b432ff4110d9"
   }
 ]

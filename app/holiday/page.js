@@ -23,7 +23,7 @@ const holiday = () => {
 
 
     let { role, setRole } = useMyContext();
-  
+
     const [addholiday, setAddHoliday] = useState(false)
     const [edit, setEdit] = useState(false)
     const [jsonData, setJsonData] = useState([]);
@@ -206,7 +206,7 @@ const holiday = () => {
                 const workbook = XLSX.read(data, { type: 'array' });
                 const firstSheetName = workbook.SheetNames[0];
                 const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheetName]);
-                if(sheetData.length > 0){
+                if (sheetData.length > 0) {
                     const dataWithUUIDs = sheetData.map((item) => ({
                         ...item,
                         id: uuidv4(),
@@ -320,51 +320,51 @@ const holiday = () => {
     };
 
 
- 
-function downloadExcelSample() {
 
-    const jsonDataCopy = JSON.parse(JSON.stringify(jsonData));
-    jsonDataCopy.forEach((item) => {
-        delete item.id;
-    });
-    const headers=Object.keys(jsonDataCopy[0])
-    const ws = XLSX.utils.json_to_sheet([{}], { header: headers, skipHeader: false });
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-    const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    function downloadExcelSample() {
 
-    const url = URL.createObjectURL(blob);
+        const jsonDataCopy = JSON.parse(JSON.stringify(jsonData));
+        jsonDataCopy.forEach((item) => {
+            delete item.id;
+        });
+        const headers = Object.keys(jsonDataCopy[0])
+        const ws = XLSX.utils.json_to_sheet([{}], { header: headers, skipHeader: false });
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'holidays.xlsx';
-    a.click();
+        const url = URL.createObjectURL(blob);
 
-    URL.revokeObjectURL(url);
-}
-function downloadExcel(jsonData) {
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'holidays.xlsx';
+        a.click();
 
-    const jsonDataCopy = JSON.parse(JSON.stringify(jsonData));
-    jsonDataCopy.forEach((item) => {
-        delete item.id;
-    });
+        URL.revokeObjectURL(url);
+    }
+    function downloadExcel(jsonData) {
 
-    const ws = XLSX.utils.json_to_sheet(jsonDataCopy);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-    const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const jsonDataCopy = JSON.parse(JSON.stringify(jsonData));
+        jsonDataCopy.forEach((item) => {
+            delete item.id;
+        });
 
-    const url = URL.createObjectURL(blob);
+        const ws = XLSX.utils.json_to_sheet(jsonDataCopy);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'holidays.xlsx';
-    a.click();
+        const url = URL.createObjectURL(blob);
 
-    URL.revokeObjectURL(url);
-}
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'holidays.xlsx';
+        a.click();
+
+        URL.revokeObjectURL(url);
+    }
 
     useEffect(() => {
         if (addValue.Date.length > 0) {

@@ -14,7 +14,7 @@
     "availableLeave": 19,
     "takenLeave": 30,
     "department": "Tech",
-    "compOffLeave": 0.5,
+    "compOffLeave": 1.5,
     "role": "approver"
   },
   {
@@ -38,10 +38,10 @@
   {
     "name": "Pothis",
     "email": "edwinraj1462003@gmail.com",
-    "availableLeave": 10,
-    "takenLeave": 14,
+    "availableLeave": 6,
+    "takenLeave": 18,
     "department": "Testing",
-    "compOffLeave": 2,
+    "compOffLeave": 3,
     "role": "approver"
   },
   {

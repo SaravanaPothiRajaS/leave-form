@@ -6,7 +6,6 @@
     "takenLeave": 9,
     "department": "admin",
     "compOffLeave": 1,
-    "password": "12345",
     "role": "admin"
   },
   {
@@ -16,7 +15,6 @@
     "takenLeave": 30,
     "department": "Tech",
     "compOffLeave": 0.5,
-    "password": "12345",
     "role": "approver"
   },
   {
@@ -26,7 +24,6 @@
     "takenLeave": 89,
     "department": "Tech",
     "compOffLeave": null,
-    "password": "12345",
     "role": "user"
   },
   {
@@ -36,17 +33,15 @@
     "takenLeave": 24,
     "department": "Finance",
     "compOffLeave": 3,
-    "password": "12345",
     "role": "user"
   },
   {
     "name": "Pothis",
     "email": "edwinraj1462003@gmail.com",
-    "availableLeave": 1,
+    "availableLeave": 10,
     "takenLeave": 14,
     "department": "Testing",
     "compOffLeave": 2,
-    "password": "12345",
     "role": "approver"
   },
   {
@@ -56,7 +51,6 @@
     "takenLeave": 10,
     "department": "Testing",
     "compOffLeave": 2,
-    "password": "123456",
     "role": "user"
   },
   {
@@ -66,7 +60,6 @@
     "takenLeave": 10,
     "department": "DevOps",
     "compOffLeave": 7,
-    "password": "12345",
     "role": "approver"
   },
   {
@@ -76,7 +69,6 @@
     "takenLeave": 13,
     "department": "DevOps",
     "compOffLeave": 2,
-    "password": "12345",
     "role": "user"
   },
   {
@@ -86,7 +78,6 @@
     "takenLeave": 14,
     "department": "Testing",
     "compOffLeave": 2,
-    "password": "12345",
     "role": "user"
   },
   {
@@ -96,7 +87,6 @@
     "takenLeave": 26,
     "department": "Finance",
     "compOffLeave": 2,
-    "password": "12345",
     "role": "approver"
   }
 ]

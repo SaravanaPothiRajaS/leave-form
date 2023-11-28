@@ -429,7 +429,7 @@ const Status = () => {
         var startDate = new Date(formData.fromDate);
         var endDate = new Date(formData.toDate);
         var businessDays = getBusinessDaysExcludingHolidays(startDate, endDate, holidays);
-        if (businessDays > 5) {
+        if (businessDays > process.env.CASUAL_lEAVE_LIMIT) {
           alert("Only select 5 working days only")
           setFormData({ ...formData, toDate: '', fromDate: '', totalDays: 0 })
         } else {
@@ -450,7 +450,7 @@ const Status = () => {
         var startDate = new Date(formData.fromDate);
         var endDate = new Date(formData.toDate);
         var businessDays = getBusinessDaysExcludingHolidays(startDate, endDate, holidays);
-        if (businessDays > 5) {
+        if (businessDays > process.env.CASUAL_lEAVE_LIMIT) {
           alert("Only select 5 working days only")
           setFormData({ ...formData, toDate: '', fromDate: '', totalDays: 0 })
         } else {
@@ -472,7 +472,7 @@ const Status = () => {
         var startDate = new Date(formData.fromDate);
         var endDate = new Date(formData.toDate);
         var businessDays = getBusinessDaysExcludingHolidays(startDate, endDate, holidays);
-        if (businessDays > 10) {
+        if (businessDays > process.env.PATERNITY_LEAVE_LIMIT) {
           alert("Only select less than 10 working days only for Paternity")
           setFormData({ ...formData, toDate: '', fromDate: '', totalDays: 0 })
         } else {
@@ -480,16 +480,26 @@ const Status = () => {
 
             setFormData({ ...formData, totalDays: businessDays })
           }
-          //  else {
-          //   alert("Select leave days less then or equal to available Compensatory leave!")
-          //   setFormData({ ...formData, toDate: '', fromDate: '', totalDays: 0 })
-          // }
         }
-
-
       }
     } 
-    
+    else if (formData.leaveType === "Maternity") {
+      if (formData.fromDate && formData.toDate) {
+
+        var startDate = new Date(formData.fromDate);
+        var endDate = new Date(formData.toDate);
+        var businessDays = getBusinessDaysExcludingHolidays(startDate, endDate, holidays);
+        if (businessDays > process.env.MATERNITY_LEAVE_LIMIT) {
+          alert("Only select less than 60 working days only for Maternity")
+          setFormData({ ...formData, toDate: '', fromDate: '', totalDays: 0 })
+        } else {
+          if (60 >= businessDays) {
+
+            setFormData({ ...formData, totalDays: businessDays })
+          }
+        }
+      }
+    } 
     else {
       if (formData.fromDate && formData.toDate) {
 

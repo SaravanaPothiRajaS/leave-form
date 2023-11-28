@@ -1,5 +1,5 @@
-import authenticateToken from "@/app/middleware";
 import transporter from "@/nodemail";
+import authenticateToken from "../../app/middleware";
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {

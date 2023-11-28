@@ -484,14 +484,14 @@ const Request = () => {
     let token = localStorage.token
     let headers = { authorization: token }
     if (token) {
-      if (department) {
+      if (department && updatedRole) {
         axios.post("/api/fetchemp", { department: department, role: updatedRole }, { headers })
           .then(res => {
             setJsonData(res.data?.filteredData?.reverse())
             console.log(res.data?.filteredData);
           })
       }
-      if (department) {
+      if (department && updatedRole) {
         axios.post("/api/compOffStatus", { department: department, role: updatedRole }, { headers })
           .then(res => {
             setJsonDataCompo(res.data?.filteredData?.reverse())
@@ -505,9 +505,7 @@ const Request = () => {
   useEffect(() => {
     displayJSON();
     displayJSO();
-  }, [
-
-  ])
+  }, [department,updatedRole])
 
 
 

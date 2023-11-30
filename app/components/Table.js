@@ -119,7 +119,7 @@ export default function Table({ columns, data, className }) {
                             {sortedData.slice(currentPage * pageSize, (currentPage + 1) * pageSize).map((row, index) => (
                                 <tr key={index}>
                                     {columns.map((column) => (
-                                        <td title={row[column.accessor]} key={column.accessor} className={column.accessor === 'reason' ? "truncate" : ""}>
+                                        <td title={column.accessor === 'reason' ? row[column.accessor] : ""} key={column.accessor} className={column.accessor === 'reason' ? "truncate" : ""}>
                                             {(column.accessor === 'Date' || column.accessor === 'from' || column.accessor === 'to') && typeof row[column.accessor] === 'string'
                                                 ? format(new Date(row[column.accessor]), 'dd/MM/yyyy')
                                                 : row[column.accessor]}

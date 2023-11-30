@@ -27,8 +27,8 @@ export default async (req, res) => {
                     ...changevalue
                 };
 
+                res.json({"status":200});
                 await fs.writeFile('holidayData.json', JSON.stringify(jsonData, null, 2));
-                res.status(200);
             } else {
                 res.status(403).send('Forbidden: Invalid Token');
             }

@@ -64,7 +64,9 @@ const holiday = () => {
 
 
 
-    function handleinsert() {
+    function handleinsert(e) {
+        e.preventDefault();
+
         let token = localStorage.token
         let headers = { authorization: token }
         if (token) {
@@ -176,7 +178,7 @@ const holiday = () => {
 
 
     const displayJSON = () => {
-        let token = localStorage.token
+        let token = localStorage?.token
         let headers = { authorization: token }
         if (token) {
 
@@ -184,7 +186,8 @@ const holiday = () => {
                 .then(res => {
                     if (res.status === 200) {
                         setJsonData(res.data)
-                    } else if ((res.status === 403) || (res.status === 401)) {
+                    } 
+                    else if ((res.status === 403) || (res.status === 401)) {
                         console.log("edwin");
                         route.push('/login')
                     }
@@ -290,18 +293,20 @@ const holiday = () => {
     };
 
 
-    const submitbtn = () => {
+    const submitbtn = (e) => {
+        e.preventDefault();
+
         console.log('Changevalue', changevalue);
         let token = localStorage.token
         let headers = { authorization: token }
         if (token) {
             axios
-                .post(`/api/holiday/update`, { changevalue: changevalue }, { headers })
+                .post('/api/holiday/update', { changevalue: changevalue }, { headers })
                 .then((res) => {
                     console.log(res);
                     if (res.status === 200) {
                         displayJSON();
-                        setEdit(false);  // Added this to hide the edit form after submission
+                         setEdit(false);  // Added this to hide the edit form after submission
                     }
                 })
                 .catch((error) => {
@@ -428,7 +433,7 @@ const holiday = () => {
                 {edit && <div className='parent-add-holiday' >
                     <div className='add-holiday  d-animate-overlay'>
 
-                        <form className='form-data apply-leave-form'>
+                        <form className='form-data apply-leave-form' onSubmit={(e)=>submitbtn(e)}>
 
                             <div className='heaed-and-close'>
                                 <b> <h2 align="center text-2xl">Edit Holiday</h2></b>
@@ -457,7 +462,7 @@ const holiday = () => {
                                 />
                             </div>
                             <div className='add-holiday-submit-btn flex w-1/2'>
-                                <button onClick={submitbtn}>Submit</button>
+                                <button type='submit'>Submit</button>
 
                             </div>
 

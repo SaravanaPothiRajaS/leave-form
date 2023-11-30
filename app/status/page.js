@@ -491,10 +491,27 @@ const Status = () => {
         var timeDifference = endDate - startDate;
         var daysDifference = Math.ceil(timeDifference / (24 * 60 * 60 * 1000));
         if (daysDifference > 280) {
-          alert("Only select less than 60 working days only for Maternity")
+          alert("Only select less than or equal to 9 months only for Maternity")
           setFormData({ ...formData, toDate: '', fromDate: '', totalDays: 0 })
         } else {
           if (280 >= daysDifference) {
+
+            setFormData({ ...formData, totalDays: daysDifference })
+          }
+        }
+      }
+    } else if (formData.leaveType === "Leave  on Propation") {
+      if (formData.fromDate && formData.toDate) {
+
+        var startDate = new Date(formData.fromDate);
+        var endDate = new Date(formData.toDate);
+        var timeDifference = endDate - startDate;
+        var daysDifference = Math.ceil(timeDifference / (24 * 60 * 60 * 1000));
+        if (daysDifference > 1) {
+          alert("Only select less than 1 working days only for Maternity")
+          setFormData({ ...formData, toDate: '', fromDate: '', totalDays: 0 })
+        } else {
+          if (1 === daysDifference) {
 
             setFormData({ ...formData, totalDays: daysDifference })
           }

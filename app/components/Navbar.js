@@ -34,13 +34,13 @@ const Navbar = () => {
     setDepartment(decoded.department)
     setName(decoded.name)
 
-    if (department) {
+    if (department && (role === "admin" || role === "approver")) {
       axios.post("/api/fetchemp", { department: department, role: updatedRole }, { headers })
         .then(res => {
           setTotalLeave(res.data.pendingCount)
         })
     }
-    if (department) {
+    if (department && (role === "admin" || role === "approver")) {
       axios.post("/api/compOffStatus", { department: department, role: updatedRole }, { headers })
         .then(res => {
           setCompTotal(res.data.compPendingCount)
@@ -54,13 +54,15 @@ const Navbar = () => {
 
 
   useEffect(() => {
+
+
     let token = localStorage?.getItem('token')
 
     if (token) {
       pendingJSON();
     } else { router.push('/login') }
 
-  }, [department])
+  }, [role])
 
   return (currentpath !== "/login") && (
     <>

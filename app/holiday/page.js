@@ -11,6 +11,7 @@ import { validateUserholiday } from '../components/ValidationSchema';
 import * as XLSX from 'xlsx/xlsx.mjs';
 // import { useMyContext } from '@/app/context/MyContext';
 import { useRouter } from "next/navigation";
+import { useMyContext } from '../context/MyContext';
 
 const { v4: uuidv4 } = require('uuid');
 
@@ -22,7 +23,7 @@ const holiday = () => {
 
 
     let { role, setRole } = useMyContext();
-  
+
     const [addholiday, setAddHoliday] = useState(false)
     const [edit, setEdit] = useState(false)
     const [jsonData, setJsonData] = useState([]);
@@ -63,7 +64,9 @@ const holiday = () => {
 
 
 
-    function handleinsert() {
+    function handleinsert(e) {
+        e.preventDefault();
+
         let token = localStorage.token
         let headers = { authorization: token }
         if (token) {
@@ -175,7 +178,7 @@ const holiday = () => {
 
 
     const displayJSON = () => {
-        let token = localStorage.token
+        let token = localStorage?.token
         let headers = { authorization: token }
         if (token) {
 
@@ -183,7 +186,8 @@ const holiday = () => {
                 .then(res => {
                     if (res.status === 200) {
                         setJsonData(res.data)
-                    } else if ((res.status === 403) || (res.status === 401)) {
+                    } 
+                    else if ((res.status === 403) || (res.status === 401)) {
                         console.log("edwin");
                         route.push('/login')
                     }
@@ -205,7 +209,7 @@ const holiday = () => {
                 const workbook = XLSX.read(data, { type: 'array' });
                 const firstSheetName = workbook.SheetNames[0];
                 const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheetName]);
-                if(sheetData.length > 0){
+                if (sheetData.length > 0) {
                     const dataWithUUIDs = sheetData.map((item) => ({
                         ...item,
                         id: uuidv4(),
@@ -289,18 +293,20 @@ const holiday = () => {
     };
 
 
-    const submitbtn = () => {
+    const submitbtn = (e) => {
+        e.preventDefault();
+
         console.log('Changevalue', changevalue);
         let token = localStorage.token
         let headers = { authorization: token }
         if (token) {
             axios
-                .post(`/api/holiday/update`, { changevalue: changevalue }, { headers })
+                .post('/api/holiday/update', { changevalue: changevalue }, { headers })
                 .then((res) => {
                     console.log(res);
                     if (res.status === 200) {
                         displayJSON();
-                        setEdit(false);  // Added this to hide the edit form after submission
+                         setEdit(false);  // Added this to hide the edit form after submission
                     }
                 })
                 .catch((error) => {
@@ -319,51 +325,51 @@ const holiday = () => {
     };
 
 
- 
-function downloadExcelSample() {
 
-    const jsonDataCopy = JSON.parse(JSON.stringify(jsonData));
-    jsonDataCopy.forEach((item) => {
-        delete item.id;
-    });
-    const headers=Object.keys(jsonDataCopy[0])
-    const ws = XLSX.utils.json_to_sheet([{}], { header: headers, skipHeader: false });
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-    const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    function downloadExcelSample() {
 
-    const url = URL.createObjectURL(blob);
+        const jsonDataCopy = JSON.parse(JSON.stringify(jsonData));
+        jsonDataCopy.forEach((item) => {
+            delete item.id;
+        });
+        const headers = Object.keys(jsonDataCopy[0])
+        const ws = XLSX.utils.json_to_sheet([{}], { header: headers, skipHeader: false });
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'holidays.xlsx';
-    a.click();
+        const url = URL.createObjectURL(blob);
 
-    URL.revokeObjectURL(url);
-}
-function downloadExcel(jsonData) {
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'holidays.xlsx';
+        a.click();
 
-    const jsonDataCopy = JSON.parse(JSON.stringify(jsonData));
-    jsonDataCopy.forEach((item) => {
-        delete item.id;
-    });
+        URL.revokeObjectURL(url);
+    }
+    function downloadExcel(jsonData) {
 
-    const ws = XLSX.utils.json_to_sheet(jsonDataCopy);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-    const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const jsonDataCopy = JSON.parse(JSON.stringify(jsonData));
+        jsonDataCopy.forEach((item) => {
+            delete item.id;
+        });
 
-    const url = URL.createObjectURL(blob);
+        const ws = XLSX.utils.json_to_sheet(jsonDataCopy);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'holidays.xlsx';
-    a.click();
+        const url = URL.createObjectURL(blob);
 
-    URL.revokeObjectURL(url);
-}
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'holidays.xlsx';
+        a.click();
+
+        URL.revokeObjectURL(url);
+    }
 
     useEffect(() => {
         if (addValue.Date.length > 0) {
@@ -427,7 +433,7 @@ function downloadExcel(jsonData) {
                 {edit && <div className='parent-add-holiday' >
                     <div className='add-holiday  d-animate-overlay'>
 
-                        <form className='form-data apply-leave-form'>
+                        <form className='form-data apply-leave-form' onSubmit={(e)=>submitbtn(e)}>
 
                             <div className='heaed-and-close'>
                                 <b> <h2 align="center text-2xl">Edit Holiday</h2></b>
@@ -456,7 +462,7 @@ function downloadExcel(jsonData) {
                                 />
                             </div>
                             <div className='add-holiday-submit-btn flex w-1/2'>
-                                <button onClick={submitbtn}>Submit</button>
+                                <button type='submit'>Submit</button>
 
                             </div>
 

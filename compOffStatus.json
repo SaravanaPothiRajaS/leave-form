@@ -192,7 +192,7 @@
     "date": "2023-10-20",
     "day": 1,
     "approver": "",
-    "status": "pending",
+    "status": "approved",
     "email": "pothis1@gmail.com",
     "role": "user",
     "id": "eebc9b34-661a-4dd7-a8b5-d2eadd1e211f"
@@ -203,7 +203,7 @@
     "date": "2023-10-28",
     "day": 1,
     "approver": "",
-    "status": "pending",
+    "status": "approved",
     "email": "pothis1@gmail.com",
     "role": "user",
     "id": "42e99d54-d20c-4ffe-ba8a-dec82da98857"
@@ -225,9 +225,42 @@
     "date": "2023-10-25",
     "day": 1,
     "approver": "Some Other Approver",
-    "status": "pending",
+    "status": "approved",
     "email": "alberteinsteinxxvk@gmail.com",
     "role": "approver",
     "id": "3e5e16ea-18cb-4836-8772-1cb3158379cd"
+  },
+  {
+    "name": "Pothis",
+    "department": "Testing",
+    "date": "2023-11-30",
+    "day": 1,
+    "approver": "Some Other Approver",
+    "status": "approved",
+    "email": "edwinraj1462003@gmail.com",
+    "role": "approver",
+    "id": "7abc2917-825e-4037-bfe8-b432ff4110d9"
+  },
+  {
+    "name": "Pothis",
+    "department": "Tech",
+    "date": "2023-11-30",
+    "day": "0.5",
+    "approver": "Some Other Approver",
+    "status": "rejected",
+    "email": "edwinraj1462003@gmail.com",
+    "role": "approver",
+    "id": "55fa361b-16df-44eb-9c3d-42b1e14946ca"
+  },
+  {
+    "name": "Pothis",
+    "department": "Testing",
+    "date": "2023-11-30",
+    "day": 1,
+    "approver": "Some Other Approver",
+    "status": "pending",
+    "email": "edwinraj1462003@gmail.com",
+    "role": "approver",
+    "id": "144fa460-1882-4490-b9aa-a04e9a667422"
   }
 ]

@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 
 const Employee = () => {
 const router=useRouter();
-    let {role,setRole}=useMyContext();
+    let {role,setRole,department}=useMyContext();
     const [jsonData, setJsonData] = useState([]);
     const [selectedFile, setSelectedFile] = useState(null);
     const [convertJsonData, setconvertJsonData] = useState(null);
@@ -45,19 +45,25 @@ const router=useRouter();
         department: data?.department,
     }));
 
-    const displayJSON = () => {
-        let token=localStorage.token
-        let headers={authorization:token}
-        if(token){
-        axios.post("/api/empfetch",{},{headers})
-            .then(res => {
-                setJsonData(res?.data)
-
-            })
-        }else{router.push('/login')}
+    function displayJSON () {
+        let token = localStorage.token
+        let headers = { authorization: token }
+        if (token) {
+            if (role && department) {
+                axios.post("/api/empfetch", { role, department }, { headers })
+                .then(res => {
+                    console.log("qqwwwwwe", role, department);
+                    setJsonData(res?.data)
+ 
+                })
+            }
+        } else { router.push('/login') }
     }
 
+useEffect(()=>{
+    displayJSON();
 
+},[role, department])
 
     useEffect(() => {
 

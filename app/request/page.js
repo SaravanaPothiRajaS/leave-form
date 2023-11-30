@@ -64,7 +64,7 @@ const Request = () => {
       accessor: "totalDays"
     },
     {
-      Header: "Taken Leave",
+      Header: "Leave Availed",
       accessor: "takenLeave"
     },
     {
@@ -106,7 +106,19 @@ const Request = () => {
     }
   ]
 
+  function monthsDiff(startDate, endDate) {
+    let fromDate = new Date(startDate);
+    let toDate = new Date(endDate);
+    let startYear = fromDate.getFullYear();
+    let startMonth = fromDate.getMonth();
 
+    let endYear = toDate.getFullYear();
+    let endMonth = toDate.getMonth();
+
+    let months = (endYear - startYear) * 12 + (endMonth - startMonth);
+
+    return months;
+  }
 
   const data1 = jsoData.map((data, i) => ({
     name: data.name,
@@ -160,7 +172,7 @@ const Request = () => {
           department: data.department,
           from: data.fromDate,
           to: data.toDate,
-          totalDays: data.totalDays,
+          totalDays: data.totalDays > 40 ? monthsDiff(data.fromDate, data.toDate) + " Months" : data.totalDays,
           availableLeave: availableLeave,
           takenLeave: takenLeave,
           reason: data.reason,
@@ -169,16 +181,13 @@ const Request = () => {
               <button className='edit-btn' onClick={() => {
                 // Update(data.id, 'approved');
 
-                Updateemp(data.email, availableLeave, data.totalDays, takenLeave, data.id, data.leaveType, 'approved');
-                notify();
-                leavemail(data.name, 'approved', data.email)
+                Updateemp(data.email, availableLeave, data.totalDays, takenLeave, data.id, data.leaveType, 'approved', data.name);
               }}>
                 Approve
               </button>
               <button className='reject-edit-btn' onClick={() => {
-                Update(data.id, 'rejected');
-                notifys();
-                leavemail(data.name, 'rejected', data.email)
+                Update(data.id, 'rejected', data.email, data.name);
+
               }}>
                 Reject
               </button>
@@ -222,16 +231,14 @@ const Request = () => {
               <button className='edit-btn' onClick={() => {
                 // Update(data.id, 'approved');
 
-                Updateemp(data.email, availableLeave, data.totalDays, takenLeave, data.id, data.leaveType, 'approved');
-                notify();
-                leavemail(data.name, 'approved', data.email)
+                Updateemp(data.email, availableLeave, data.totalDays, takenLeave, data.id, data.leaveType, 'approved', data.name);
+
               }}>
                 Approve
               </button>
               <button className='reject-edit-btn' onClick={() => {
-                Update(data.id, 'rejected');
-                notifys();
-                leavemail(data.name, 'rejected', data.email)
+                Update(data.id, 'rejected', data.email, data.name);
+
               }}>
                 Reject
               </button>
@@ -276,16 +283,14 @@ const Request = () => {
               <button className='edit-btn' onClick={() => {
                 // Update(data.id, 'approved');
 
-                Updateemp(data.email, availableLeave, data.totalDays, takenLeave, data.id, data.leaveType, 'approved');
-                notify();
-                leavemail(data.name, 'approved', data.email)
+                Updateemp(data.email, availableLeave, data.totalDays, takenLeave, data.id, data.leaveType, 'approved', data.name);
+
               }}>
                 Approve
               </button>
               <button className='reject-edit-btn' onClick={() => {
-                Update(data.id, 'rejected');
-                notifys();
-                leavemail(data.name, 'rejected', data.email)
+                Update(data.id, 'rejected', data.email, data.name);
+
               }}>
                 Reject
               </button>
@@ -331,16 +336,14 @@ const Request = () => {
             <button className='edit-btn' onClick={() => {
               // Update(data.id, 'approved');
 
-              Updateemp(data.email, availableLeave, data.totalDays, takenLeave, data.id, data.leaveType, 'approved');
-              notify();
-              leavemail(data.name, 'approved', data.email)
+              Updateemp(data.email, availableLeave, data.totalDays, takenLeave, data.id, data.leaveType, 'approved', data.name);
+
             }}>
               Approve
             </button>
             <button className='reject-edit-btn' onClick={() => {
-              Update(data.id, 'rejected');
-              notifys();
-              leavemail(data.name, 'rejected', data.email)
+              Update(data.id, 'rejected', data.email, data.name);
+
             }}>
               Reject
             </button>
@@ -427,15 +430,15 @@ const Request = () => {
         status: data.status === 'pending' ? (
           <>
             <button className='edit-btn' onClick={() => {
-              UpdateempCompOff(data.email, data.day);
-              UpdateCompOff(data.id, 'approved');
-              notify();
-              leavemail(data.name, 'approved', data.email)
+              // UpdateempCompOff(data.email, data.day, data.name,'approved');
+              UpdateCompOff(data.id, data.email, data.day, data.name, 'approved');
+              // notify();
+              // leavemail(, 'approved', data.email)
             }}>
               Approve
             </button>
             <button className='reject-edit-btn' onClick={() => {
-              UpdateCompOff(data.id, 'rejected');
+              UpdateCompOff(data.id, data.email, data.day, data.name, 'rejected');
 
               // notifys();
               // leavemail( data.name,'rejected')
@@ -484,17 +487,17 @@ const Request = () => {
     let token = localStorage.token
     let headers = { authorization: token }
     if (token) {
-      if (department) {
+      if (department && updatedRole) {
         axios.post("/api/fetchemp", { department: department, role: updatedRole }, { headers })
           .then(res => {
             setJsonData(res.data?.filteredData?.reverse())
-            console.log(res.data?.filteredData);
           })
       }
-      if (department) {
+      if (department && updatedRole) {
         axios.post("/api/compOffStatus", { department: department, role: updatedRole }, { headers })
           .then(res => {
             setJsonDataCompo(res.data?.filteredData?.reverse())
+            console.log("resssss", res.data);
 
           });
       }
@@ -505,9 +508,7 @@ const Request = () => {
   useEffect(() => {
     displayJSON();
     displayJSO();
-  }, [
-
-  ])
+  }, [department, updatedRole])
 
 
 
@@ -515,32 +516,17 @@ const Request = () => {
     let token = localStorage.token
     let headers = { authorization: token }
     if (token) {
-      axios.post("/api/empfetch", {}, { headers })
+      axios.post("/api/request", {}, { headers })
         .then(res => {
           setJsoData(res.data)
+          console.log("employee", res.data);
 
         })
     } else { router.push('/login') }
 
   }
 
-  const UpdateCompOff = (id, status) => {
-    let token = localStorage.token
-    let headers = { authorization: token }
-    if (token) {
-      axios
-        .post(`/api/updateCompStatus`, { id, status }, { headers })
-        .then((res) => {
-          console.log(res);
-          if (res.status === 200) {
-            displayJSON();
-            displayJSO();
-          }
-        });
-    } else { router.push('/login') }
-
-  }
-  const UpdateempCompOff = (email, day) => {
+  const UpdateempCompOff = (email, day, name, status) => {
     let token = localStorage.token
     let headers = { authorization: token }
     if (token) {
@@ -549,14 +535,40 @@ const Request = () => {
         .then((res) => {
           console.log(res);
           if (res.status === 200) {
-            displayJSON();
-            displayJSO();
+            leavemail(name, status, email)
+            if (status === "approved") {
+              notify();
+              displayJSON();
+              displayJSO();
+            } else {
+              notifys()
+              displayJSON();
+              displayJSO();
+            }
           }
         });
     } else { router.push('/login') }
 
   }
-  const Update = (id, status) => {
+  //req
+  const UpdateCompOff = (id, email, day, name, status) => {
+    let token = localStorage.token
+    let headers = { authorization: token }
+    if (token) {
+      axios
+        .post(`/api/updateCompStatus`, { id, status }, { headers })
+        .then((res) => {
+          console.log(res);
+          if (res.status === 200) {
+            UpdateempCompOff(email, day, name, status)
+
+          }
+        });
+    } else { router.push('/login') }
+
+  }
+
+  const Update = (id, status, email, name) => {
     let token = localStorage.token
     let headers = { authorization: token }
     if (token) {
@@ -565,6 +577,9 @@ const Request = () => {
         .then((res) => {
           console.log(res);
           if (res.status === 200) {
+
+            notifys();
+            leavemail(name, status, email)
             displayJSON();
             displayJSO();
           }
@@ -572,7 +587,7 @@ const Request = () => {
     } else { router.push('/login') }
 
   };
-  const Updateemp = (email, availableLeave, totalDays, takenLeave, id, leaveType, status) => {
+  const Updateemp = (email, availableLeave, totalDays, takenLeave, id, leaveType, status, name) => {
     let token = localStorage.token
     let headers = { authorization: token }
     if (token) {
@@ -588,6 +603,10 @@ const Request = () => {
                 if (res.status === 200) {
                   displayJSON();
                   displayJSO();
+                  notify();
+                  leavemail(name, status, email)
+
+
                 }
               });
           }

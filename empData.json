@@ -41,7 +41,7 @@
     "availableLeave": 6,
     "takenLeave": 18,
     "department": "Testing",
-    "compOffLeave": 3,
+    "compOffLeave": 4.5,
     "role": "approver"
   },
   {
@@ -77,7 +77,7 @@
     "availableLeave": 1,
     "takenLeave": 14,
     "department": "Testing",
-    "compOffLeave": 2,
+    "compOffLeave": 4,
     "role": "user"
   },
   {

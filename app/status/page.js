@@ -304,15 +304,15 @@ const Status = () => {
   useEffect(() => {
     if (email) {
       axios.post("/api/fetchAvailableLeave", { email: email })
-      .then(res => {
-        console.log("Response data:", res.data);
+        .then(res => {
+          console.log("Response data:", res.data);
 
-        setAvailable(res.data.avilableleave);
-        setCompLeave(res.data.availableCompOffLeave);
-      })
-      .catch(error => {
-        console.error("Error fetching available leave:", error);
-      });
+          setAvailable(res.data.avilableleave);
+          setCompLeave(res.data.availableCompOffLeave);
+        })
+        .catch(error => {
+          console.error("Error fetching available leave:", error);
+        });
     }
   }, [email])
 
@@ -465,7 +465,7 @@ const Status = () => {
 
 
       }
-    } 
+    }
     else if (formData.leaveType === "Paternity") {
       if (formData.fromDate && formData.toDate) {
 
@@ -482,7 +482,7 @@ const Status = () => {
           }
         }
       }
-    } 
+    }
     else if (formData.leaveType === "Maternity") {
       if (formData.fromDate && formData.toDate) {
 
@@ -499,7 +499,7 @@ const Status = () => {
           }
         }
       }
-    } 
+    }
     else {
       if (formData.fromDate && formData.toDate) {
 
@@ -514,19 +514,19 @@ const Status = () => {
 
 
   const leavemail = () => {
-    let token=localStorage.token
-    let headers={authorization:token}     
-    if(token){
-      
-    axios
-      .post("/api/nodemailer", {email:email,department:department,role:role,name:name},{headers})
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    }else{router.push('/login')}
+    let token = localStorage.token
+    let headers = { authorization: token }
+    if (token) {
+
+      axios
+        .post("/api/nodemailer", { email: email, department: department, role: role, name: name }, { headers })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else { router.push('/login') }
 
   };
 

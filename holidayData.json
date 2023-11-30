@@ -2,7 +2,7 @@
   {
     "Date": "2023-10-03",
     "Day": "Tuesday",
-    "Description": "Pongallk",
+    "Description": "Pongal",
     "id": "b94f8b69-30bb-4ac4-9ddf-19140d8fbcbc"
   },
   {
@@ -19,14 +19,8 @@
   },
   {
     "Date": "2023-07-10",
-    "Day": "Tuesday",
-    "Description": "holidays ed",
+    "Day": "Monday",
+    "Description": "holiday",
     "id": "7baf61a3-83c8-4cf7-ae55-98c768b73148"
-  },
-  {
-    "Date": "2023-11-28",
-    "Day": "Tuesday",
-    "Description": "tearrr",
-    "id": "40cecfbc-5bae-4129-a61b-d01b14545d27"
   }
 ]

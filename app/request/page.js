@@ -426,7 +426,7 @@ const Request = () => {
               Approve
             </button>
             <button className='reject-edit-btn' onClick={() => {
-              UpdateCompOff(data.id, 'rejected');
+              UpdateCompOff(data.id, data.email, data.day, data.name, 'rejected');
 
               // notifys();
               // leavemail( data.name,'rejected')
@@ -526,10 +526,13 @@ const Request = () => {
             leavemail(name, status, email)
             if (status === "approved") {
               notify();
-            } else { notifys() }
-            displayJSON();
-            displayJSO();
-
+              displayJSON();
+              displayJSO();
+            } else {
+              notifys()
+              displayJSON();
+              displayJSO();
+            }
           }
         });
     } else { router.push('/login') }
@@ -562,10 +565,11 @@ const Request = () => {
         .then((res) => {
           console.log(res);
           if (res.status === 200) {
-            displayJSON();
-            displayJSO();
+
             notifys();
             leavemail(name, status, email)
+            displayJSON();
+            displayJSO();
           }
         });
     } else { router.push('/login') }

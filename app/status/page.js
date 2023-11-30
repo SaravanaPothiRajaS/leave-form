@@ -304,15 +304,15 @@ const Status = () => {
   useEffect(() => {
     if (email) {
       axios.post("/api/fetchAvailableLeave", { email: email })
-      .then(res => {
-        console.log("Response data:", res.data);
+        .then(res => {
+          console.log("Response data:", res.data);
 
-        setAvailable(res.data.avilableleave);
-        setCompLeave(res.data.availableCompOffLeave);
-      })
-      .catch(error => {
-        console.error("Error fetching available leave:", error);
-      });
+          setAvailable(res.data.avilableleave);
+          setCompLeave(res.data.availableCompOffLeave);
+        })
+        .catch(error => {
+          console.error("Error fetching available leave:", error);
+        });
     }
   }, [email])
 
@@ -394,7 +394,7 @@ const Status = () => {
 
   useEffect(() => {
 
-    if (formData.fromDate) {
+    if (formData.fromDate && (!formData.leaveType === "Maternity")) {
       const date = new Date(formData.fromDate)
       var day_ofw = date.getDay();
       var is_leave = day_ofw === 0 || day_ofw === 6;
@@ -409,7 +409,7 @@ const Status = () => {
 
     }
 
-    if (formData.toDate) {
+    if (formData.toDate && (!formData.leaveType === "Maternity")) {
       const date = new Date(formData.toDate)
       var day_ofw = date.getDay();
       var is_leave = day_ofw === 0 || day_ofw === 6;
@@ -429,7 +429,7 @@ const Status = () => {
         var startDate = new Date(formData.fromDate);
         var endDate = new Date(formData.toDate);
         var businessDays = getBusinessDaysExcludingHolidays(startDate, endDate, holidays);
-        if (businessDays > 5) {
+        if (businessDays > process.env.CASUAL_lEAVE_LIMIT) {
           alert("Only select 5 working days only")
           setFormData({ ...formData, toDate: '', fromDate: '', totalDays: 0 })
         } else {
@@ -450,7 +450,7 @@ const Status = () => {
         var startDate = new Date(formData.fromDate);
         var endDate = new Date(formData.toDate);
         var businessDays = getBusinessDaysExcludingHolidays(startDate, endDate, holidays);
-        if (businessDays > 5) {
+        if (businessDays > process.env.CASUAL_lEAVE_LIMIT) {
           alert("Only select 5 working days only")
           setFormData({ ...formData, toDate: '', fromDate: '', totalDays: 0 })
         } else {
@@ -465,14 +465,14 @@ const Status = () => {
 
 
       }
-    } 
+    }
     else if (formData.leaveType === "Paternity") {
       if (formData.fromDate && formData.toDate) {
 
         var startDate = new Date(formData.fromDate);
         var endDate = new Date(formData.toDate);
         var businessDays = getBusinessDaysExcludingHolidays(startDate, endDate, holidays);
-        if (businessDays > 10) {
+        if (businessDays > process.env.PATERNITY_LEAVE_LIMIT) {
           alert("Only select less than 10 working days only for Paternity")
           setFormData({ ...formData, toDate: '', fromDate: '', totalDays: 0 })
         } else {
@@ -480,16 +480,27 @@ const Status = () => {
 
             setFormData({ ...formData, totalDays: businessDays })
           }
-          //  else {
-          //   alert("Select leave days less then or equal to available Compensatory leave!")
-          //   setFormData({ ...formData, toDate: '', fromDate: '', totalDays: 0 })
-          // }
         }
-
-
       }
-    } 
-    
+    }
+    else if (formData.leaveType === "Maternity") {
+      if (formData.fromDate && formData.toDate) {
+
+        var startDate = new Date(formData.fromDate);
+        var endDate = new Date(formData.toDate);
+        var timeDifference = endDate - startDate;
+        var daysDifference = Math.ceil(timeDifference / (24 * 60 * 60 * 1000));
+        if (daysDifference > 280) {
+          alert("Only select less than 60 working days only for Maternity")
+          setFormData({ ...formData, toDate: '', fromDate: '', totalDays: 0 })
+        } else {
+          if (280 >= daysDifference) {
+
+            setFormData({ ...formData, totalDays: daysDifference })
+          }
+        }
+      }
+    }
     else {
       if (formData.fromDate && formData.toDate) {
 
@@ -504,19 +515,19 @@ const Status = () => {
 
 
   const leavemail = () => {
-    let token=localStorage.token
-    let headers={authorization:token}     
-    if(token){
-      
-    axios
-      .post("/api/nodemailer", {email:email,department:department,role:role,name:name},{headers})
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    }else{router.push('/login')}
+    let token = localStorage.token
+    let headers = { authorization: token }
+    if (token) {
+
+      axios
+        .post("/api/nodemailer", { email: email, department: department, role: role, name: name }, { headers })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else { router.push('/login') }
 
   };
 

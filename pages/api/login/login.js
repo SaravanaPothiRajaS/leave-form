@@ -39,7 +39,7 @@ export default async function login(req, res) {
         console.log(accessToken);
         res.json({ accessToken: accessToken })
       } else {
-        console.log("Login failed. Please check your email and password.");
+        console.log("Login failed. Please check your email ");
         res.json('invalid')
       }
 

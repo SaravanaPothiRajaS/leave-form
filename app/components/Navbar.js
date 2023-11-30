@@ -54,13 +54,15 @@ const Navbar = () => {
 
 
   useEffect(() => {
+
+
     let token = localStorage?.getItem('token')
 
     if (token) {
       pendingJSON();
     } else { router.push('/login') }
 
-  }, [department])
+  }, [role])
 
   return (currentpath !== "/login") && (
     <>

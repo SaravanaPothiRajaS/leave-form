@@ -64,7 +64,7 @@ const Request = () => {
       accessor: "totalDays"
     },
     {
-      Header: "Taken Leave",
+      Header: "Leave Availed",
       accessor: "takenLeave"
     },
     {
@@ -106,7 +106,19 @@ const Request = () => {
     }
   ]
 
+  function monthsDiff(startDate, endDate) {
+    let fromDate = new Date(startDate);
+    let toDate = new Date(endDate);
+    let startYear = fromDate.getFullYear();
+    let startMonth = fromDate.getMonth();
 
+    let endYear = toDate.getFullYear();
+    let endMonth = toDate.getMonth();
+
+    let months = (endYear - startYear) * 12 + (endMonth - startMonth);
+
+    return months;
+  }
 
   const data1 = jsoData.map((data, i) => ({
     name: data.name,
@@ -160,7 +172,7 @@ const Request = () => {
           department: data.department,
           from: data.fromDate,
           to: data.toDate,
-          totalDays: data.totalDays,
+          totalDays: data.totalDays > 40 ? monthsDiff(data.fromDate, data.toDate) + " Months" : data.totalDays,
           availableLeave: availableLeave,
           takenLeave: takenLeave,
           reason: data.reason,

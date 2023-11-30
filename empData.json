@@ -40,15 +40,15 @@
     "email": "edwinraj1462003@gmail.com",
     "availableLeave": 6,
     "takenLeave": 18,
-    "department": "Testing",
+    "department": "Tech",
     "compOffLeave": 4.5,
     "role": "approver"
   },
   {
     "name": "user",
     "email": "edwinraj1462003+user@gmail.com",
-    "availableLeave": 6,
-    "takenLeave": 18,
+    "availableLeave": 5,
+    "takenLeave": 291,
     "department": "Tech",
     "compOffLeave": 4.5,
     "role": "user"

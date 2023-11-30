@@ -582,7 +582,7 @@
     "totalDays": 1,
     "reason": "sick",
     "approver": "HR",
-    "status": "pending",
+    "status": "approved",
     "email": "edwinraj1462003+user@gmail.com",
     "role": "user",
     "id": "e74cf164-e869-453a-a14e-f2359b1b3b7b"
@@ -610,9 +610,23 @@
     "totalDays": 2,
     "reason": "hgxvJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BV",
     "approver": "HR",
-    "status": "pending",
+    "status": "rejected",
     "email": "edwinraj1462003+user@gmail.com",
     "role": "user",
     "id": "ac76b466-1c4b-4f3e-af8b-649694b8dbe5"
+  },
+  {
+    "name": "user",
+    "leaveType": "Maternity",
+    "department": "Tech",
+    "fromDate": "2023-11-01",
+    "toDate": "2024-07-30",
+    "totalDays": 272,
+    "reason": "Maternity",
+    "approver": "HR",
+    "status": "approved",
+    "email": "edwinraj1462003+user@gmail.com",
+    "role": "user",
+    "id": "b0c65873-0c69-490a-b3dd-5ed9840e1dce"
   }
 ]

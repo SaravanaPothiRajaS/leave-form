@@ -394,7 +394,7 @@ const Status = () => {
 
   useEffect(() => {
 
-    if (formData.fromDate) {
+    if (formData.fromDate && (!formData.leaveType === "Maternity")) {
       const date = new Date(formData.fromDate)
       var day_ofw = date.getDay();
       var is_leave = day_ofw === 0 || day_ofw === 6;
@@ -409,7 +409,7 @@ const Status = () => {
 
     }
 
-    if (formData.toDate) {
+    if (formData.toDate && (!formData.leaveType === "Maternity")) {
       const date = new Date(formData.toDate)
       var day_ofw = date.getDay();
       var is_leave = day_ofw === 0 || day_ofw === 6;
@@ -488,14 +488,15 @@ const Status = () => {
 
         var startDate = new Date(formData.fromDate);
         var endDate = new Date(formData.toDate);
-        var businessDays = getBusinessDaysExcludingHolidays(startDate, endDate, holidays);
-        if (businessDays > process.env.MATERNITY_LEAVE_LIMIT) {
+        var timeDifference = endDate - startDate;
+        var daysDifference = Math.ceil(timeDifference / (24 * 60 * 60 * 1000));
+        if (daysDifference > 280) {
           alert("Only select less than 60 working days only for Maternity")
           setFormData({ ...formData, toDate: '', fromDate: '', totalDays: 0 })
         } else {
-          if (60 >= businessDays) {
+          if (280 >= daysDifference) {
 
-            setFormData({ ...formData, totalDays: businessDays })
+            setFormData({ ...formData, totalDays: daysDifference })
           }
         }
       }

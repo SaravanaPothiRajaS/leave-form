@@ -8,13 +8,14 @@ import { useEffect, useState } from "react"
 import React from "react";
 import { useMyContext } from "../context/MyContext";
 import { useRouter } from "next/navigation";
+import jwtDecode from "jwt-decode";
 
 
 export default function LoginTwo() {
     let { setRole, setEmail, setDepartment, setName } = useMyContext();
     const [email, setEmailLogin] = useState('');
+    const [token, setToken] = useState();
     const route = useRouter();
-    let token
     const signbtn = (e) => {
         e.preventDefault();
 
@@ -38,6 +39,7 @@ export default function LoginTwo() {
                                 console.log(response);
                                 if (response.status === 200 || response.data.accessToken) {
                                     localStorage.setItem('token', response.data.accessToken)
+                                    setToken(response.data.accessToken)
                                     route.push('/holiday');
                                 }
                             })
@@ -69,6 +71,20 @@ export default function LoginTwo() {
     };
 
 
+    const pendingJSON = () => {
+        if (token) {
+            let token = localStorage?.getItem('token')
+
+            const decoded = jwtDecode(token);
+            setEmail(decoded.email);
+            setRole(decoded.role)
+            setDepartment(decoded.department)
+            setName(decoded.name)
+        }
+    }
+    useEffect(() => {
+        pendingJSON()
+    }, [token])
     return (
         <div className='bg-neutral-200 w-full'>
             <div className="container bg-neutral-200 w-full ">

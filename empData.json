@@ -45,6 +45,15 @@
     "role": "approver"
   },
   {
+    "name": "user",
+    "email": "edwinraj1462003+user@gmail.com",
+    "availableLeave": 6,
+    "takenLeave": 18,
+    "department": "Tech",
+    "compOffLeave": 4.5,
+    "role": "user"
+  },
+  {
     "name": "Pothi",
     "email": "spothispothis@gmail.com",
     "availableLeave": 5,

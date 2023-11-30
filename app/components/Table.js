@@ -104,7 +104,7 @@ export default function Table({ columns, data, className }) {
                         <thead className="table-head">
                             <tr>
                                 {columns.map((column) => (
-                                    <th key={column.accessor}>
+                                    <th key={column.accessor} >
                                         <button onClick={() => handleSort(column)}>
                                             {column.Header}
                                             {sortColumn === column && (
@@ -119,11 +119,11 @@ export default function Table({ columns, data, className }) {
                             {sortedData.slice(currentPage * pageSize, (currentPage + 1) * pageSize).map((row, index) => (
                                 <tr key={index}>
                                     {columns.map((column) => (
-                                        <td key={column.accessor}>
-                                             {(column.accessor === 'Date' || column.accessor === 'from' || column.accessor === 'to') && typeof row[column.accessor] === 'string'
-                ? format(new Date(row[column.accessor]), 'dd/MM/yyyy')
-                : row[column.accessor]}
-                                            </td>
+                                        <td title={row[column.accessor]} key={column.accessor} className={column.accessor === 'reason' ? "truncate" : ""}>
+                                            {(column.accessor === 'Date' || column.accessor === 'from' || column.accessor === 'to') && typeof row[column.accessor] === 'string'
+                                                ? format(new Date(row[column.accessor]), 'dd/MM/yyyy')
+                                                : row[column.accessor]}
+                                        </td>
                                     ))}
                                 </tr>
                             ))}

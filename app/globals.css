@@ -191,6 +191,7 @@
 
 .table-body td {
   padding: 7px 7px;
+  max-width: 100px;
 }
 
 .table-body tr {

@@ -8,8 +8,8 @@ import { useRouter } from 'next/navigation';
 
 
 const Employee = () => {
-const router=useRouter();
-    let {role,setRole,department}=useMyContext();
+    const router = useRouter();
+    let { role, setRole, department } = useMyContext();
     const [jsonData, setJsonData] = useState([]);
     const [selectedFile, setSelectedFile] = useState(null);
     const [convertJsonData, setconvertJsonData] = useState(null);
@@ -19,7 +19,7 @@ const router=useRouter();
             accessor: "name"
         },
         {
-            Header: "Taken Leave",
+            Header: "Leave Availed",
             accessor: "takenLeave"
         },
         {
@@ -45,25 +45,25 @@ const router=useRouter();
         department: data?.department,
     }));
 
-    function displayJSON () {
+    function displayJSON() {
         let token = localStorage.token
         let headers = { authorization: token }
         if (token) {
             if (role && department) {
                 axios.post("/api/empfetch", { role, department }, { headers })
-                .then(res => {
-                    console.log("qqwwwwwe", role, department);
-                    setJsonData(res?.data)
- 
-                })
+                    .then(res => {
+                        console.log("qqwwwwwe", role, department);
+                        setJsonData(res?.data)
+
+                    })
             }
         } else { router.push('/login') }
     }
 
-useEffect(()=>{
-    displayJSON();
+    useEffect(() => {
+        displayJSON();
 
-},[role, department])
+    }, [role, department])
 
     useEffect(() => {
 
@@ -88,19 +88,19 @@ useEffect(()=>{
         if (convertJsonData?.length > 0) {
             const requiredKeys = ["name", "email", "availableLeave", "takenLeave", "department"];
             const keysExist = requiredKeys.every(key => Object.keys(convertJsonData[0]).includes(key));
-            let token=localStorage.token
-            let headers={authorization:token}
-            if(token){
-            if (keysExist) {
-                axios.post('/api/importEmployee', { addValue: convertJsonData },{headers}).then(res => {
-                    if (res?.data === "imported") {
-                        displayJSON();
-                    }
-                }).catch((err) => { console.log(err); })
+            let token = localStorage.token
+            let headers = { authorization: token }
+            if (token) {
+                if (keysExist) {
+                    axios.post('/api/importEmployee', { addValue: convertJsonData }, { headers }).then(res => {
+                        if (res?.data === "imported") {
+                            displayJSON();
+                        }
+                    }).catch((err) => { console.log(err); })
 
-                // console.log(1234567);
-            } else { alert('Name ,Email, availableLeave , takenLeave, department does not exist or change the column name like that') }
-        }else{router.push('/login')}
+                    // console.log(1234567);
+                } else { alert('Name ,Email, availableLeave , takenLeave, department does not exist or change the column name like that') }
+            } else { router.push('/login') }
         }
     }, [convertJsonData])
 
@@ -115,20 +115,20 @@ useEffect(()=>{
     function downloadExcelSample() {
 
         const jsonDataCopy = JSON.parse(JSON.stringify(jsonData));
-        const headers=Object.keys(jsonDataCopy[0])
+        const headers = Object.keys(jsonDataCopy[0])
         const ws = XLSX.utils.json_to_sheet([{}], { header: headers, skipHeader: false });
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
         const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-    
+
         const url = URL.createObjectURL(blob);
-    
+
         const a = document.createElement('a');
         a.href = url;
         a.download = 'Employee Details Sample.xlsx';
         a.click();
-    
+
         URL.revokeObjectURL(url);
     }
 
@@ -153,9 +153,9 @@ useEffect(()=>{
     }
 
 
-    return (role==="admin" || role==="approver") ?(
-         <div className='mt-24'>
-           {role === "admin" ? <div className='flex justify-between w-11/12 m-auto'>
+    return (role === "admin" || role === "approver") ? (
+        <div className='mt-24'>
+            {role === "admin" ? <div className='flex justify-between w-11/12 m-auto'>
 
                 <div className='flex gap-5'>
                     <input type="file" accept=".xls, .xlsx" onChange={handleFileChange}
@@ -180,14 +180,14 @@ useEffect(()=>{
                     <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" /></svg>
                     <span title='Download employee details as excel file'>Employee Details(Excel)</span>
                 </button>
-            </div>:''}
+            </div> : ''}
 
             <Table columns={columns} data={data} className={'emp-table'} />
 
 
         </div>
 
-    ):("")
+    ) : ("")
 }
 
 export default Employee

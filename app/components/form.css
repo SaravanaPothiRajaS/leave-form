@@ -4,9 +4,9 @@
 }
 
 .apply-leave-form div {
+    padding: 6px;
     display: flex;
     align-items: center;
-    margin-top: 10px;
     width: 100%;
 }
 

@@ -416,7 +416,7 @@ const holiday = () => {
                 {addholiday && <div className='parent-add-holiday' >
                     <div className='add-holiday  d-animate-overlay'>
                         <div className='heaed-and-close'>
-                            <b> <h2 align="center " className='decoration-emerald-600'>Add Holiday</h2></b>
+                            <b> <h2 align="center " className='text-green-950 text-xl'>Add Holiday</h2></b>
                             <i className="fa fa-times exit-icon " aria-hidden="true" onClick={() => setAddHoliday(false)} ></i>
                         </div>
                         <DynamicForm fields={fields} onSubmit={handleinsert} onChange={onChange} data={addValue} validate={validateUserholiday} />

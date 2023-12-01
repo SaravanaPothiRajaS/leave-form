@@ -483,6 +483,25 @@ const Status = () => {
         }
       }
     }
+    else if (formData.leaveType === "Leave  on Propation") {
+      if (formData.fromDate && formData.toDate) {
+
+        var startDate = new Date(formData.fromDate);
+        var endDate = new Date(formData.toDate);
+        var businessDays = getBusinessDaysExcludingHolidays(startDate, endDate, holidays);
+        if (businessDays > process.env.LEAVE_ON_PROPATION) {
+          alert("Only select  1 working day , for Leave  on Propation")
+          // setFormData({ ...formData, toDate: '', fromDate: '', totalDays: 0 })
+          setFormData({ ...formData, totalDays: businessDays })
+
+        } else {
+          if (1 >= businessDays) {
+
+            setFormData({ ...formData, totalDays: businessDays })
+          }
+        }
+      }
+    }
     else if (formData.leaveType === "Maternity") {
       if (formData.fromDate && formData.toDate) {
 

@@ -6,7 +6,7 @@ export const MyContextProvider = ({ children }) => {
 
   // admin , approver , user
 
-  const [role, setRole] = useState('approver');
+  const [role, setRole] = useState('');
   const [email, setEmail] = useState('');
   const [department, setDepartment] = useState('');
   const [name, setName] = useState('');

@@ -52,7 +52,6 @@ const router=useRouter();
             if (role && department) {
                 axios.post("/api/empfetch", { role, department }, { headers })
                 .then(res => {
-                    console.log("qqwwwwwe", role, department);
                     setJsonData(res?.data)
  
                 })
@@ -96,9 +95,9 @@ useEffect(()=>{
                     if (res?.data === "imported") {
                         displayJSON();
                     }
-                }).catch((err) => { console.log(err); })
+                })
+                // .catch((err) => { console.log(err); })
 
-                // console.log(1234567);
             } else { alert('Name ,Email, availableLeave , takenLeave, department does not exist or change the column name like that') }
         }else{router.push('/login')}
         }

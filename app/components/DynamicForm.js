@@ -9,10 +9,6 @@ function DynamicForm({ fields, onSubmit, onChange, data }) {
 
   
 
-console.log(data);
-
-
-  console.log(data);
 
   return (
     <form onSubmit={onSubmit}  className='form-data apply-leave-form'>

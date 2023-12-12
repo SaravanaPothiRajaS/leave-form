@@ -27,12 +27,12 @@ const Navbar = () => {
   const pendingJSON = () => {
     let token = localStorage?.getItem('token')
 
-    let headers = { authorization: token }
     const decoded = jwtDecode(token);
     setEmail(decoded.email);
     setRole(decoded.role)
     setDepartment(decoded.department)
     setName(decoded.name)
+    let headers = { authorization: token }
 
     if (department && (role === "admin" || role === "approver")) {
       axios.post("/api/fetchemp", { department: department, role: updatedRole }, { headers })
@@ -49,20 +49,19 @@ const Navbar = () => {
     }
 
   }
-  console.log(total);
 
 
 
   useEffect(() => {
 
 
-    let token = localStorage?.getItem('token')
+    let token = localStorage.getItem('token')
 
     if (token) {
       pendingJSON();
     } else { router.push('/login') }
 
-  }, [role])
+  }, [])
 
   return (currentpath !== "/login") && (
     <>

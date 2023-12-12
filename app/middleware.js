@@ -11,7 +11,6 @@ const authenticateToken = (req, res, callback) => {
         res.status(403).send('Forbidden: Invalid Token');
         callback(false); // Pass false to the callback on error
       } else {
-        console.log("tets");
         callback(true); // Pass true to the callback on success
       }
     });

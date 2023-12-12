@@ -72,7 +72,6 @@ const holiday = () => {
         if (token) {
             axios.post('/api/holidaycreate', { addValue: addValue }, { headers })
                 .then((res) => {
-                    console.log(res);
                     if (res.status === 200) {
                         displayJSON();
                         setAddHoliday(false);
@@ -150,12 +149,10 @@ const holiday = () => {
         let token = localStorage.token
         let headers = { authorization: token }
         const id = dataId;
-        console.log(id);
         if (token) {
             axios
                 .post(`/api/holiday/delete`, { id }, { headers })
                 .then((res) => {
-                    console.log(res);
                     if (res.status === 200) {
                         displayJSON();
                         setDeleteData(false)
@@ -188,12 +185,11 @@ const holiday = () => {
                         setJsonData(res.data)
                     } 
                     else if ((res.status === 403) || (res.status === 401)) {
-                        console.log("edwin");
                         route.push('/login')
                     }
 
                 })
-                .catch(err => console.log(err))
+                // .catch(err => console.log(err))
         } else {
             route.push('/login')
         }
@@ -236,9 +232,9 @@ const holiday = () => {
                         if (res?.data === "imported") {
                             displayJSON();
                         }
-                    }).catch((err) => { console.log(err); })
+                    })
+                    // .catch((err) => { console.log(err); })
 
-                    // console.log(1234567);
                 } else { alert('Date ,Day, Description does not exist or change the column name like Date,Day,Description') }
             } else { route.push('/login') }
         }
@@ -296,14 +292,12 @@ const holiday = () => {
     const submitbtn = (e) => {
         e.preventDefault();
 
-        console.log('Changevalue', changevalue);
         let token = localStorage.token
         let headers = { authorization: token }
         if (token) {
             axios
                 .post('/api/holiday/update', { changevalue: changevalue }, { headers })
                 .then((res) => {
-                    console.log(res);
                     if (res.status === 200) {
                         displayJSON();
                          setEdit(false);  // Added this to hide the edit form after submission
@@ -375,13 +369,11 @@ const holiday = () => {
         if (addValue.Date.length > 0) {
             let date = new Date(addValue.Date);
             let day = date.toLocaleDateString("en-us", { weekday: 'long' });
-            // console.log(day);
             setaddValue({ ...addValue, Day: day })
         }
         if (changevalue?.Date?.length > 0) {
             let date = new Date(changevalue.Date);
             let day = date.toLocaleDateString("en-us", { weekday: 'long' });
-            // console.log(day);
             setChangeValue({ ...changevalue, Day: day })
         }
     }, [addValue.Date, changevalue.Date])

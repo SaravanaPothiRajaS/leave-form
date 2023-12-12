@@ -36,7 +36,6 @@ export default function LoginTwo() {
 
                         axios.post('/api/login/login', requestBody, { headers })
                             .then(response => {
-                                console.log(response);
                                 if (response.status === 200 || response.data.accessToken) {
                                     localStorage.setItem('token', response.data.accessToken)
                                     setToken(response.data.accessToken)

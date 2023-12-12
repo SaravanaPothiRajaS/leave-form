@@ -1,29 +1,58 @@
 import fs from 'fs/promises';
 import authenticateToken from "../../app/middleware";
 import transporter from '../../nodemail';
-
+import logo from '../../app/images/raise1.png'
+const AWS = require('aws-sdk');
+ 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
       authenticateToken(req, res, async (isAuthenticated) => {
         if (isAuthenticated) {
-          const data = await fs.readFile('empData.json', 'utf8');
-          const jsonData = JSON.parse(data);
-          const { email, department, role, name } = req.body;
+
+          const { email, department, role, name, total ,reason} = req.body;
+
           let fromEmail;
           let toEmail;
-          console.log(req.body);
 
-
+          
+          AWS.config.update({
+            accessKeyId: process.env.ACCESS_KEY_ID,
+            secretAccessKey: process.env.SECRET_ACCESS_KEY,
+            region: process.env.REGION
+          });
+                 
+              // Create an S3 object
+          const s3 = new AWS.S3();
+          
+          // Specify the bucket and file key (path) of your JSON file
+          const bucketName =  process.env.BUCKET_NAME;
+          const fileKey = 'empData.json';
+          
+          // Create parameters for the S3 getObject operation
+          const params = {
+            Bucket: bucketName,
+            Key: fileKey
+          };
+          
+          // Fetch data from the JSON file in S3
+          s3.getObject(params, async (err, data) => {
+            if (err) {
+              console.error('Error fetching data from S3:', err);
+            } else {
+              // Parse the JSON data
+              const jsonData = JSON.parse(data.Body.toString('utf-8'));
+           
+            
           if (role === 'user') {
             fromEmail = email;
             const approverData = jsonData.find(
               (item) => item.role === 'approver' && item.department === department
             );
-
+ 
             if (approverData) {
               toEmail = approverData.email;
-
+ 
             }
           }
 
@@ -33,32 +62,118 @@ export default async function handler(req, res) {
               (item) => item.role === 'admin');
             if (approverData) {
               toEmail = approverData.email;
-
+ 
             }
           }
-
-
-
-
-          await transporter.sendMail({
+ 
+      await transporter.sendMail({
             from: fromEmail,
             to: toEmail,
-            bcc: 'vinodhkumaryin@gmail.com',
+            bcc: 'edwinraj1462003@gmail.com',
             subject: 'Leave Request',
-            text: `
-          Leave Request
-          Hello,
-          I, ${name} from the ${department} department, would like to request a leave for a number of days.
-          Leave Details:
-          Name: ${name}
-          Department: ${department}
-          Leave Duration: Two days
-          Please consider my leave request and let me know if any additional information is required.
-          Thank you.
-        `,
+            html: `
+       <body style="position: relative; max-width: 600px; height: auto; margin: 0 auto; background: #ffffff;">
+  <div>
+    <!-- Heading -->
+    <h1 style="position: relative; left: 7%; max-width: 85%; font-family: Recoleta; font-weight: bold; font-style: normal; font-size: min(10vw, 60px); line-height: 120%; color: #084243;">
+      Leave Request
+    </h1>
+  </div>
+ 
+  
+ 
+  <div>
+    <!-- Paragraph -->
+    <p style="position: relative; left: 7%; max-width: 85%; font-family: Raleway; font-style: normal; font-weight: 400; font-size: min(3vw, 16px); line-height: 160%; color: #084243;">
+      Hello,<br>
+      This is  ${name} from  ${department} department,and  I would like to request a leave for a number of days.
+    </p>
+ 
+    <!-- Leave Details -->
+    <p style="position: relative; left: 7%; max-width: 85%; font-family: Raleway; font-style: normal; font-weight: 400; font-size: min(3vw, 16px); line-height: 160%; color: #084243;">
+      <strong>Leave Details:</strong>
+      <br/> Name: ${name}
+      <br/> Department: ${department}
+      <br/> Leave Duration: ${total} ${total === 1 ? 'day' : 'days'}
+      <br/> Reason: ${reason}
+    </p>
+ 
+    <!-- Additional Information -->
+    <p style="position: relative; left: 7%; max-width: 85%; font-family: Raleway; font-style: normal; font-weight: 400; font-size: min(3vw, 16px); line-height: 160%; color: #084243;">
+      Please consider my leave request and let me know if any additional information is required.
+    </p>
+ 
+    <!-- Thank You -->
+    <p style="position: relative; left: 7%; max-width: 85%; font-family: Raleway; font-style: normal; font-weight: 400; font-size: min(3vw, 16px); line-height: 160%; color: #084243;">
+      Thank you.
+    </p>
+  </div>
+ 
+  <!-- Footer -->
+  <div style="height: 150px; max-height: 25vw; position: relative; max-width: 600px; margin: 0 auto; background-color: #0c4243; border-radius: 40% 40% 0% 0%;">
+    <!-- Footer Start -->
+    <div style="float: left; margin-top: 10%; margin-left: 7%; max-width: 15%; padding: 0vw 0vw; position: absolute;">
+      <!-- Raise Logo -->
+      <a href="https://www.raisetech.io/">
+      <img style="max-height: min(15vw, 26px); max-width: min(15vw, 86px);" src="logo" height="100" width="300" alt="Logo">
+ 
+      </a>
+ 
+      <div style="margin-top: 5px; width: 150px; color: #FFFFFF;">
+        <!-- Raise Name -->
+        <a style="font-style: normal; font-weight: 200; font-family: Raleway; font-size: 15px; font-size: min(2.5vw, 15px); writing-mode: horizontal-tb; text-decoration: none; color: #FFFFFF;">raisetech.io</a>
+      </div>
+    </div>
+ 
+    <div style="max-width: 30%; padding: 0vw 0vw; float: right; margin-top: 14%; margin-right: 7%;">
+    <div style="display: inline-block; margin-right: 8px;">
+      <!-- Twitter Logo -->
+      <a href="https://twitter.com/raisetechio">
+        <img style="max-height: min(3vw, 16px); max-width: min(15vw, 18px); color: #1DA1F2;" src="cid:emailTempTwitter" height="16" width="18">
+      </a>
+    </div>
+  
+    <div style="display: inline-block; margin-right: 8px;">
+      <!-- Facebook Logo -->
+      <a href="https://www.facebook.com/raisetechio">
+        <img style="max-height: min(3vw, 16px); max-width: min(15vw, 13px); color: #1877F2;" src="cid:emailTempFacebook" height="16" width="13">
+      </a>
+    </div>
+  
+    <div style="display: inline-block;">
+      <!-- LinkedIn Logo -->
+      <a href="https://www.linkedin.com/company/raisetechio/">
+        <img style="max-height: min(3vw, 16px); max-width: min(15vw, 18px); color: #0A66C2;" src="cid:emailTempLinkedin" height="16" width="18">
+      </a>
+    </div>
+  </div>
+  <!-- Footer End -->
+  
+  </div>
+</body>
+    `,
+          });
+ 
+          res.status(200).json({ message: 'Email sent successfully' });
+
+            }
           });
 
-          res.status(200).json({ message: 'Email sent successfully' });
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+         
         } else {
           res.status(403).send('Forbidden: Invalid Token');
         }

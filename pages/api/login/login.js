@@ -1,19 +1,32 @@
 import { Magic } from "@magic-sdk/admin";
 const fs = require('fs').promises;
 import * as jwt from 'jsonwebtoken';
+const AWS = require('aws-sdk');
 
 export default async function login(req, res) {
   const magic = new Magic(process.env.SECRET_KEY)
   const didToken = req.headers.authorization.substr(7);
   const metadata = await magic.users.getMetadataByToken(didToken)
-  // console.log(metadata);
-  // res.send({ metadata });
+  AWS.config.update({
+    accessKeyId: process.env.ACCESS_KEY_ID,
+    secretAccessKey: process.env.SECRET_ACCESS_KEY,
+    region: process.env.REGION,
+  });
+
+  // Create an S3 object
+  const s3 = new AWS.S3();
+
+  // Specify the bucket and file key (path) of your JSON file
+  const bucketName = process.env.BUCKET_NAME;
+  const fileKey = 'empData.json';
+
+  // Fetch data from the JSON file in S3
+  const data = await s3.getObject({ Bucket: bucketName, Key: fileKey }).promise();
+  const jsonData = JSON.parse(data.Body.toString('utf-8'));
   if (metadata.email) {
     try {
-      const data = await fs.readFile('empData.json', 'utf8');
-      let jsonData = JSON.parse(data);
+     
       const { email } = req.body;
-      console.log(req.body);
       const jwtSecret = 'secretKey';
       let role = '';
       let department = '';
@@ -33,13 +46,10 @@ export default async function login(req, res) {
 
 
       if (verifyLogin(email)) {
-        console.log("Login successful");
         const payLoad = { email: email, role: role, department: department, name: name }
         const accessToken = jwt.sign(payLoad, jwtSecret);
-        console.log(accessToken);
         res.json({ accessToken: accessToken })
       } else {
-        console.log("Login failed. Please check your email ");
         res.json('invalid')
       }
 
@@ -50,6 +60,5 @@ export default async function login(req, res) {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   }
-  else
-    console.log("Invalid");
+    
 }

@@ -596,7 +596,7 @@
     "totalDays": 2,
     "reason": "JVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BVJVcDvcDVclSHBVjzbv.bv.,cv.jbcv.BV",
     "approver": "HR",
-    "status": "pending",
+    "status": "rejected",
     "email": "",
     "role": "approver",
     "id": "8b0a7855-af0a-4ab0-a333-9c6d0909dcc8"
@@ -628,5 +628,33 @@
     "email": "edwinraj1462003+user@gmail.com",
     "role": "user",
     "id": "b0c65873-0c69-490a-b3dd-5ed9840e1dce"
+  },
+  {
+    "name": "Pothis",
+    "leaveType": "Casual Leave",
+    "department": "Tech",
+    "fromDate": "2023-12-05",
+    "toDate": "2023-12-07",
+    "totalDays": 3,
+    "reason": "sick",
+    "approver": "Some Other Approver",
+    "status": "pending",
+    "email": "edwinraj1462003@gmail.com",
+    "role": "approver",
+    "id": "e66e9fcb-0c8d-454e-9a2f-d19b85825e98"
+  },
+  {
+    "name": "Pothis",
+    "leaveType": "Casual Leave",
+    "department": "Tech",
+    "fromDate": "2023-12-12",
+    "toDate": "2023-12-14",
+    "totalDays": 3,
+    "reason": "sickrrrttttttttttttttttttttttttttttttttttttttttttttttttttttdfgfdgfdgfgsickrrrttttttttttttttttttttttttttttttttttttttttttttttttttttdfgfdgfdgfgsickrrrttttttttttttttttttttttttttttttttttttttttttttttttttttdfgfdgfdgfgsickrrrttttttttttttttttttttttttttttttttttttttttttttttttttttdfgfdgfdgfgsickrrrttttttttttttttttttttttttttttttttttttttttttttttttttttdfgfdgfdgfgsickrrrttttttttttttttttttttttttttttttttttttttttttttttttttttdfgfdgfdgfgsickrrrttttttttttttttttttttttttttttttttttttttttttttttttttttdfgfdgfdgfgsickrrrttttttttttttttttttttttttttttttttttttttttttttttttttttdfgfdgfdgfgsickrrrttttttttttttttttttttttttttttttttttttttttttttttttttttdfgfdgfdgfgsickrrrttttttttttttttttttttttttttttttttttttttttttttttttttttdfgfdgfdgfgsickrrrttttttttttttttttttttttttttttttttttttttttttttttttttttdfgfdgfdgfgsickrrrttttttttttttttttttttttttttttttttttttttttttttttttttttdfgfdgfdgfgsickrrrttttttttttttttttttttttttttttttttttttttttttttttttttttdfgfdgfdgfg",
+    "approver": "Some Other Approver",
+    "status": "pending",
+    "email": "edwinraj1462003@gmail.com",
+    "role": "approver",
+    "id": "8ed2cf9c-3d55-46bd-aea4-797b36cb0999"
   }
 ]

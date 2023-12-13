@@ -154,7 +154,7 @@ useEffect(()=>{
 
     return (role==="admin" || role==="approver") ?(
          <div className='mt-24'>
-           {role === "admin" ? <div className='flex justify-between w-11/12 m-auto flex-wrap gap-7'>
+           {(role === "admin" || role === "approver") ? <div className='flex justify-between w-11/12 m-auto flex-wrap gap-7'>
 
                 <div className='flex gap-5'>
                     <input type="file" accept=".xls, .xlsx" onChange={handleFileChange}

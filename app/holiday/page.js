@@ -403,13 +403,13 @@ const holiday = () => {
                     <button className='add-holiday-btn' onClick={downloadExcelSample}>Sample Data</button>
                 </div> : ""}
                 <Table columns={role === "admin" ? columns : userHolidayColumns} data={role === "admin" ? data : userHolidaydata} className={'status-table'} />
-                {role === "admin" ? <div className='flex justify-between w-11/12 m-auto mt-10 flex-wrap'>
+                <div className='flex justify-between w-11/12 m-auto mt-10 flex-wrap'>
 
                     <button onClick={() => downloadExcel(jsonData)} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                         <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" /></svg>
                         <span title='Download holidays as excel file'>Holiday(Excel)</span>
                     </button>
-                </div> : ""}
+                </div> 
                 {addholiday && <div className='parent-add-holiday' >
                     <div className='leave-border  d-animate-overlay lg:w-auto max-sm:w-11/12 md:w-3/5'>
                         <div className='heaed-and-close'>

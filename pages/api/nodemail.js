@@ -9,9 +9,10 @@ export default async function handler(req, res) {
         if (isAuthenticated) {
           const { name, status, email, fromEmail, department, total } = req.body;
  
-          let toEmail;
+          console.log(fromEmail,email,"test");
+          
           await transporter.sendMail({
-            from: fromEmail,
+            cc:fromEmail,
             to: email,
             subject: 'Leave status',
  
@@ -28,15 +29,7 @@ export default async function handler(req, res) {
               <!-- Paragraph -->
               <p style="position: relative; left: 7%; max-width: 85%; font-family: Raleway; font-style: normal; font-weight: 400; font-size: min(3vw, 16px); line-height: 160%; color: #084243;">
                 Dear ${name},
-                <br/> Your request for leave is ${status}. We have reviewed your request, and the current status is as follows:
-              </p>
-        
-              <!-- Leave Details -->
-              <p style="position: relative; left: 7%; max-width: 85%; font-family: Raleway; font-style: normal; font-weight: 400; font-size: min(3vw, 16px); line-height: 160%; color: #084243;">
-                <strong>Leave Details:</strong>
-                <br/> Name: ${name}
-                <br/> Department: ${department}
-                <br/> Leave Duration: ${total}
+                <br/> Your request for leave is ${status}. We have reviewed your request.
               </p>
         
               <!-- Additional Information -->
@@ -46,7 +39,7 @@ export default async function handler(req, res) {
         
               <!-- Thank You -->
               <p style="position: relative; left: 7%; max-width: 85%; font-family: Raleway; font-style: normal; font-weight: 400; font-size: min(3vw, 16px); line-height: 160%; color: #084243;">
-                Thank you for your understanding.
+                Thank you.
               </p>
             </div>
         
@@ -56,7 +49,7 @@ export default async function handler(req, res) {
               <div style="float: left; margin-top: 10%; margin-left: 7%; max-width: 15%; padding: 0vw 0vw; position: absolute;">
                 <!-- Raise Logo -->
                 <a href="https://www.raisetech.io/">
-                  <img style="max-height: min(15vw, 26px); max-width: min(15vw, 86px);" src="cid:emailTempLogoWhite" height="26" width="86">
+                  <img style="max-height: min(15vw, 26px); max-width: min(15vw, 86px);" src="https://assets-global.website-files.com/622842ae2f5b915b1f257af9/622ad4bc8217517c4ac5abce_raise%20logo%20white.svg" height="26" width="86">
                 </a>
         
                 <div style="margin-top: 5px; width: 150px; color: #FFFFFF;">
@@ -66,26 +59,7 @@ export default async function handler(req, res) {
               </div>
         
               <div style="max-width: 30%; padding: 0vw 0vw; float: right; margin-top: 14%; margin-right: 7%;">
-                <div style="display: inline-block; margin-right: 8px;">
-                  <!-- Twitter Logo -->
-                  <a href="https://twitter.com/raisetechio">
-                    <img style="max-height: min(3vw, 16px); max-width: min(15vw, 18px); color: #1DA1F2;" src="cid:emailTempTwitter" height="16" width="18">
-                  </a>
-                </div>
-        
-                <div style="display: inline-block; margin-right: 8px;">
-                  <!-- Facebook Logo -->
-                  <a href="https://www.facebook.com/raisetechio">
-                    <img style="max-height: min(3vw, 16px); max-width: min(15vw, 13px); color: #1877F2;" src="cid:emailTempFacebook" height="16" width="13">
-                  </a>
-                </div>
-        
-                <div style="display: inline-block;">
-                  <!-- LinkedIn Logo -->
-                  <a href="https://www.linkedin.com/company/raisetechio/">
-                    <img style="max-height: min(3vw, 16px); max-width: min(15vw, 18px); color: #0A66C2;" src="cid:emailTempLinkedin" height="16" width="18">
-                  </a>
-                </div>
+           
               </div>
               <!-- Footer End -->
             </div>

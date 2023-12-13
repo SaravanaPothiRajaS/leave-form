@@ -95,8 +95,6 @@ export default async (req, res) => {
         res.json({ status: 200 });
         }
 
-        await fs.writeFile('empData.json', JSON.stringify(jsonData, null, 2));
-        res.json(jsonData);
       } else {
         res.status(403).send('Forbidden: Invalid Token');
       }

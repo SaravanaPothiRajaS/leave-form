@@ -87,7 +87,7 @@ export default function LoginTwo() {
     return (
         <div className='bg-neutral-200 w-full'>
             <div className="container bg-neutral-200 w-full ">
-                <div className="row-container w-1/4 ">
+                <div className="row-container lg:w-1/4 sm:w-11/12 md:w-2/5" >
                     <div className="col-cont">
                         <form
                             className="border-cont"

@@ -532,7 +532,7 @@ const Request = () => {
         .post(`/api/CompLeave`, { email, day }, { headers })
         .then((res) => {
           if (res.status === 200) {
-            leavemail(name, status, email,total)
+            compOffmail(name, status, email,total)
             if (status === "approved") {
               notify();
               displayJSON();
@@ -671,14 +671,28 @@ const Request = () => {
 
 
   };
+  const compOffmail = (name, status, email,total) => {
+    let token = localStorage.token
+    let headers = { authorization: token }
+    if (token) {
+      axios
+        .post("/api/compoffnodemail", { name: name, status: status, email: email, fromEmail: fromEmail,total:total, department:department }, { headers })
+        .then((res) => {
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else { router.push('/login') }
 
+
+  };
 
   return (role === "admin" || role === "approver") ? (
     <>
       <main>
         <div className='select-request w-11/12 m-auto'>
           <label>Select a Option:</label>
-          <select onChange={handleSelectChange} value={selectedOption} className='h-8 rounded-md border-0 bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm'>
+          <select onChange={handleSelectChange} value={selectedOption} className='h-8 w-32 rounded-md border-0 bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm'>
             <option value="all" defaultChecked > All</option>
             <option value="request"> Requests</option>
             <option value="approved">Approved</option>

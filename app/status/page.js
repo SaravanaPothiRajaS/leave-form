@@ -110,13 +110,13 @@ const Status = () => {
       ],
       disabled: false,
     },
-    {
-      name: 'approver',
-      label: 'Approver:',
-      type: 'text',
-      disabled: true,
+    // {
+    //   name: 'approver',
+    //   label: 'Approver:',
+    //   type: 'text',
+    //   disabled: true,
 
-    },
+    // },
   ]
 
 
@@ -359,7 +359,7 @@ const Status = () => {
             displayJSON();
             setCompoOff(false);
             notify();
-            leavemail();
+            compOffmail();
 
           }
         })
@@ -553,6 +553,22 @@ const Status = () => {
     } else { router.push('/login') }
 
   };
+  const compOffmail = () => {
+    let token = localStorage.token
+    let headers = { authorization: token }
+    if (token) {
+
+      axios
+        .post("/api/compoffnodemailer", { email: email, department: department, role: role, name: name,total:compoData.day  }, { headers })
+        .then((res) => {
+          // console.log(res.data);
+        })
+        .catch((error) => {
+          // console.error(error);
+        });
+    } else { router.push('/login') }
+
+  };
 
 
   const notify = () => toast.success('Leave Form Submitted!', {
@@ -583,7 +599,7 @@ const Status = () => {
 
 
         </article>
-        <div className='apply-btn flex gap-10'>
+        <div className='apply-btn flex gap-10 h-10 whitespace-nowrap'>
           <button onClick={() => { setCompoOff(true); setCompoData({ ...compoData, id: uuidv4() }); }}>Time In</button>
           <button onClick={() => { setApply(true); setFormData({ ...formData, id: uuidv4() }); }}>Time Out</button></div>
       </div>
@@ -604,7 +620,7 @@ const Status = () => {
 
 
     {apply &&  <div className='parent-border' onClick={() => setApply(false)} >
-        <div className='leave-border d-animate-overlay' onClick={(e) => e.stopPropagation()}>
+        <div className='leave-border d-animate-overlay lg:w-auto max-sm:w-11/12 md:w-3/5' onClick={(e) => e.stopPropagation()}>
           <div className='heaed-and-close'>
             <b> <h2 align="center">Time Out</h2></b>
             <i onClick={() => setApply(false)} className="fa fa-times exit-icon" aria-hidden="true" ></i>
@@ -614,7 +630,7 @@ const Status = () => {
       </div>}
 
       {compoOff && <div className='parent-border' onClick={() => setCompoOff(false)} >
-        <div className='leave-border d-animate-overlay' onClick={(e) => e.stopPropagation()}>
+        <div className='leave-border d-animate-overlay lg:w-auto max-sm:w-11/12 md:w-3/5' onClick={(e) => e.stopPropagation()}>
           <div className='heaed-and-close'>
             <b> <h2 align="center">Time In</h2></b>
             <i onClick={() => setCompoOff(false)} className="fa fa-times exit-icon" aria-hidden="true" ></i>

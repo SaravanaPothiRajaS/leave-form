@@ -2,18 +2,23 @@
 const nextConfig = {
 
   env: {
+    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+    MAIL_PASSWORD: process.env.MAIL_PASSWORD,
+    MAIL_HOST: process.env.MAIL_HOST,
+    MAIL: process.env.MAIL,
+    PUBLISHABLE_API_KEY: process.env.PUBLISHABLE_API_KEY,
+    SECRET_KEY: process.env.SECRET_KEY,
 
-    NEXTAUTH_SECRET: "mysecretkey123456789",
-    GMAIL_PASSWORD: "wdoc ssfe mwzy kdhe",
-    PUBLISHABLE_API_KEY: "pk_live_13136C093A450D9A",
-    SECRET_KEY: "sk_live_D9A555FEA52F1482",
 
+    CASUAL_LEAVE_LIMIT: process.env.CASUAL_LEAVE_LIMIT,
+    MATERNITY_LEAVE_LIMIT: process.env.MATERNITY_LEAVE_LIMIT,
+    PATERNITY_LEAVE_LIMIT: process.env.PATERNITY_LEAVE_LIMIT,
+    LEAVE_ON_PROPATION: process.env.LEAVE_ON_PROPATION,
 
-    CASUAL_lEAVE_LIMIT: 5,
-    MATERNITY_LEAVE_LIMIT: 260,
-    PATERNITY_LEAVE_LIMIT: 10,
-    LEAVE_ON_PROPATION: 1,
-
+    BUCKET_NAME: process.env.BUCKET_NAME,
+    REGION: process.env.REGION,
+    ACCESS_KEY_ID: process.env.ACCESS_KEY_ID,
+    SECRET_ACCESS_KEY: process.env.SECRET_ACCESS_KEY,
 
   },
 

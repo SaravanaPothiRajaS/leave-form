@@ -98,13 +98,13 @@ export default function Table({ columns, data, className }) {
                     <input type="text" value={searchQuery} onChange={handleSearchChange} className='search-bar p-2' />
                 </span>
             </div>
-            {filteredData?.length > 0 ? <div>
+            {filteredData?.length > 0 ? <div className=' overflow-x-scroll'>
                 {data?.length > 0 ?
                     <table className={className}>
                         <thead className="table-head">
                             <tr>
                                 {columns.map((column) => (
-                                    <th key={column.accessor} >
+                                    <th key={column.accessor} className='whitespace-nowrap pl-3'>
                                         <button onClick={() => handleSort(column)}>
                                             {column.Header}
                                             {sortColumn === column && (
@@ -137,7 +137,7 @@ export default function Table({ columns, data, className }) {
                 <div className=' w-11/12 flex justify-center '>
                     <h1 className='font-bold text-rose-800'>No data</h1>
                 </div>}
-            <div className="pagination-controls mb-10">
+            <div className="pagination-controls flex flex-wrap  mb-10">
                 <span>
                     <h3>Select Limit:</h3>
                     <select value={pageSize} onChange={handlePageSizeChange}>

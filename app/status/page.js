@@ -12,12 +12,13 @@ const { v4: uuidv4 } = require('uuid');
 import { toast } from 'react-toastify';
 import { useMyContext } from '../context/MyContext';
 import { useRouter } from 'next/navigation';
+import jwtDecode from 'jwt-decode';
 
 
 
 const Status = () => {
   const router = useRouter();
-  let { role, email, department, name } = useMyContext();
+  let { role, email, department, name,setEmail,setRole,setDepartment,setName } = useMyContext();
   const [compoOff, setCompoOff] = useState(false);
   const [available, setAvailable] = useState([""]);
   const [compLeave, setCompLeave] = useState([""]);
@@ -36,7 +37,6 @@ const Status = () => {
 
     }
   )
-  console.log(compoData);
   const [formData, setFormData] = useState({
     name: name && name,
     leaveType: '',
@@ -50,14 +50,19 @@ const Status = () => {
     email: email && email,
     role: role && role
   });
-  console.log(formData);
   const [timeOutMenu, setTimeOutMenu] = useState(true);
   const [jsonData, setJsonData] = useState([]);
   const [holidayData, setHolidayData] = useState([])
   const [jsonDataCompo, setJsonDataCompo] = useState([]);
 
   useEffect(() => {
+    let token = localStorage?.getItem('token')
 
+    const decoded = jwtDecode(token);
+    setEmail(decoded.email);
+    setRole(decoded.role)
+    setDepartment(decoded.department)
+    setName(decoded.name)
     if (role === 'user') {
       setCompoData((prevData) => ({ ...prevData, approver: '' }));
       setFormData((prevData) => ({ ...prevData, approver: 'HR' }));
@@ -105,13 +110,13 @@ const Status = () => {
       ],
       disabled: false,
     },
-    {
-      name: 'approver',
-      label: 'Approver:',
-      type: 'text',
-      disabled: true,
+    // {
+    //   name: 'approver',
+    //   label: 'Approver:',
+    //   type: 'text',
+    //   disabled: true,
 
-    },
+    // },
   ]
 
 
@@ -168,13 +173,13 @@ const Status = () => {
       type: 'textarea',
       disabled: false,
     },
-    {
-      name: 'approver',
-      label: 'Approver:',
-      type: 'text',
-      disabled: true,
+    // {
+    //   name: 'approver',
+    //   label: 'Approver:',
+    //   type: 'text',
+    //   disabled: true,
 
-    },
+    // },
   ];
 
 
@@ -302,10 +307,12 @@ const Status = () => {
 
 
   useEffect(() => {
+    let token = localStorage.token
+    let headers = { authorization: token }
+    if (token) {
     if (email) {
-      axios.post("/api/fetchAvailableLeave", { email: email })
+      axios.post("/api/fetchAvailableLeave", { email: email },{headers})
         .then(res => {
-          console.log("Response data:", res.data);
 
           setAvailable(res.data.avilableleave);
           setCompLeave(res.data.availableCompOffLeave);
@@ -314,6 +321,7 @@ const Status = () => {
           console.error("Error fetching available leave:", error);
         });
     }
+  }
   }, [email])
 
 
@@ -323,9 +331,8 @@ const Status = () => {
     let token = localStorage.token
     let headers = { authorization: token }
     if (token) {
-      axios.post('/api/create', { addValue: formData }, { headers })
+      axios.post('/api/request_leave', { addValue: formData }, { headers })
         .then((res) => {
-          console.log(res);
           if (res.status === 200) {
             displayJSON();
             setApply(false);
@@ -348,12 +355,11 @@ const Status = () => {
     if (token) {
       axios.post('/api/compOffCreate', { addValue: compoData }, { headers })
         .then((res) => {
-          console.log(res);
           if (res.status === 200) {
             displayJSON();
             setCompoOff(false);
             notify();
-            leavemail();
+            compOffmail();
 
           }
         })
@@ -394,7 +400,7 @@ const Status = () => {
 
   useEffect(() => {
 
-    if (formData.fromDate && (!formData.leaveType === "Maternity")) {
+    if (formData.fromDate && !(formData.leaveType === "Maternity")) {
       const date = new Date(formData.fromDate)
       var day_ofw = date.getDay();
       var is_leave = day_ofw === 0 || day_ofw === 6;
@@ -409,7 +415,7 @@ const Status = () => {
 
     }
 
-    if (formData.toDate && (!formData.leaveType === "Maternity")) {
+    if (formData.toDate && !(formData.leaveType === "Maternity")) {
       const date = new Date(formData.toDate)
       var day_ofw = date.getDay();
       var is_leave = day_ofw === 0 || day_ofw === 6;
@@ -508,8 +514,8 @@ const Status = () => {
         var timeDifference = endDate - startDate;
         var daysDifference = Math.ceil(timeDifference / (24 * 60 * 60 * 1000));
         if (daysDifference > 1) {
-          alert("Only select less than 1 working days only for Maternity")
-          setFormData({ ...formData, toDate: '', fromDate: '', totalDays: 0 })
+          alert("Select less than 1 working days for Leave on propation")
+          setFormData({ ...formData, totalDays: daysDifference })
         } else {
           if (1 === daysDifference) {
 
@@ -537,12 +543,28 @@ const Status = () => {
     if (token) {
 
       axios
-        .post("/api/nodemailer", { email: email, department: department, role: role, name: name }, { headers })
+        .post("/api/nodemailer", { email: email, department: department, role: role, name: name,total:formData.totalDays ,reason:formData.reason }, { headers })
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
         })
         .catch((error) => {
-          console.error(error);
+          // console.error(error);
+        });
+    } else { router.push('/login') }
+
+  };
+  const compOffmail = () => {
+    let token = localStorage.token
+    let headers = { authorization: token }
+    if (token) {
+
+      axios
+        .post("/api/compoffnodemailer", { email: email, department: department, role: role, name: name,total:compoData.day  }, { headers })
+        .then((res) => {
+          // console.log(res.data);
+        })
+        .catch((error) => {
+          // console.error(error);
         });
     } else { router.push('/login') }
 
@@ -577,7 +599,7 @@ const Status = () => {
 
 
         </article>
-        <div className='apply-btn flex gap-10'>
+        <div className='apply-btn flex gap-10 h-10 whitespace-nowrap'>
           <button onClick={() => { setCompoOff(true); setCompoData({ ...compoData, id: uuidv4() }); }}>Time In</button>
           <button onClick={() => { setApply(true); setFormData({ ...formData, id: uuidv4() }); }}>Time Out</button></div>
       </div>
@@ -597,8 +619,8 @@ const Status = () => {
 
 
 
-      {apply && <div className='parent-border' onClick={() => setApply(false)} >
-        <div className='leave-border d-animate-overlay' onClick={(e) => e.stopPropagation()}>
+    {apply &&  <div className='parent-border' onClick={() => setApply(false)} >
+        <div className='leave-border d-animate-overlay lg:w-auto max-sm:w-11/12 md:w-3/5' onClick={(e) => e.stopPropagation()}>
           <div className='heaed-and-close'>
             <b> <h2 align="center">Time Out</h2></b>
             <i onClick={() => setApply(false)} className="fa fa-times exit-icon" aria-hidden="true" ></i>
@@ -608,7 +630,7 @@ const Status = () => {
       </div>}
 
       {compoOff && <div className='parent-border' onClick={() => setCompoOff(false)} >
-        <div className='leave-border d-animate-overlay' onClick={(e) => e.stopPropagation()}>
+        <div className='leave-border d-animate-overlay lg:w-auto max-sm:w-11/12 md:w-3/5' onClick={(e) => e.stopPropagation()}>
           <div className='heaed-and-close'>
             <b> <h2 align="center">Time In</h2></b>
             <i onClick={() => setCompoOff(false)} className="fa fa-times exit-icon" aria-hidden="true" ></i>

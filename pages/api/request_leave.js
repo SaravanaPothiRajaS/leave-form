@@ -5,6 +5,9 @@ export default async (req, res) => {
   try {
     authenticateToken(req, res, async (isAuthenticated) => {
       if (isAuthenticated) {
+
+        const { addValue } = req.body;
+
         // Configure AWS SDK
         AWS.config.update({
           accessKeyId: process.env.ACCESS_KEY_ID,
@@ -25,17 +28,8 @@ export default async (req, res) => {
         // Parse the JSON data
         const jsonData = JSON.parse(data.Body.toString('utf-8'));
 
-        const { id, status } = req.body;
+        await jsonData.push(addValue);
 
-        const personToUpdate = jsonData.find(person => person.id === id);
-                if (!personToUpdate) {
-                  res.status(400).send('Person not found');
-                  return;
-                }
-        
-                if (status) {
-                  personToUpdate.status = status;
-                }
         // Convert the updated JSON content to a string
         const updatedJsonContent = JSON.stringify(jsonData, null, 2);
 

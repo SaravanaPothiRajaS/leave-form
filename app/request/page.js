@@ -17,7 +17,7 @@ import jwtDecode from 'jwt-decode';
 const Request = () => {
 
   const router = useRouter();
-  let { role, department, setTotalLeave, email, setCompTotal, setEmail, setDepartment, setRole, setName } = useMyContext();
+  let { role, department, setTotalLeave, email,total, setCompTotal, setEmail, setDepartment, setRole, setName } = useMyContext();
 
   const [selectedOption, setSelectedOption] = useState('all');
   const [jsonData, setJsonData] = useState([]);
@@ -117,7 +117,7 @@ const Request = () => {
 
     let months = (endYear - startYear) * 12 + (endMonth - startMonth);
 
-    return months;
+    return months + 1;
   }
 
   const data1 = jsoData.map((data, i) => ({
@@ -327,7 +327,7 @@ const Request = () => {
         from: data.fromDate,
         to: data.toDate,
         totalDays: data.totalDays,
-        availableLeave: data.availableLeave,
+        availableLeave: availableLeave,
         takenLeave: takenLeave,
         reason: data.reason,
 
@@ -366,7 +366,7 @@ const Request = () => {
   else if (selectedOption === 'approved') {
     data = jsonData?.filter((data) => data.status === 'approved').map((data, i) => {
       const matchingData1 = data1.find((item) => item.email === data.email);
-      let availableLeaves = matchingData1 ? matchingData1.availableLeave : 0;
+      let availableLeave = matchingData1 ? matchingData1.availableLeave : 0;
       let takenLeave = matchingData1 ? matchingData1.takenLeave : 0;
 
       return {
@@ -376,7 +376,7 @@ const Request = () => {
         from: data.fromDate,
         to: data.toDate,
         totalDays: data.totalDays,
-        availableLeave: data.availableLeave,
+        // availableLeave: data.availableLeave,
         takenLeave: takenLeave,
         reason: data.reason,
 
@@ -388,14 +388,14 @@ const Request = () => {
 
         id: data.id,
 
-        availableLeave: availableLeaves,
+        availableLeave: availableLeave,
       };
     });
 
   } else if (selectedOption === 'rejected') {
     data = jsonData?.filter((data) => data.status === 'rejected').map((data, i) => {
       const matchingData1 = data1.find((item) => item.email === data.email);
-      let availableLeaves = matchingData1 ? matchingData1.availableLeave : 0;
+      let availableLeave = matchingData1 ? matchingData1.availableLeave : 0;
       let takenLeave = matchingData1 ? matchingData1.takenLeave : 0;
       return {
         name: data.name,
@@ -404,7 +404,7 @@ const Request = () => {
         from: data.fromDate,
         to: data.toDate,
         totalDays: data.totalDays,
-        availableLeave: data.availableLeave,
+        // availableLeave: data.availableLeave,
         takenLeave: takenLeave,
         reason: data.reason,
 
@@ -416,7 +416,7 @@ const Request = () => {
 
         id: data.id,
 
-        availableLeave: availableLeaves,
+        availableLeave: availableLeave,
       };
     });
   } else if (selectedOption === 'compensatory') {
@@ -497,7 +497,6 @@ const Request = () => {
         axios.post("/api/compOffStatus", { department: department, role: updatedRole }, { headers })
           .then(res => {
             setJsonDataCompo(res.data?.filteredData?.reverse())
-            console.log("resssss", res.data);
 
           });
       }
@@ -519,7 +518,6 @@ const Request = () => {
       axios.post("/api/request", {}, { headers })
         .then(res => {
           setJsoData(res.data)
-          console.log("employee", res.data);
 
         })
     } else { router.push('/login') }
@@ -533,9 +531,8 @@ const Request = () => {
       axios
         .post(`/api/CompLeave`, { email, day }, { headers })
         .then((res) => {
-          console.log(res);
           if (res.status === 200) {
-            leavemail(name, status, email)
+            compOffmail(name, status, email,total)
             if (status === "approved") {
               notify();
               displayJSON();
@@ -558,7 +555,6 @@ const Request = () => {
       axios
         .post(`/api/updateCompStatus`, { id, status }, { headers })
         .then((res) => {
-          console.log(res);
           if (res.status === 200) {
             UpdateempCompOff(email, day, name, status)
 
@@ -575,11 +571,10 @@ const Request = () => {
       axios
         .post(`/api/update`, { id, status }, { headers })
         .then((res) => {
-          console.log(res);
           if (res.status === 200) {
 
             notifys();
-            leavemail(name, status, email)
+            leavemail(name, status, email,total)
             displayJSON();
             displayJSO();
           }
@@ -594,17 +589,15 @@ const Request = () => {
       axios
         .post(`/api/availableleave`, { email, availableLeave, totalDays, takenLeave, id, leaveType }, { headers })
         .then((res) => {
-          console.log(res);
           if (res.status === 200) {
             axios
               .post(`/api/update`, { id, status }, { headers })
               .then((res) => {
-                console.log(res);
                 if (res.status === 200) {
                   displayJSON();
                   displayJSO();
                   notify();
-                  leavemail(name, status, email)
+                  leavemail(name, status, email,total)
 
 
                 }
@@ -663,14 +656,28 @@ const Request = () => {
   }
 
 
-  const leavemail = (name, status, email) => {
+  const leavemail = (name, status, email,total) => {
     let token = localStorage.token
     let headers = { authorization: token }
     if (token) {
       axios
-        .post("/api/nodemail", { name: name, status: status, email: email, fromEmail: fromEmail }, { headers })
+        .post("/api/nodemail", { name: name, status: status, email: email, fromEmail: fromEmail,total:total, department:department }, { headers })
         .then((res) => {
-          console.log(res.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else { router.push('/login') }
+
+
+  };
+  const compOffmail = (name, status, email,total) => {
+    let token = localStorage.token
+    let headers = { authorization: token }
+    if (token) {
+      axios
+        .post("/api/compoffnodemail", { name: name, status: status, email: email, fromEmail: fromEmail,total:total, department:department }, { headers })
+        .then((res) => {
         })
         .catch((error) => {
           console.error(error);
@@ -680,13 +687,12 @@ const Request = () => {
 
   };
 
-
   return (role === "admin" || role === "approver") ? (
     <>
       <main>
         <div className='select-request w-11/12 m-auto'>
           <label>Select a Option:</label>
-          <select onChange={handleSelectChange} value={selectedOption} className='h-8 rounded-md border-0 bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm'>
+          <select onChange={handleSelectChange} value={selectedOption} className='h-8 w-32 rounded-md border-0 bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm'>
             <option value="all" defaultChecked > All</option>
             <option value="request"> Requests</option>
             <option value="approved">Approved</option>
@@ -696,7 +702,7 @@ const Request = () => {
         </div>
         <Table columns={selectedOption === "compensatory" ? compOffColumns : columns} data={data} className={'status-table'}
         />
-        {role === "admin" ? <div className='w-11/12 m-auto'>
+        {(role === "admin" || role === "approver") ? <div className='w-11/12 m-auto'>
           <button onClick={() => downloadExcel(downloadData)} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
             <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" /></svg>
             <span title='Download histoty as excel file'>History(Excel)</span>

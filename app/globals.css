@@ -191,7 +191,7 @@
 
 .table-body td {
   padding: 7px 7px;
-  max-width: 100px;
+  max-width: 180px;
 }
 
 .table-body tr {
@@ -291,9 +291,20 @@
 
 }
 
-.table-body td {
-  padding-top: 15px;
+@media only screen and (max-width: 767px) {
+  .status-table {
+    border: 0.5px whitesmoke;
+    width: 96vw;
+    display: table;
+    justify-content: center;
+    margin: 30px 2vw 0 2vw;
+    box-shadow: 4px 2px 14px 2px #8888A3;
+  
+  }
+
+  
 }
+
 
 .approve-table td {
   padding: 10px 0px 10px 0px;
@@ -533,7 +544,9 @@
   margin-top: 20px;
 
 }
-
+.smallfont{
+  font-size: 12px;
+}
 .add-holiday-submit-btn {
   display: flex;
   justify-content: center;
@@ -552,7 +565,6 @@
 }
 
 .select-request select {
-  width: 12%;
   text-align: center;
   border: 1px solid;
   cursor: pointer;
@@ -585,18 +597,19 @@
 
 .pagination-controls {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  gap: 30px;
   padding-top: 30px;
   width: 100%;
 }
-
+/* 
 .pagination-controls h3 {
   margin-right: 30px;
   padding-top: 5px;
-}
+} */
 
 .pagination-controls span {
-  width: 50%;
+  /* width: 50%; */
   display: flex;
   justify-content: center;
 }
@@ -719,4 +732,18 @@
 
 .menu-option-bg {
   background-color: #084243;
+}
+
+.d-animate-navbar {
+  animation: fade-right alternate .2s;
+}
+
+@keyframes fade-right {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
 }

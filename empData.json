@@ -38,8 +38,8 @@
   {
     "name": "Pothis",
     "email": "edwinraj1462003@gmail.com",
-    "availableLeave": 6,
-    "takenLeave": 18,
+    "availableLeave": 4,
+    "takenLeave": 20,
     "department": "Tech",
     "compOffLeave": 4.5,
     "role": "approver"

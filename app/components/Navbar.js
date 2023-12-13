@@ -12,7 +12,6 @@ import axios from 'axios';
 const Navbar = () => {
   const pathname = usePathname();
 
-  const [overlay, setOverlay] = useState(false);
   const router = useRouter();
 
   let { role, setRole, setEmail, setDepartment, department, setName, total, comptotal, setTotalLeave, setCompTotal } = useMyContext();
@@ -21,18 +20,18 @@ const Navbar = () => {
   const route = useRouter();
   const currentpath = usePathname();
 
-
+  const [sideNav, setSideNav] = useState(false)
 
 
   const pendingJSON = () => {
     let token = localStorage?.getItem('token')
 
-    let headers = { authorization: token }
     const decoded = jwtDecode(token);
     setEmail(decoded.email);
     setRole(decoded.role)
     setDepartment(decoded.department)
     setName(decoded.name)
+    let headers = { authorization: token }
 
     if (department && (role === "admin" || role === "approver")) {
       axios.post("/api/fetchemp", { department: department, role: updatedRole }, { headers })
@@ -49,58 +48,103 @@ const Navbar = () => {
     }
 
   }
-  console.log(total);
 
 
 
   useEffect(() => {
 
 
-    let token = localStorage?.getItem('token')
+    let token = localStorage.getItem('token')
 
     if (token) {
       pendingJSON();
     } else { router.push('/login') }
 
-  }, [role])
+  }, [])
 
   return (currentpath !== "/login") && (
     <>
-      <div className='nav-bar h-16 fixed top-0'>
-
-        <div className='flex justify-between w-11/12 m-auto responsive  '>
-          <div>
-            <Image
-              src={raise}
-              width={100}
-              height={100}
-              alt="Picture of the author"
-            />
+      <div class="bg-blue-500">
+        <nav class="relative px-4 py-4 flex justify-between items-center bg-white shadow-lg shadow-teal-900/50 nav-bar" >
+          <a class="text-3xl font-bold leading-none">
+            <div>
+              <Image
+                src={raise}
+                width={100}
+                height={100}
+                alt="Picture of the author"
+              />
+            </div>
+          </a>
+          <div class="lg:hidden">
+            <button class="navbar-burger flex items-center text-white p-3" onClick={() => { setSideNav(true) }}>
+              <svg class="block h-4 w-4 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <title>Mobile menu</title>
+                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+              </svg>
+            </button>
           </div>
-          <div className='btn-parent'>
-            <div><Link href='/holiday'><button className={`holiday-btn  ${pathname === '/holiday' ? 'holiday-btn   transition duration-150 border-b-2 border-transparent border-zinc-100 ' : ' transition duration-150 border-b-2 border-transparent hover:border-zinc-100'}`}>Holiday</button></Link></div>
-            {(role === "admin" || role === "approver") && <><div><Link href='/employee'><button className={`holiday-btn  ${pathname === '/employee' ? 'holiday-btn   transition duration-150 border-b-2 border-transparent border-zinc-100 ' : 'transition duration-150 border-b-2 border-transparent hover:border-zinc-100'}`}>Employee Details</button></Link></div>
-              <div><Link href='/request'>
-                <span className=' relative flex'>
-                  <button className={`holiday-btn  ${pathname === '/request' ? 'holiday-btn   transition duration-150 border-b-2 border-transparent border-zinc-100   ' : ' transition duration-150 border-b-2 border-transparent hover:border-zinc-100 '}`}>Requests</button>
-                  {total + comptotal > 0 ?
-                    <span className='absolute top-0 -right-4  w-4 h-4 rounded-full text-xs text-center bg-orange-500'>{total + comptotal}</span>
+          <ul class="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:flex gap-8 lg:items-center lg:w-auto lg:space-x-6">
+            <li><Link href='/holiday'><p className={`text-sm  ${pathname === '/holiday' ? 'text-blue-600 font-bold' : ' text-gray-400 hover:text-gray-500'}`}>Holiday</p></Link></li>
+
+            {(role === "admin" || role === "approver") && <><li><Link href='/employee'><p className={`text-sm  ${pathname === '/employee' ? 'text-blue-600 font-bold' : ' text-gray-400 hover:text-gray-500'}`}>Employee Details</p></Link></li>
+            <span className=' relative flex'>
+              <li><Link href='/request'><p className={`text-sm  ${pathname === '/request' ? 'text-blue-600 font-bold' : ' text-gray-400 hover:text-gray-500'}`}>Requests</p></Link></li>
+              {total + comptotal > 0 ?
+                    <span className='absolute top-0 -right-4 text-white flex items-center justify-center w-4 h-4 rounded-full text-sm text-center bg-orange-500 smallfont'>
+                      {total + comptotal > 9 ? "9+" :total + comptotal }
+                      </span>
                     : ""}
                 </span>
-              </Link></div></>}
-            {/* <div><Link href='/userHoliday'><button className='holiday-btn'>Holiday</button></Link></div> */}
-            {(role === "approver" || role === "user") && <div><Link href='/status'><button className={`holiday-btn  ${pathname === '/status' ? 'holiday-btn   transition duration-150 border-b-2 border-transparent border-zinc-100 ' : ' transition duration-150 border-b-2 border-transparent hover:border-zinc-100'}`}>Status</button></Link></div>}
-            <div><Link href='/policy'><button className={`holiday-btn  ${pathname === '/policy' ? 'holiday-btn   transition duration-150 border-b-2 border-transparent border-zinc-100 ' : ' transition duration-150 border-b-2 border-transparent hover:border-zinc-100'}`}>Leave Policy</button></Link></div>
+              </>}
 
-            <button className='border px-6 py-2 border-orange-900  font-bold rounded-full bg-orange-900 text-white hover:bg-white hover:border-white hover:text-orange-900 duration-300'
-              onClick={() => { localStorage.clear(); route.push('/login'); setOverlay(false) }}
-            >Logout</button>
-            {/* <div className='cursor-pointer text-2xl '><i class="fa fa-bars" aria-hidden="true"></i></div> */}
-          </div>
+            {(role === "approver" || role === "user") && <li><Link href='/status'><p className={`text-sm  ${pathname === '/status' ? 'text-blue-600 font-bold' : ' text-gray-400 hover:text-gray-500'}`}>Status</p></Link></li>}
 
+            <li><Link href='/policy'><p className={`text-sm  ${pathname === '/policy' ? 'text-blue-600 font-bold' : ' text-gray-400 hover:text-gray-500'}`}>Leave Policy</p></Link></li>
+          </ul>
+          <a className="hidden lg:inline-block py-2 px-6 bg-red-500 cursor-pointer hover:bg-white hover:text-red-600 text-sm text-white font-bold rounded-xl transition duration-200"
+            onClick={() => { localStorage.clear(); route.push('/login'); }}
+          >Log out</a>
+        </nav>
+        {sideNav ? <div class="navbar-menu relative z-50 ">
+          <div class="navbar-backdrop fixed inset-0 bg-gray-800 opacity-25"></div>
+          <nav class="fixed top-0 left-0 bottom-0 flex flex-col w-5/6 max-w-sm py-6 px-6 bg-white border-r overflow-y-auto d-animate-navbar">
+            <div class="flex items-center mb-8">
+              <a class="mr-auto text-3xl font-bold leading-none">
+                <div>
 
-        </div>
+                </div>
+              </a>
+              <button class="navbar-close" onClick={() => { setSideNav(false) }}>
+                <svg class="h-6 w-6 text-gray-400 cursor-pointer hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
+            </div>
+            <div>
+              <ul>
+                <li><Link href='/holiday'><p onClick={() => { setSideNav(false) }} className={`text-sm mb-4 ${pathname === '/holiday' ? 'text-blue-600 font-bold' : ' text-gray-400 hover:text-gray-500'}`}>Holiday</p></Link></li>
+
+                {(role === "admin" || role === "approver") && <><li><Link href='/employee'><p onClick={() => { setSideNav(false) }} className={`text-sm mb-4 ${pathname === '/employee' ? 'text-blue-600 font-bold' : ' text-gray-400 hover:text-gray-500'}`}>Employee Details</p></Link></li>
+
+                  <li><Link href='/request'><p onClick={() => { setSideNav(false) }} className={`text-sm mb-4 ${pathname === '/request' ? 'text-blue-600 font-bold' : ' text-gray-400 hover:text-gray-500'}`}>Requests</p></Link></li></>}
+
+                {(role === "approver" || role === "user") && <li><Link href='/status'><p onClick={() => { setSideNav(false) }} className={`text-sm mb-4 ${pathname === '/status' ? 'text-blue-600 font-bold' : ' text-gray-400 hover:text-gray-500'}`}>Status</p></Link></li>}
+
+                <li><Link href='/policy'><p onClick={() => { setSideNav(false) }} className={`text-sm mb-4 ${pathname === '/policy' ? 'text-blue-600 font-bold' : ' text-gray-400 hover:text-gray-500'}`}>Leave Policy</p></Link></li>
+
+              </ul>
+            </div>
+            <div class="mt-auto">
+              <div class="pt-6">
+                <a onClick={() => { localStorage.clear(); route.push('/login');  setSideNav(false) }}
+                  className="block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-red-600 hover:bg-red-700  rounded-xl">Log out</a>
+              </div>
+            </div>
+          </nav>
+        </div> : <></>}
       </div>
+
     </>
   );
 }

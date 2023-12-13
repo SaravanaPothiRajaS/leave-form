@@ -52,7 +52,6 @@ const router=useRouter();
             if (role && department) {
                 axios.post("/api/empfetch", { role, department }, { headers })
                 .then(res => {
-                    console.log("qqwwwwwe", role, department);
                     setJsonData(res?.data)
  
                 })
@@ -96,9 +95,9 @@ useEffect(()=>{
                     if (res?.data === "imported") {
                         displayJSON();
                     }
-                }).catch((err) => { console.log(err); })
+                })
+                // .catch((err) => { console.log(err); })
 
-                // console.log(1234567);
             } else { alert('Name ,Email, availableLeave , takenLeave, department does not exist or change the column name like that') }
         }else{router.push('/login')}
         }
@@ -155,7 +154,7 @@ useEffect(()=>{
 
     return (role==="admin" || role==="approver") ?(
          <div className='mt-24'>
-           {role === "admin" ? <div className='flex justify-between w-11/12 m-auto'>
+           {(role === "admin" || role === "approver") ? <div className='flex justify-between w-11/12 m-auto flex-wrap gap-7'>
 
                 <div className='flex gap-5'>
                     <input type="file" accept=".xls, .xlsx" onChange={handleFileChange}
@@ -164,7 +163,7 @@ useEffect(()=>{
                 file:rounded-full file:border-0
                 file:text-sm file:font-semibold
                 file:bg-violet-50 file:text-violet-700
-                hover:file:bg-violet-100 border rounded-lg p-1 cursor-pointer'
+                hover:file:bg-violet-100 border rounded-lg p-1 cursor-pointer h-12'
                     />
                     {selectedFile && <button className='btn p-3 border'
                         onClick={() => {

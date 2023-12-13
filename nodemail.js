@@ -4,11 +4,28 @@ const nodemailer = require('nodemailer');
 
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  // host: 'smtp.office365.com',
+  service: "Outlook365",
+  port: 587,
   auth: {
-    user: 'vinodhkumaryin@gmail.com',
-    pass: process.env.GMAIL_PASSWORD,
+    user:process.env.MAIL,
+    pass: process.env.MAIL_PASSWORD,
   },
 });
 
 module.exports = transporter;
+
+ 
+
+// const nodemailer = require('nodemailer');
+
+
+// const transporter = nodemailer.createTransport({
+//   service: 'gmail',
+//   auth: {
+//     user: 'vinodhkumaryin@gmail.com',
+//     pass: 'wdoc ssfe mwzy kdhe',
+//   },
+// });
+
+// module.exports = transporter;

@@ -58,7 +58,7 @@ const Navbar = () => {
 
     if (token) {
       pendingJSON();
-    } else { router.push('/login') }
+    } //else { router.push('/login') }
 
   }, [])
 
@@ -85,11 +85,11 @@ const Navbar = () => {
             </button>
           </div>
           <ul class="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:flex gap-8 lg:items-center lg:w-auto lg:space-x-6">
-            <li><Link href='/holiday'><p className={`text-sm  ${pathname === '/holiday' ? 'text-blue-600 font-bold' : ' text-gray-400 hover:text-gray-500'}`}>Holiday</p></Link></li>
+            <li><Link href='/holiday'><p className={`text-sm  ${pathname === '/holiday' ? 'text-blue-600 font-bold' : ' text-white hover:text-gray-500'}`}>Holiday</p></Link></li>
 
-            {(role === "admin" || role === "approver") && <><li><Link href='/employee'><p className={`text-sm  ${pathname === '/employee' ? 'text-blue-600 font-bold' : ' text-gray-400 hover:text-gray-500'}`}>Employee Details</p></Link></li>
+            {(role === "admin" || role === "approver") && <><li><Link href='/employee'><p className={`text-sm  ${pathname === '/employee' ? 'text-blue-600 font-bold' : ' text-white hover:text-gray-500'}`}>Employee Details</p></Link></li>
             <span className=' relative flex'>
-              <li><Link href='/request'><p className={`text-sm  ${pathname === '/request' ? 'text-blue-600 font-bold' : ' text-gray-400 hover:text-gray-500'}`}>Requests</p></Link></li>
+              <li><Link href='/request'><p className={`text-sm  ${pathname === '/request' ? 'text-blue-600 font-bold' : ' text-white hover:text-gray-500'}`}>Requests</p></Link></li>
               {total + comptotal > 0 ?
                     <span className='absolute top-0 -right-4 text-white flex items-center justify-center w-4 h-4 rounded-full text-sm text-center bg-orange-500 smallfont'>
                       {total + comptotal > 9 ? "9+" :total + comptotal }
@@ -98,9 +98,9 @@ const Navbar = () => {
                 </span>
               </>}
 
-            {(role === "approver" || role === "user") && <li><Link href='/status'><p className={`text-sm  ${pathname === '/status' ? 'text-blue-600 font-bold' : ' text-gray-400 hover:text-gray-500'}`}>Status</p></Link></li>}
+            {(role === "approver" || role === "user") && <li><Link href='/status'><p className={`text-sm  ${pathname === '/status' ? 'text-blue-600 font-bold' : ' text-white hover:text-gray-500'}`}>Status</p></Link></li>}
 
-            <li><Link href='/policy'><p className={`text-sm  ${pathname === '/policy' ? 'text-blue-600 font-bold' : ' text-gray-400 hover:text-gray-500'}`}>Leave Policy</p></Link></li>
+            <li><Link href='/policy'><p className={`text-sm  ${pathname === '/policy' ? 'text-blue-600 font-bold' : ' text-white hover:text-gray-500'}`}>Leave Policy</p></Link></li>
           </ul>
           <a className="hidden lg:inline-block py-2 px-6 bg-red-500 cursor-pointer hover:bg-white hover:text-red-600 text-sm text-white font-bold rounded-xl transition duration-200"
             onClick={() => { localStorage.clear(); route.push('/login'); }}
@@ -123,15 +123,15 @@ const Navbar = () => {
             </div>
             <div>
               <ul>
-                <li><Link href='/holiday'><p onClick={() => { setSideNav(false) }} className={`text-sm mb-4 ${pathname === '/holiday' ? 'text-blue-600 font-bold' : ' text-gray-400 hover:text-gray-500'}`}>Holiday</p></Link></li>
+                <li><Link href='/holiday'><p onClick={() => { setSideNav(false) }} className={`text-sm  border-b-2 py-3 ${pathname === '/holiday' ? 'text-blue-600 font-bold' : ' text-gray-400 hover:text-gray-500'}`}>Holiday</p></Link></li>
 
-                {(role === "admin" || role === "approver") && <><li><Link href='/employee'><p onClick={() => { setSideNav(false) }} className={`text-sm mb-4 ${pathname === '/employee' ? 'text-blue-600 font-bold' : ' text-gray-400 hover:text-gray-500'}`}>Employee Details</p></Link></li>
+                {(role === "admin" || role === "approver") && <><li><Link href='/employee'><p onClick={() => { setSideNav(false) }} className={`text-sm  border-b-2  py-3 ${pathname === '/employee' ? 'text-blue-600 font-bold' : ' text-gray-400 hover:text-gray-500'}`}>Employee Details</p></Link></li>
 
-                  <li><Link href='/request'><p onClick={() => { setSideNav(false) }} className={`text-sm mb-4 ${pathname === '/request' ? 'text-blue-600 font-bold' : ' text-gray-400 hover:text-gray-500'}`}>Requests</p></Link></li></>}
+                  <li><Link href='/request'><p onClick={() => { setSideNav(false) }} className={`text-sm border-b-2  py-3  ${pathname === '/request' ? 'text-blue-600 font-bold' : ' text-gray-400 hover:text-gray-500'}`}>Requests</p></Link></li></>}
 
-                {(role === "approver" || role === "user") && <li><Link href='/status'><p onClick={() => { setSideNav(false) }} className={`text-sm mb-4 ${pathname === '/status' ? 'text-blue-600 font-bold' : ' text-gray-400 hover:text-gray-500'}`}>Status</p></Link></li>}
+                {(role === "approver" || role === "user") && <li><Link href='/status'><p onClick={() => { setSideNav(false) }} className={`text-sm border-b-2  py-3  ${pathname === '/status' ? 'text-blue-600 font-bold' : ' text-gray-400 hover:text-gray-500'}`}>Status</p></Link></li>}
 
-                <li><Link href='/policy'><p onClick={() => { setSideNav(false) }} className={`text-sm mb-4 ${pathname === '/policy' ? 'text-blue-600 font-bold' : ' text-gray-400 hover:text-gray-500'}`}>Leave Policy</p></Link></li>
+                <li><Link href='/policy'><p onClick={() => { setSideNav(false) }} className={`text-sm border-b-2  py-3  ${pathname === '/policy' ? 'text-blue-600 font-bold' : ' text-gray-400 hover:text-gray-500'}`}>Leave Policy</p></Link></li>
 
               </ul>
             </div>

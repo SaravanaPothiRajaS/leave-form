@@ -12,8 +12,7 @@ export default async function handler(req, res) {
         if (isAuthenticated) {
 
           const { email, department, role, name, total ,reason} = req.body;
-          console.log(req.body);
-
+     
           let fromEmail;
           let toEmail;
 
@@ -67,7 +66,7 @@ export default async function handler(req, res) {
  
             }
           }
-  console.log(toEmail);
+
       await transporter.sendMail({
         to: toEmail,
         cc: fromEmail,
@@ -95,7 +94,7 @@ export default async function handler(req, res) {
                 <strong>Leave Details:</strong>
                 <br/> Name: ${name}
                 <br/> Department: ${department}
-                <br/> Compensatory Duration: ${total} ${total === 1 ? 'day' : 'days'}
+                <br/> Leave Duration: ${total} ${total === 1 ? 'day' : 'days'}
               </p>
            
               <!-- Additional Information -->

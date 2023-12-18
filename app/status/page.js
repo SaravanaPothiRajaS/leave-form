@@ -26,52 +26,34 @@ const Status = () => {
 
   const [compoData, setCompoData] = useState(
     {
-      name: name && name,
-      department: department && department,
+      name: (typeof window !== 'undefined')?  localStorage.getItem('name') : "",
+      department: (typeof window !== 'undefined')?  localStorage.getItem('department') : "" ,
       date: "",
       day: 1,
-      approver: 'HR',
       status: "pending",
-      email: email && email,
-      role: role && role
+      email: (typeof window !== 'undefined')?  localStorage.getItem('email') : "" ,
+      role: (typeof window !== 'undefined')?  localStorage.getItem('role') : "" 
 
     }
   )
   const [formData, setFormData] = useState({
-    name: name && name,
+    name: (typeof window !== 'undefined')?  localStorage.getItem('name') : "",
     leaveType: '',
-    department: department && department,
+    department: (typeof window !== 'undefined')?  localStorage.getItem('department') : "" ,
     fromDate: '',
     toDate: '',
     totalDays: 0,
     reason: '',
-    approver: 'HR',
     status: 'pending',
-    email: email && email,
-    role: role && role
+    email: (typeof window !== 'undefined')?  localStorage.getItem('email') : "" ,
+    role: (typeof window !== 'undefined')?  localStorage.getItem('role') : "" 
   });
   const [timeOutMenu, setTimeOutMenu] = useState(true);
   const [jsonData, setJsonData] = useState([]);
   const [holidayData, setHolidayData] = useState([])
   const [jsonDataCompo, setJsonDataCompo] = useState([]);
 
-  useEffect(() => {
-    let token = localStorage?.getItem('token')
 
-    const decoded = jwtDecode(token);
-    setEmail(decoded.email);
-    setRole(decoded.role)
-    setDepartment(decoded.department)
-    setName(decoded.name)
-    if (role === 'user') {
-      setCompoData((prevData) => ({ ...prevData, approver: '' }));
-      setFormData((prevData) => ({ ...prevData, approver: 'HR' }));
-    } else if (role === 'approver') {
-      setCompoData((prevData) => ({ ...prevData, approver: 'Some Other Approver' }));
-      setFormData((prevData) => ({ ...prevData, approver: 'Some Other Approver' }));
-    }
-
-  }, [role]);
 
   const onChange = (name, value) => {
 
@@ -110,13 +92,7 @@ const Status = () => {
       ],
       disabled: false,
     },
-    // {
-    //   name: 'approver',
-    //   label: 'Approver:',
-    //   type: 'text',
-    //   disabled: true,
 
-    // },
   ]
 
 
@@ -173,13 +149,7 @@ const Status = () => {
       type: 'textarea',
       disabled: false,
     },
-    // {
-    //   name: 'approver',
-    //   label: 'Approver:',
-    //   type: 'text',
-    //   disabled: true,
 
-    // },
   ];
 
 
@@ -247,7 +217,6 @@ const Status = () => {
     to: data.toDate,
     totalDays: data.totalDays,
     reason: data.reason,
-    approver: data.approver,
     status: <span className={data.status === 'pending' ? 'pending' : data.status === 'approved' ?
       'approved' : data.status === 'rejected' ? 'rejected' : ""
     }>{data.status}</span>,
@@ -328,6 +297,8 @@ const Status = () => {
   function handleinsert(e) {
 
     e.preventDefault();
+    setApply(false);
+
     let token = localStorage.token
     let headers = { authorization: token }
     if (token) {
@@ -335,7 +306,6 @@ const Status = () => {
         .then((res) => {
           if (res.status === 200) {
             displayJSON();
-            setApply(false);
             notify();
             leavemail();
 
@@ -350,6 +320,8 @@ const Status = () => {
   function handleinsertCompo(e) {
 
     e.preventDefault();
+    setCompoOff(false);
+
     let token = localStorage.token
     let headers = { authorization: token }
     if (token) {
@@ -357,7 +329,6 @@ const Status = () => {
         .then((res) => {
           if (res.status === 200) {
             displayJSON();
-            setCompoOff(false);
             notify();
             compOffmail();
 
@@ -600,7 +571,7 @@ const Status = () => {
 
         </article>
         <div className='apply-btn flex gap-10 h-10 whitespace-nowrap'>
-          <button onClick={() => { setCompoOff(true); setCompoData({ ...compoData, id: uuidv4() }); }}>Time In</button>
+          <button onClick={() => {if(department && role){ setCompoOff(true); setCompoData({ ...compoData, id: uuidv4() });} }}>Time In</button>
           <button onClick={() => { setApply(true); setFormData({ ...formData, id: uuidv4() }); }}>Time Out</button></div>
       </div>
       <div>

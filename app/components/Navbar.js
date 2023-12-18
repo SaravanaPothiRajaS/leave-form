@@ -69,7 +69,7 @@ const Navbar = () => {
           <a className="text-3xl font-bold leading-none">
             <div>
               <Image
-                src={raise}
+                src={"https://assets-global.website-files.com/622842ae2f5b915b1f257af9/622ad4bc8217517c4ac5abce_raise%20logo%20white.svg"}
                 width={100}
                 height={100}
                 alt="Picture of the author"

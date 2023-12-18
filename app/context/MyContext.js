@@ -18,15 +18,16 @@ export const MyContextProvider = ({ children }) => {
 useEffect(()=>{
   if (typeof window !== 'undefined') {
     let token = localStorage.getItem('token');
-
+if(token){
   const decoded = jwtDecode(token);
   setEmail(decoded.email);
   setRole(decoded.role)
   setDepartment(decoded.department)
   setName(decoded.name)
-
+}
 }
 },[])
+
 
 
 useEffect(() => {
